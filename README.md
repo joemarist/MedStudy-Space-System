@@ -16,3 +16,4 @@ To be decided pa kung unsa nga system himoun
 ### Version 0.1.0
 - Initial development release.
 - To be announced ang proposed system.
+- MedStudy Space (Proposed Name)
