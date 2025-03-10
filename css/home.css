@@ -114,3 +114,47 @@ body{
     border-radius: 20px;
     margin: 2% auto;
 }
+
+/*Study Rooms*/
+.studyRooms{
+    padding: 2% 4%;
+}
+.room{
+    background-color: white;
+    border-radius: 20px;
+    padding: 2% 3%;
+    display: flex;
+    grid-template-columns: 30% 70%;
+    gap: 30px;
+    width: 40%;
+}
+.roomImage{
+    flex: 30%;
+}
+.roomInfo{
+    flex: 70%;
+}
+.roomInfo span{
+    color: #0A6738;
+}
+.roomInfo h3{
+    font-size: 16pt;
+}
+.room img{
+    width: 100%;
+    border-radius: 10px;
+}
+.roomInfo button{
+    float: right;
+    background-color: #1F65EC;
+    color: white;
+    font-size: 13pt;
+    padding: 2% 7%;
+    border: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.roomInfo button:hover{
+    cursor: pointer;
+    background-color: #1856d2;
+}
