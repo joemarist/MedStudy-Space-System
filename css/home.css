@@ -62,7 +62,7 @@ body{
     float: right;
     margin: 0% 2%;
     background-color: #1F65EC;
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: lighter;
     color: white;
     padding: 2% 6%;
@@ -86,6 +86,10 @@ body{
 }
 .introInfo h1{
     font-size: 45pt;
+ 
+}
+.introInfo h1 img{
+    width: 80%;
 }
 .introInfo p{
     color: #767676;
