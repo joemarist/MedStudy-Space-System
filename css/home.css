@@ -41,6 +41,13 @@ body{
     font-size: 14pt;
     font-weight: bold;
     margin: 0% 3%;
+    padding: 1% 0%;
+}
+.navLinks a:hover{
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+    border-color: #054970;
+    color: #014E6F;
 }
 .leftNav img{
     width: 15%;
@@ -61,4 +68,8 @@ body{
     padding: 2% 6%;
     border-radius: 20px;
     border: 0px;
+}
+.rightNav button:hover{
+    cursor: pointer;
+    background-color: #1e5ddb;
 }
