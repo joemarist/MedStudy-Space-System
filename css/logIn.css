@@ -84,6 +84,10 @@ body {
     border-radius: 5px;
     font-weight: bold;
 }
+.logInForm button:nth-child(8):hover{
+    cursor: pointer;
+    background-color: #063d5e;
+}
 .logInForm button:nth-child(12){
     background-color: white;
     color: #054970;
@@ -95,6 +99,10 @@ body {
     font-size: 12pt;;
     border-radius: 5px;
     font-weight: bold;
+}
+.logInForm button:nth-child(12):hover{
+    cursor: pointer;
+    background-color: rgb(235, 235, 235);
 }
 .logInForm button img{
     width: 12%;
