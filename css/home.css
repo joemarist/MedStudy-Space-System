@@ -73,3 +73,44 @@ body{
     cursor: pointer;
     background-color: #1e5ddb;
 }
+
+/*Header Intro*/
+.headerIntro{
+    display: flex;
+    grid-template-columns: 60% 40%;
+    padding: 5% 4%;
+    gap: 60px;
+}
+.introInfo{
+    flex: 60%;
+}
+.introInfo h1{
+    font-size: 45pt;
+}
+.introInfo p{
+    color: #767676;
+    font-size: 13pt;
+}
+.introInfo button{
+    color: #6457C4;
+    background-color: #EFECFB;
+    padding: 3% 6%;
+    border-radius: 10px;
+    border: 0px;
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 2% 0%;
+}
+.introInfo button:hover{
+    cursor: pointer;
+    background-color: #6457C4;
+    color: white;
+}
+.introImage{
+    flex: 40%;
+}
+.introImage img{
+    width: 100%;
+    border-radius: 20px;
+    margin: 2% auto;
+}
