@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Regular.woff2') format('woff2'),
+         url('fonts/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    margin: 0;
+    background-color: #F8F8F8;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Navigation Bar*/
+.navBar{
+    display: flex;
+    grid-template-columns: 70% 30%;
+    background-color: white;
+    padding: 0% 2%;
+    align-items: center;
+}
+.leftNav{
+    flex: 70%;
+    display: flex;
+    grid-template-columns: 30% 70%;
+}
+.leftNav h2{
+    color: #0084C2;
+}
+.logo{
+    flex: 30%;
+}
+.navLinks{
+    flex: 70%;
+    display: flex;
+    align-items: center;
+}
+.navLinks a{
+    text-decoration: none;
+    color: #4F4F4F;
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 0% 3%;
+}
+.leftNav img{
+    width: 15%;
+}
+.logo h2 > img, h2 > span{
+    vertical-align: middle;
+}
+.rightNav{
+    flex: 30%;
+}
+.rightNav button{
+    float: right;
+    margin: 0% 2%;
+    background-color: #1F65EC;
+    font-size: 12pt;
+    font-weight: lighter;
+    color: white;
+    padding: 2% 6%;
+    border-radius: 20px;
+    border: 0px;
+}
