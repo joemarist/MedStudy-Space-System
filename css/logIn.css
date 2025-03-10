@@ -45,13 +45,61 @@ body {
 /*Log In form*/
 .logInForm{
     text-align: center;
-    padding: 3% 3%;
+    margin: 15% auto;
+    width: 60%;
 }
-.logInForm span h2{
+.logInForm h2 span{
     color: #014E6F;
 }
 .logInForm h2{
     color: #272A3D;
     font-weight: bold;
     font-size: 18pt;
+}
+.logInForm input{
+    margin: 4% 0%;
+    color: #767676;
+    font-size: 12pt;
+    padding: 3% 2%;
+    width: 100%;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: #014E6F;
+}
+.logInForm a{
+    text-decoration: none;
+    color: #272A3D;
+    font-weight: bold;
+    font-size: 11pt;
+    float: right;
+}
+.logInForm button:nth-child(8){
+    background-color: #054970;
+    color: white;
+    padding: 5% 0%;
+    width: 70%;
+    margin: 5% auto;
+    font-size: 12pt;
+    border: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.logInForm button:nth-child(12){
+    background-color: white;
+    color: #054970;
+    border-style: solid;
+    border-color: #767676;
+    padding: 4% 0%;
+    width: 70%;
+    margin: 5% auto;
+    font-size: 12pt;;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.logInForm button img{
+    width: 12%;
+    margin: 0% 2%;
+}
+.logInForm button > img, button > span{
+    vertical-align: middle;
 }
