@@ -1,0 +1,43 @@
+.scheduling{
+    display: flex;
+    grid-template-columns: 30% 35% 35%;
+    gap: 1%;
+    margin: 5% 2%;
+}
+.profileContainer{
+    flex: 30%;
+    background-color: white;
+    border-radius: 5px;
+}
+.calendarContainer{
+    flex: 35%;
+    text-align: center;
+    border-radius: 5px;
+}
+.calendarContainer h1{
+    color: #014E6F;
+}
+.bookingContainer{
+    flex: 35%;
+    background-color: white;
+    border-radius: 5px;
+}
+#calendar{
+    margin: 5% 0%;
+}
+.calendaryBody{
+    text-align: right;
+    background-color: white;
+    border-radius: 5px;
+    padding: 8% 3%;
+}
+.calendaryBody img{
+    width: 6%;
+    margin: 0% 2%;
+    margin-bottom: 3%;
+}
+.fc-toolbar-title {
+    color: #014E6F;
+    font-size: 24px;
+    font-weight: bold;
+}

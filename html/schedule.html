@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedStudy | Schedule</title>
+    <link rel="icon" href="C:\Users\USER\Documents\GitHub\MedStudy-Space-System\images\logos\medstudyLogo.png">
+    <link rel="stylesheet" href="C:\Users\USER\Documents\GitHub\MedStudy-Space-System\css\schedule.css">
+    <link rel="stylesheet" href="C:\Users\USER\Documents\GitHub\MedStudy-Space-System\css\home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.min.css" />
+</head>
+</head>
+<body>
+    <div class="navBar">
+        <div class="leftNav">
+            <div class="logo">
+            <h2>
+                <img src="C:\Users\USER\Documents\GitHub\MedStudy-Space-System\images\logos\medstudyLogoResized.png" alt="">
+                <span>
+                <span style="color: #52BBBF;">Med</span>Study
+                </span>
+            </h2>
+            </div>
+
+            <div class="navLinks">
+                <a href="">Home</a>
+                <a href="">Schedule</a>
+            </div>
+        </div>
+        <div class="rightNav">
+            <button onclick="location.href='login.html'">Log out</button>
+        </div>
+    </div>
+
+    <div class="scheduling">
+        <div class="profileContainer">
+            <p>test</p>
+        </div>
+
+        <div class="calendarContainer">
+            <H1>Scheduled Calendar</H1>
+            <div class="calendaryBody">
+                <img src="C:\Users\USER\Documents\GitHub\MedStudy-Space-System\images\icons\notification.png" alt="">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <div class="bookingContainer">
+            <p>test</p>
+        </div>
+    </div>
+
+
+    <!--Calendar-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Default view (month)
+                events: [
+                    {
+                        title: 'Event 1',
+                        start: '2025-03-22'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2025-03-25',
+                        end: '2025-03-26'
+                    }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
