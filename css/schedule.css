@@ -4,11 +4,41 @@
     gap: 1%;
     margin: 5% 2%;
 }
+
+/*Profile*/
 .profileContainer{
     flex: 30%;
     background-color: white;
     border-radius: 5px;
+    padding: 3% 2%;
 }
+.profile{
+    color: #4D6380;
+}
+.profile p{
+    font-size: 16pt;
+}
+.profile img{
+    border-radius: 100px;
+    width: 40%;
+}
+.studyRoomInfo{
+    color: #014E6F;
+    font-weight: bold;
+    padding: 2% 10%;
+}
+.roomDescription{
+    margin: 3% 0%;
+}
+.roomDescription img{
+    width: 10%;
+}
+.roomDescription > img, .roomDescription > span{
+    vertical-align: middle;
+}
+
+
+/*Calendar*/
 .calendarContainer{
     flex: 35%;
     text-align: center;
@@ -16,11 +46,6 @@
 }
 .calendarContainer h1{
     color: #014E6F;
-}
-.bookingContainer{
-    flex: 35%;
-    background-color: white;
-    border-radius: 5px;
 }
 #calendar{
     margin: 5% 0%;
@@ -40,4 +65,23 @@
     color: #014E6F;
     font-size: 24px;
     font-weight: bold;
+}
+.fc-col-header-cell{
+    color: #014E6F;
+}
+.fc-daygrid-day {
+    border: none !important;
+}
+.fc-daygrid-day-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure full height for centering */
+}
+
+/*Booking*/
+.bookingContainer{
+    flex: 35%;
+    background-color: white;
+    border-radius: 5px;
 }
