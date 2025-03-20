@@ -30,6 +30,9 @@ body{
 .logo{
     flex: 30%;
 }
+.logo:hover{
+    cursor: pointer;
+}
 .navLinks{
     flex: 70%;
     display: flex;
@@ -161,4 +164,67 @@ body{
 .roomInfo button:hover{
     cursor: pointer;
     background-color: #1856d2;
+}
+
+
+/*Footer*/
+.footer{
+    margin-top: 5%;
+    background-color: #054970;
+    color: white;
+    padding: 2% 4%;
+}
+.topFooter{
+    display: flex;
+    grid-template-columns: 40% 20% 20% 20%;
+    gap: 5%;
+}
+.medStudyLogo{
+    flex: 40%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: oblique;
+    font-size: 12pt;
+    text-align: center;
+}
+.medStudyLogo img{
+    width: 40%;
+    margin: 3% 0%;
+}
+.infoCol{
+    flex: 20%;
+    line-height: 150%;
+}
+.infoCol div{
+    border-bottom: 1px solid white;
+    margin-bottom: 10%;
+}
+.infoCol a{
+    color: white;
+    text-decoration: none;
+}
+.infoCol a:hover{
+    text-decoration: underline;
+    color: #0084C2;
+}
+.socialMedia{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon{
+    padding: 1% 1%;
+    border-radius: 100px;
+}
+.icon img:hover{
+    cursor: pointer;
+}
+.icon img{
+    width: 40%;
+}
+.bottomFooter{
+    margin-top: 4%;
+    padding-top: 4%;
+    border-top: 1px solid white;
+    border-width: 10%;
+    text-align: center;
 }
