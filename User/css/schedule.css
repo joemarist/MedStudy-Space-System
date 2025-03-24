@@ -36,6 +36,31 @@
 .roomDescription > img, .roomDescription > span{
     vertical-align: middle;
 }
+.scanRoom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    color:#014E6F;
+    padding: 2% 4%;
+    margin: 2% auto;
+    
+}
+.scanRoom:hover{
+    cursor: pointer;
+    background-color: rgb(217, 216, 216);
+    border-radius: 10px;
+}
+.scanRoom img{
+    width: 50%;
+    margin: 0% 2%;
+}
+.scanRoom p{
+    font-size: 10pt;
+}
+.scanRoom p span{
+    font-size: 18pt;
+}
 
 
 /*Calendar*/
@@ -84,4 +109,23 @@
     flex: 35%;
     background-color: white;
     border-radius: 5px;
+    color: #014E6F;
+    text-align: center;
+    align-content: center;
+}
+.bookingContainer img{
+    width: 50%;
+    border-radius: 10px;
+}
+.bookingContainer button{
+    border-radius: 10px;
+    color: white;
+    background-color: #52BBBF;
+    font-size: 16pt;
+    padding: 3% 4%;
+    border: 0;
+}
+.bookingContainer button:hover{
+    cursor: pointer;
+    background-color: #4ca9ac;
 }
