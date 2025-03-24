@@ -1,3 +1,11 @@
+html{
+    overflow-x: hidden;
+}
+
+*{
+    overflow: hidden;
+}
+
 @font-face {
     font-family: 'Roboto';
     src: url('fonts/Roboto-Regular.woff2') format('woff2'),
@@ -6,38 +14,36 @@
     font-style: normal;
 }
 
-body, html {overflow-y: hidden;
 
+body{
+    margin: 0;
+    background-color: #F8F8F8;
     font-family: 'Roboto', sans-serif;
+    display: grid;
+    grid-template-columns: 60% 1fr;
+    grid-template-areas: 
+    "box1 box2";
+    overflow-x: hidden;
+
 }
 
-.container{
-    display: flex;
-    grid-template-columns: 65% 35%;
-    padding: 3% 2%;
-}
 
-/*Welcome Image Div*/
-.welcomeImage{
-    flex: 65%;
-    text-align: center;
-}
-.welcomeImage img{
-    width: 30%;
-}
-.doctors img{
-    width: 80%;
+.picholder{
+    grid-area: box1;
+
 }
 
 
 /*Log In Div*/
 .logIn{
+   
+    grid-area: box2;
     flex: 35%;
 }
 .logIn h1{
     color: #073655;
     font-weight: lighter;
-    line-height: 15px;
+    line-height: 30px;
 }
 .logIn span h1{
     color: #3D4063;
@@ -46,8 +52,8 @@ body, html {overflow-y: hidden;
 /*Log In form*/
 .logInForm{
     text-align: center;
-    margin: 15% auto;
-    width: 60%;
+    margin: 7% auto;
+    width: 50%;
 }
 .logInForm h2 span{
     color: #014E6F;
@@ -60,6 +66,7 @@ body, html {overflow-y: hidden;
 .logInForm input{
     margin: 4% 0%;
     color: #767676;
+    background-color: transparent;
     font-size: 12pt;
     padding: 3% 2%;
     width: 100%;
@@ -111,4 +118,9 @@ body, html {overflow-y: hidden;
 }
 .logInForm button > img, button > span{
     vertical-align: middle;
+}
+
+
+.title{
+    padding-left: 10%;
 }
