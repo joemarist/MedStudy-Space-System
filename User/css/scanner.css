@@ -7,24 +7,61 @@
 }
 
 /*Scanner/Body*/
+.backButton img:hover{
+    cursor: pointer;
+}
 .scanner{
     padding: 2% 2%;
 }
 .scannerContainer{
-    margin: 2% 0%;
+    margin: 2% 5%;
     display: flex;
     grid-template-columns: 50% 50%;
-    gap: 5%;
+    gap: 10%;
 }
 .leftScanner{
+    background-color: white;
     flex: 50%;
-    text-align: center;
+    padding: 5% 4%;
     color: #014E6F;
+    border-radius: 10px;
 }
+
 .leftScanner img{
     width: 50%;
     border-radius: 10px;
 }
 .rightScanner{
+    background-color: white;
+    border-radius: 10px;
     flex: 50%;
+    align-content: center;
+    text-align: center;
+}
+.rightScanner button{
+    color: white;
+    background-color: #52BBBF;
+    font-size: 16pt;
+    padding: 3% 4%;
+    border: 0;
+    border-radius: 10px;
+}
+.rightScanner button img{
+    width: 15%;
+    margin: 0% 2%;
+}
+.rightScanner button > img, button > span{
+    vertical-align: middle;
+}
+.rightScanner button:hover{
+    cursor: pointer;
+    background-color: #4fb1b5;
+}
+
+/*Camera*/
+#camera{
+    margin: 3% auto;
+    padding: 5% 3%;
+    width: 90%;
+    border: 0;
 }
