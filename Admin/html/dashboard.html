@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,43 +13,122 @@
 
 <body>
     <div class="container">
-      
+
         <aside class="sidebar">
-          
 
 
-<br><br>
-<image src="../images/logos/adminIcon.png" width="100%"></image>
-<br><br>
-<hr>
+
+            <br><br>
+            <image src="../images/logos/adminIcon.png" width="100%"></image>
+            <br><br>
+            <hr>
             <ul>
                 <br><br>
-                <li ><image src="../../User/images/icons/dashboard.png" width="20px" ></image> 
-                    <span style="margin-left: 5px;">Dashboard</span></li>
-                <li ><image src="../../User/images/icons/room.png" width="20px" ></image> 
+                <li>
+                    <image src="../../User/images/icons/dashboard.png" width="20px"></image>
+                    <span style="margin-left: 5px;">Dashboard</span>
+                </li>
+                <li>
+                    <image src="../../User/images/icons/room.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Room</span>
-                    </li>
-                <li> <image src="../../User/images/icons/appointment.png" width="20px" ></image> 
-                                    <span style="margin-left: 5px;"> Booking</span></li>
+                </li>
+                <li>
+                    <image src="../../User/images/icons/appointment.png" width="20px"></image>
+                    <span style="margin-left: 5px;"> Booking</span>
+                </li>
 
-                <li><image src="../../User/images/icons/bar-chart.png" width="20px" ></image>
-                    <span style="margin-left: 5px;"> Reports</span></li>
+                <li>
+                    <image src="../../User/images/icons/bar-chart.png" width="20px"></image>
+                    <span style="margin-left: 5px;"> Reports</span>
+                </li>
             </ul>
             <br>
             <hr>
 
 
-            <br><br<br><br><br><br><br><br><br><br><br><br>
-            <image src="../images/logos/usep.png" width="100%"></image>
-
-
-
+            <br>
+            <br<br><br><br><br><br><br><br><br><br><br>
+                <image src="../images/logos/usep.png" width="100%"></image>
 
         </aside>
 
-      
     </div>
-    
+
+
+    <div class="box2">
+
+        <header class="header">
+            <h2>Dashboard</h2>
+            <div class="header-right">
+                <div class="user-avatar" onclick="openModal()" style="cursor: pointer;">
+                    <img src="../../User/images/icons/profile.png" alt="User" width="30px">
+                </div>
+               |<image src="../images/logos/categories.png" width="20px" ></image>
+            </div>
+        </header>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal()">×</button>
+                <img src="../../User/images/icons/profile.png" alt="Profile">
+                <h2>Admin</h2>
+            </div>
+            <div class="modal-footer">
+                <button class="logout-btn" onclick="showLoading('loginAdmin.html')">Log out</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("profileModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("profileModal").style.display = "none";
+        }
+       
+    </script>
+
+
+
+
+<div class="popup" id="loadingPopup">
+    <div class="popup-content">
+        <p>Please Wait a Moment....</p>
+        <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+    </div>
+</div>
+
+<script>
+    function showLoading(redirectUrl) {
+        document.getElementById('loadingPopup').style.display = 'flex';
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 3000);
+    }
+</script>
+
+
+
+
+
 
 
 
@@ -63,7 +143,7 @@
 
     <script src="../js/dashboard.js"></script>
 
-    
+
 </body>
 
 

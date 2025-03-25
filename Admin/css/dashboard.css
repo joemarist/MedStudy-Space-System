@@ -6,13 +6,55 @@
 
 body {
     font-family: Arial, sans-serif;
-    display: flex;
+    display: grid;
     height: 100vh;
     overflow: hidden;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas: 
+    "box1 box2";
 }
 
-/* Sidebar (Fixed) */
+
+.box2{
+    grid-area: box2;
+    background-color: #F3F5F7;
+}
+
+
+
+.menus{
+    display: inline-block;
+    float: right;
+}
+
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+}
+.header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #555;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+
+
 .sidebar {
+    grid-area: box1;
     width: 250px;
     background: #1F272E;
     color: white;
@@ -42,3 +84,130 @@ body {
     background: #007bff;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: white;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Header Section */
+.modal-header {
+    background: #1e1e1e;
+    padding: 20px;
+    position: relative;
+}
+
+.modal-header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+.modal-header h2 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+/* Close Button (X) */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Footer Section */
+.modal-footer {
+    padding: 20px;
+    background: #fff;
+}
+
+/* Log Out Button */
+.logout-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.loading-image {
+    width: 64px;
+    height: 64px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
