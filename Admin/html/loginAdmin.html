@@ -31,11 +31,11 @@
                 <br>
                 <a href="">forgot password?</a>
                 <br><br>
-                <button type="button" onclick="location.href='dashboard.html'">Log In</button>
+                <button type="button" onclick="showLoading('dashboard.html')">Log In</button>
                 <br>
                 <p>OR</p>
                 <br>
-                <button type="button" onclick="location.href='dashboard.html'"><img src="..\..\User\images\logos\google.png" alt="">
+                <button type="button" onclick="showLoading('dashboard.html')"><img src="..\..\User\images\logos\google.png" alt="">
                     <span>Log In with Google</span>
                 </button>
             </form>
@@ -43,7 +43,21 @@
     </div>
     
 
+    <div class="popup" id="loadingPopup">
+        <div class="popup-content">
+            <p>Please Wait a Moment....</p>
+            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+        </div>
+    </div>
 
+    <script>
+        function showLoading(redirectUrl) {
+            document.getElementById('loadingPopup').style.display = 'flex';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 3000);
+        }
+    </script>
     
     
 </body>
