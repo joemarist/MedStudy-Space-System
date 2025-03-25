@@ -5,10 +5,11 @@
     font-weight: normal;
     font-style: normal;
 }
-body{
+body, html{
     margin: 0;
     background-color: #F8F8F8;
     font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
 }
 
 /*Navigation Bar*/
