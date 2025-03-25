@@ -6,6 +6,9 @@
     <title>MedStudy | Home</title>
     <link rel="stylesheet" href="..\css\home.css">
     <link rel="icon" href="..\images\logos\medstudyLogo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
+    <script src="/User/js/calendar.js"></script>
 </head>
 <body>
     <div class="navBar">
@@ -57,6 +60,23 @@
                 <span>Available</span>
                 <br><br>
                 <button>Book</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="roomOverlay">
+        <div class="roomBox">
+            <img src="/User/images/icons/left-arrow.png" alt="">
+            <div class="roomBoxContainer">
+                <div class="leftRoom">
+                    <img src="/User/images/icons/studyRoom2.jpg" alt="">
+                    <h1>Study Room 1</h1>
+                    <span>Available</span>
+                </div>
+                <div class="rightRoom">
+                    <h1>Available Dates</h1>
+                    <div id="calendar"></div>
+                </div>
             </div>
         </div>
     </div>
