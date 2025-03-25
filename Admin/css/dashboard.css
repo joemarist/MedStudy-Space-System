@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar (Fixed) */
+.sidebar {
+    width: 250px;
+    background: #1F272E;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    font-size: 25px;
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sidebar ul li:hover, .sidebar ul .active {
+    background: #007bff;
+}
+
