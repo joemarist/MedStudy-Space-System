@@ -38,6 +38,13 @@ body, html{
     flex: 70%;
     display: flex;
     align-items: center;
+    transition: 0.3s;
+}
+.link.active{
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+    border-color: #054970;
+    color: #014E6F;
 }
 .navLinks a{
     text-decoration: none;
