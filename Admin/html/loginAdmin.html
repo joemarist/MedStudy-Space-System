@@ -80,6 +80,16 @@
 
         }
     </script>
+
+    <!--Function for hotkey switch to Admin-->
+    <script>
+        document.addEventListener("keydown", function(event) {
+        if (event.altKey && event.key.toLowerCase() === "a") {
+            event.preventDefault();
+            window.location.href = "/User/html/login.html";
+        }
+        });
+    </script>
     
     
 </body>
