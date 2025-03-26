@@ -232,7 +232,9 @@ body, html{
 
 /*Room Desciption Box*/
 .roomOverlay{
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     position: fixed;
     top: 0;
     left: 0;
@@ -243,32 +245,91 @@ body, html{
     align-items: center;
     align-content: center;
 }
+.roomOverlay.active {
+    visibility: visible;
+    opacity: 1;
+}
 .roomBox{
     background-color: white;
     border-radius: 10px;
-    padding: 3% 3%;
+    padding: 1% 3%;
     width: 90%;
-    height: 80%;
     margin: auto;
 }
-.roomBoxContainer{
+#backArrow:hover{
+    cursor: pointer;
+}
+.roomBoxContainer {
     display: flex;
-    grid-template-columns: 40% 60%;
+    flex-direction: row;
+    height: 100%; 
 }
 .leftRoom{
-    flex: 40%;
+    flex: 50%;
+    color: #014E6F;
+}
+.leftRoom span{
+    color: #0A6738;
+    font-size: 14pt;
 }
 .leftRoom img{
     width: 50%;
+    border-radius: 10px;
 }
-.rightRoom{
-    flex: 60%;
+.rightRoom {
+    color: #014E6F;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.rightRoom h1{
+    text-align: left;
+}
+
+.roomBoxDescription{
+    display: flex;
+    grid-template-columns: 50% 50%;
+    width: 70%;
+}
+.leftRoomBoxDesc{
+    flex: 50%;
+}
+.leftRoomBoxDesc img{
+    width: 10%;
+}
+.leftRoomBoxDesc span{
+    color: #014E6F;
+    font-size: 12pt;
+}
+.additionalInfo{
+    margin: 2% 0%;
+}
+.additionalInfo > img, .additionalInfo > span{
+    vertical-align: middle;
+}
+.rightRoomBoxDesc{
+    flex: 50%;
+}
+.rightRoomBoxDesc{
+    text-align: center;
+    
+}
+.rightRoomBoxDesc img{
+    width: 20%;
 }
 
 /*Calendar*/
-#calendar{
-    margin: 5% auto;
-    width: 90%;
+#calendar {
+    width: 100%;
+    height: 100%;
+    max-height: 100%; /* Prevent overflow */
+}
+.fc {
+    width: 100% !important;
+    height: 100% !important;
 }
 .calendaryBody{
     text-align: right;
@@ -296,5 +357,5 @@ body, html{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Ensure full height for centering */
+    height: 100%;
 }

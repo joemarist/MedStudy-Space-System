@@ -59,22 +59,42 @@
                 <h3>Study Room 1</h3>
                 <span>Available</span>
                 <br><br>
-                <button>Book</button>
+                <button onclick="openRoomOverlay()">Book</button>
             </div>
         </div>
     </div>
 
-    <div class="roomOverlay">
+    <div class="roomOverlay" id="roomOverlay">
         <div class="roomBox">
-            <img src="/User/images/icons/left-arrow.png" alt="">
+            <img src="/User/images/icons/left-arrow.png" alt="" onclick="closeRoomOverlay()" id="backArrow">
             <div class="roomBoxContainer">
                 <div class="leftRoom">
                     <img src="/User/images/icons/studyRoom2.jpg" alt="">
                     <h1>Study Room 1</h1>
                     <span>Available</span>
+                    <div class="roomBoxDescription">
+                        <div class="leftRoomBoxDesc">
+                            <div class="additionalInfo">
+                                <img src="/User/images/icons/crowd-of-users.png" alt="">
+                                <span>5 Students</span>
+                            </div>
+                            <div class="additionalInfo">
+                                <img src="/User/images/icons/swivel-chair.png" alt="">
+                                <span>5 Chairs</span>
+                            </div>
+                            <div class="additionalInfo">
+                                <img src="/User/images/icons/table.png" alt="">
+                                <span>1 Table</span>
+                            </div>
+                        </div>
+                        <div class="rightRoomBoxDesc">
+                            <img src="/User/images/icons/time-left.png" alt="">
+                            <p>2 hours</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="rightRoom">
-                    <h1>Available Dates</h1>
+                    <h2>Available Dates</h2>
                     <div id="calendar"></div>
                 </div>
             </div>
@@ -126,5 +146,26 @@
             <p>© 2025 University of Southeastern Philippines. All Rights Reserved.</p>
         </div>
     </div>
+
+
+    <script>
+        function openRoomOverlay() {
+            const overlay = document.getElementById("roomOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+            setTimeout(() => {
+                if (window.myCalendar) {
+                window.myCalendar.render();
+            }
+        }, 50);
+    }
+
+    function closeRoomOverlay() {
+        const overlay = document.getElementById("roomOverlay");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+    </script>
 </body>
 </html>
