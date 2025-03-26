@@ -63,8 +63,15 @@ body{
     font-weight: bold;
     font-size: 18pt;
 }
+
+.logInForm input:focus{
+border: 0;
+outline: 0;
+}
+
 .logInForm input{
     margin: 4% 0%;
+
     color: #767676;
     background-color: transparent;
     font-size: 12pt;

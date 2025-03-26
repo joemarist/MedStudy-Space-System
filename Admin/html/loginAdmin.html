@@ -25,17 +25,17 @@
                 your account
             </h2>
             <form action="">
-                <input type="email" name="email" placeholder="Email">
+                <input id="admin" type="email" name="email" placeholder="Email">
                 <br>
-                <input type="password" name="password" placeholder="Password">
+                <input id="12345" type="password" name="password" placeholder="Password">
                 <br>
                 <a href="">forgot password?</a>
                 <br><br>
-                <button type="button" onclick="showLoading('dashboard.html')">Log In</button>
+                <button type="button" onclick="showLoading('dashboard.html',0)">Log In</button>
                 <br>
                 <p>OR</p>
                 <br>
-                <button type="button" onclick="showLoading('dashboard.html')"><img src="..\..\User\images\logos\google.png" alt="">
+                <button type="button" onclick="showLoading('dashboard.html',1)"><img src="..\..\User\images\logos\google.png" alt="">
                     <span>Log In with Google</span>
                 </button>
             </form>
@@ -53,11 +53,31 @@
     </div>
 
     <script>
-        function showLoading(redirectUrl) {
-            document.getElementById('loadingPopup').style.display = 'flex';
+        function showLoading(redirectUrl,num) {
+           let name = document.getElementById("admin").value;
+            let pass = document.getElementById("12345").value;
+
+
+            if(name == "admin" && pass == "12345" || num == 1){
+                document.getElementById('loadingPopup').style.display = 'flex';
             setTimeout(() => {
-                window.location.href = redirectUrl;
+                    window.location.href = redirectUrl;
             }, 3000);
+
+            }else{
+                if(name == null || name != "admin"){
+                    document.getElementById("admin").style.borderBottom = "2px solid red";
+                }else{
+                    document.getElementById("admin").style.borderBottom = "2px solid  #014E6F";
+                }
+                
+                if(pass != "12345" || pass == null){
+                    document.getElementById("12345").style.borderBottom = "2px solid red";
+                }else{
+                    document.getElementById("12345").style.borderBottom = "2px solid  #014E6F";
+                }
+            }
+
         }
     </script>
     
