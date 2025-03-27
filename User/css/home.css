@@ -366,3 +366,18 @@ body, html{
     align-items: center;
     height: 100%;
 }
+.legendForCalendarRoom{
+    color:#014E6F;
+}
+.legendRoom{
+    margin: 2% 0%;
+}
+.legendRoom span{
+    font-size: 10pt;
+}
+.legendRoom img{
+    width: 3%;
+}
+.legendRoom > img, .legendRoom > span{
+    vertical-align: middle;
+}
