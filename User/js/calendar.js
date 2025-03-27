@@ -12,14 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             right: ''
         },
         events: [
-            {
-                title: 'Study Session',
-                start: '2025-04-01'
-            },
-            {
-                title: 'Meeting',
-                start: '2025-04-05'
-            }
+            
         ]
     });
 

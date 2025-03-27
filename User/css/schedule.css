@@ -75,16 +75,14 @@
 #calendar{
     margin: 5% 0%;
 }
-.calendaryBody{
+.calendarBody img{
+    width: 5%;
+}
+.calendarBody{
     text-align: right;
     background-color: white;
     border-radius: 5px;
     padding: 8% 3%;
-}
-.calendaryBody img{
-    width: 6%;
-    margin: 0% 2%;
-    margin-bottom: 3%;
 }
 .fc-toolbar-title {
     color: #014E6F;
@@ -102,6 +100,23 @@
     justify-content: center;
     align-items: center;
     height: 100%; /* Ensure full height for centering */
+}
+.legendForCalendar{
+    text-align: left;
+    color: #014E6F;
+}
+.legend span{
+    font-size: 10pt;
+}
+.legend{
+    margin: 2% 0%;
+}
+.legend img{
+    width: 4%;
+}
+
+.legend > img, .legend > span{
+    vertical-align: middle;
 }
 
 /*Booking*/
