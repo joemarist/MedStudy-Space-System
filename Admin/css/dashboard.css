@@ -261,6 +261,17 @@ body {
 
 }
 
+.dash{
+    word-wrap: break-word;
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+   width: 100%;
+   height: 90%;
+   background-color: #F3F5F7;
+    display: block;
+
+}
+
 
 
 .Rooms{
@@ -269,7 +280,7 @@ body {
     overflow-x: hidden; /* Prevents horizontal scrolling */
    width: 100%;
    height: 90%;
-   display: block;
+   display: none;
    background-color: #F3F5F7;
 
 
@@ -284,7 +295,7 @@ body {
     overflow-x: hidden; /* Prevents horizontal scrolling */
    width: 100%;
    height: 90%;
-   display: block;
+   display: none;
    background-color: #F3F5F7;
 
 
@@ -297,7 +308,7 @@ body {
     overflow-x: hidden; /* Prevents horizontal scrolling */
    width: 100%;
    height: 90%;
-   display: block;
+   display: none;
    background-color: #F3F5F7;
 
 }
