@@ -25,11 +25,11 @@
             <hr>
             <ul>
                 <br><br>
-                <li  onclick="titlechanges(1,this)">
+                <li onclick="titlechanges(1,this)">
                     <image src="../../User/images/icons/dashboard.png" width="20px"></image>
                     <span style="margin-left: 5px;">Dashboard</span>
                 </li>
-                <li class="pok"       onclick="titlechanges(2,this)">
+                <li class="pok" onclick="titlechanges(2,this)">
                     <image src="../../User/images/icons/room.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Room</span>
                 </li>
@@ -38,7 +38,7 @@
                     <span style="margin-left: 5px;"> Booking</span>
                 </li>
 
-                <li  onclick="titlechanges(4,this)">
+                <li onclick="titlechanges(4,this)">
                     <image src="../../User/images/icons/bar-chart.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Reports</span>
                 </li>
@@ -58,7 +58,7 @@
 
     <div class="box2">
 
-      
+
 
         <!--Main Containers-->
 
@@ -87,63 +87,75 @@
 
 
 
-            
+
             <!-- ROOMS -->
 
             <div class="rooms-contain" id="rooms">
-            <button class="room-button" title="Add Rooms">
-                <image  src="../images/logos/addroombutton.png" width="150px"></image>
-            </button>
-              
-               
+                <button class="room-button" title="Add Rooms">
+                    <image src="../images/logos/addroombutton.png" width="150px"></image>
+                </button>
+
+
                 <br><br> <br><br> <br>
-                <div class="room-holder" >
-                    <div class="r1"  onclick="addroom()">
-                        <image src="../images/logos/studyroom.png" width="100%"></image>
+                <div class="room-holder">
+                    <div class="r1" onclick="addroom()">
+                        <image id="bigpic" src="../images/logos/studyroom.png" width="100%"></image>
                     </div>
-                    
-                  <div class="r2">
-                
-                  
-                    <h1 class="des">Study Room 1</h1>
-                    <br>
-                    <table>
-                        <tr>
-                            <td>  <image  src="../images/people.png" width="40px"></image></td>
-                            <td> <h4 class="des">5 Students</h4></td>
-                        </tr>
 
-                        <tr>
-                            <td>  <image  src="../images/logos/chair.png" width="40px"></image></td>
-                            <td> <h4 class="des">5 Chairs</h4></td>
-                        </tr>
+                    <div class="r2">
 
-                        <tr>
-                            <td>  <image  src="../images/logos/table.png" width="40px"></image></td>
-                            <td> <h4 class="des">1 Table</h4></td>
-                        </tr>
-                    </table>
-                       
-                      
-   
 
-                  </div>
+                        <h1 class="des" id="roomid">Study Room 1</h1>
+                        <br>
+                        <table>
+                            <tr>
+                                <td>
+                                    <image src="../images/people.png" width="40px"></image>
+                                </td>
+                                <td>
+                                    <h4 class="des"><b id="student_num">5</b> Students</h4>
+                                </td>
+                            </tr>
 
-                  <div class="r3">
-                    <div class="ts" id="room-edit-open">
-                        <image src="../images/logos/edit.png" width="30px"></image>
+                            <tr>
+                                <td>
+                                    <image src="../images/logos/chair.png" width="40px"></image>
+                                </td>
+                                <td>
+                                    <h4 class="des"><b id="chair_num">5</b> Chairs</h4>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <image src="../images/logos/table.png" width="40px"></image>
+                                </td>
+                                <td>
+                                    <h4 class="des"><b id="table_num">1</b> Table</h4>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+
                     </div>
-                    <br><br><br><br><br><br><br><br><br><br>
-                    <div align="right">
-                        <h3 id="status">Avalable</h3>
+
+                    <div class="r3">
+                        <div class="ts" id="room-edit-open">
+                            <image src="../images/logos/edit.png" width="30px"></image>
+                        </div>
+                        <br><br><br><br><br><br><br><br><br><br>
+                        <div align="right">
+                            <h3 id="status">Avalable</h3>
+
+                        </div>
+
 
                     </div>
-                     
-
-                  </div>
 
 
-                   
+
                 </div>
 
 
@@ -236,10 +248,9 @@
 
 
 
-
     <div id="room-edit-overlay" class="room-edit-overlay">
         <div class="room-edit-popup">
-            
+
             <!-- Header with Close Button -->
             <div class="room-edit-header">
                 <span>Edit Rooms</span>
@@ -248,7 +259,7 @@
 
             <!-- Image & Upload Section -->
             <div class="room-edit-image-container">
-                <img src="../images/logos/studyroom.png" alt="Room Image">
+                <img id="vic" src="../images/logos/studyroom.png" alt="Room Image">
                 <span class="room-edit-upload-btn">Upload new photo</span>
             </div>
 
@@ -257,33 +268,31 @@
             <!-- Room Details Form -->
             <div class="room-edit-form">
                 <label>Name:</label>
-                <input type="text" value="Study Room 1">
+                <input type="text" id="roomid_input" value="Study Room 1">
 
                 <label>Students:</label>
-                <input type="number" value="5">
+                <input type="number" id="student_id" value="5">
 
                 <label>Chairs:</label>
-                <input type="number" value="5">
+                <input type="number" id="chair_id" value="5">
 
                 <label>Tables:</label>
-                <input type="number" value="1">
+                <input type="number" id="table_id" value="1">
 
                 <label>Status:</label>
                 <select id="choices">
-                    <option value="Avalable">Available</option>
-                    <option Value="Occupied">Occupied</option>
+                    <option value="Available">Available</option>
+                    <option value="Occupied">Occupied</option>
                 </select>
             </div>
 
             <!-- Buttons -->
             <div class="room-edit-footer">
                 <button class="room-edit-btn room-edit-btn-delete">Delete</button>
-                
                 <button class="room-edit-btn room-edit-btn-update">Update</button>
             </div>
         </div>
     </div>
-
 
 
 
