@@ -127,9 +127,65 @@
                     <h2>End Time</h2>
                     <input type="text" id="timePicker">
                     <br>
-                    <button>Book</button>
+                    <button onclick="openBookConfirmaationOverlay()">Book</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="bookConfirmationOverlay" id="bookConfirmationOverlay">
+        <div class="bookConfirmationBox">
+            <p>
+                Do you want to book Study Room 1?
+            </p>
+            <div>
+                <button onclick="closeBookConfirmationOverlay()">No</button>
+                <button onclick="confirmBook()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bookConfirmedOverlay" id="bookConfirmedOverlay">
+        <div class="bookConfirmedBox">
+            <div class="topConfirmation">
+                <div class="topLeftConfirmation">
+                    <img src="/User/images/icons/studyRoom2.jpg" alt="">
+                </div>
+                <div class="topRightConfirmation">
+                    <h2>Booked</h2>
+                    <p>Room QR Code</p>
+                    <img src="/User/images/icons/qr-code_Black.png" alt="">
+                    <br>
+                    <span>
+                        Note: You can find this QR code on the door of the study room. Scan the QR code to open the door.
+                    </span>
+                </div>
+            </div>
+
+            <div class="bottomConfirmation">
+                <div class="bottomLeftConfirmation">
+                    <h1>Study Room 1</h1>
+                    <div>
+                        <img src="/User/images/icons/crowd-of-users.png" alt="">
+                        <span>5 Students</span>
+                    </div>
+                    <div>
+                        <img src="/User/images/icons/swivel-chair.png" alt="">
+                        <span>5 Chairs</span>
+                    </div>
+                    <div>
+                        <img src="/User/images/icons/table.png" alt="">
+                        <span>1 Table</span>
+                    </div>
+                </div>
+                <div class="bottomRightConfirmation">
+                    <p>
+                        Monday - March 24, 2025 <br>
+                        <span>8:00 AM - 10:00 AM</span>
+                    </p>
+                </div>
+            </div>
+            <button onclick="closeConfirmedBook()">Back</button>
         </div>
     </div>
 
@@ -216,6 +272,47 @@
         const overlay = document.getElementById("bookOverlay");
         overlay.classList.remove("active");
     }
+
+    /*Book Confirmation Opening*/
+    function openBookConfirmaationOverlay() {
+            const overlay = document.getElementById("bookConfirmationOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+            setTimeout(() => {
+                if (window.myCalendar) {
+                window.myCalendar.render();
+            }
+        }, 50);
+    }
+    function closeBookConfirmationOverlay() {
+        const overlay = document.getElementById("bookConfirmationOverlay");
+        overlay.classList.remove("active");
+    }
+
+    /*Confirm Book*/
+    function confirmBook() {
+        closeBookConfirmationOverlay();
+        closeBookOverlay();
+        closeRoomOverlay();
+        const overlay = document.getElementById("bookConfirmedOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+            setTimeout(() => {
+                if (window.myCalendar) {
+                window.myCalendar.render();
+            }
+        }, 50);
+    }
+
+    /*Close Confirmed Book*/
+    function closeConfirmedBook() {
+        const overlay = document.getElementById("bookConfirmedOverlay");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
     </script>
 
     <!--For time input-->

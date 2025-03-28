@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var vacantDates = {
-        "2025-03-25": { backgroundColor: "#006CFD", color: "white", borderRadius: "100px" }
+        "2025-03-24": { backgroundColor: "#006CFD", color: "white", borderRadius: "100px" }
     };
 
     var occupiedDates = {
