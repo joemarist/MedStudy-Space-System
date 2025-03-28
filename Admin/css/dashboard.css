@@ -92,7 +92,10 @@ body {
     color: white;
 }
 
-
+.pok{
+    background-color:  #007bff;
+    color: white;
+}
 
 
 
@@ -420,6 +423,10 @@ body {
 
 
 
+
+
+
+
 .real-time-activity-container {
     background: white;
     padding: 16px;
@@ -498,6 +505,14 @@ body {
     background: #ccc;
     border-radius: 2px;
 }
+
+
+
+
+
+
+
+
 
 
 
