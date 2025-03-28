@@ -17,3 +17,214 @@
     margin: 20px;
     
 }
+
+
+.room-holder{
+    padding: 20px;
+    width: 90%;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+        grid-template-rows: auto;
+    grid-template-areas: 
+    "box1 box2 box3";
+}
+
+
+.r1{
+    grid-area: box1;
+
+
+}
+
+
+.r2{
+    grid-area: box2;
+    padding: 20px;
+    padding-left: 30px;
+  
+}
+
+.r3{
+    grid-area: box3;
+   
+}
+
+
+
+.des{
+   
+    color: #014E6F;
+ 
+}
+
+
+
+.ts{
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+
+#status{
+    color: #0A6738;
+    padding-right:10px ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.room-edit-overlay {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Modal Box */
+.room-edit-popup {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Show Modal */
+.room-edit-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.room-edit-overlay.active .room-edit-popup {
+    transform: translateY(0);
+}
+
+/* Modal Header */
+.room-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Close Button */
+.room-edit-close {
+    cursor: pointer;
+    font-size: 24px;
+    color: gray;
+    border: none;
+    background: none;
+}
+
+/* Image Container */
+.room-edit-image-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.room-edit-image-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.room-edit-upload-btn {
+    margin-left: 15px;
+    color: blue;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Form Fields */
+.room-edit-form label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.room-edit-form input, 
+.room-edit-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Footer Buttons */
+.room-edit-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+.room-edit-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.room-edit-btn-delete {
+    background: #a855f7;
+    color: white;
+}
+
+.room-edit-btn-update {
+    background: #3b82f6;
+    color: white;
+}
+
+/* Open Button */
+#room-edit-open {
+    padding: 10px 15px;
+  
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

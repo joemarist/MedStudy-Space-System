@@ -91,12 +91,60 @@
             <!-- ROOMS -->
 
             <div class="rooms-contain" id="rooms">
-         
-                <button class="room-button" title="Add Rooms">
-                    <image  src="../images/logos/addroombutton.png" width="150px"></image>
-                </button>
+            <button class="room-button" title="Add Rooms">
+                <image  src="../images/logos/addroombutton.png" width="150px"></image>
+            </button>
+              
+               
+                <br><br> <br><br> <br>
+                <div class="room-holder" >
+                    <div class="r1"  onclick="addroom()">
+                        <image src="../images/logos/studyroom.png" width="100%"></image>
+                    </div>
+                    
+                  <div class="r2">
+                
+                  
+                    <h1 class="des">Study Room 1</h1>
+                    <br>
+                    <table>
+                        <tr>
+                            <td>  <image  src="../images/people.png" width="40px"></image></td>
+                            <td> <h4 class="des">5 Students</h4></td>
+                        </tr>
+
+                        <tr>
+                            <td>  <image  src="../images/logos/chair.png" width="40px"></image></td>
+                            <td> <h4 class="des">5 Chairs</h4></td>
+                        </tr>
+
+                        <tr>
+                            <td>  <image  src="../images/logos/table.png" width="40px"></image></td>
+                            <td> <h4 class="des">1 Table</h4></td>
+                        </tr>
+                    </table>
+                       
+                      
+   
+
+                  </div>
+
+                  <div class="r3">
+                    <div class="ts" id="room-edit-open">
+                        <image src="../images/logos/edit.png" width="30px"></image>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br>
+                    <div align="right">
+                        <h3 id="status">Avalable</h3>
+
+                    </div>
+                     
+
+                  </div>
 
 
+                   
+                </div>
 
 
 
@@ -180,6 +228,87 @@
 
 
     </div>
+
+
+
+
+
+
+
+
+
+    <div id="room-edit-overlay" class="room-edit-overlay">
+        <div class="room-edit-popup">
+            
+            <!-- Header with Close Button -->
+            <div class="room-edit-header">
+                <span>Edit Rooms</span>
+                <button id="room-edit-close" class="room-edit-close">&times;</button>
+            </div>
+
+            <!-- Image & Upload Section -->
+            <div class="room-edit-image-container">
+                <img src="../images/logos/studyroom.png" alt="Room Image">
+                <span class="room-edit-upload-btn">Upload new photo</span>
+            </div>
+
+            <p>ID: <strong>R12NYUS2</strong></p>
+
+            <!-- Room Details Form -->
+            <div class="room-edit-form">
+                <label>Name:</label>
+                <input type="text" value="Study Room 1">
+
+                <label>Students:</label>
+                <input type="number" value="5">
+
+                <label>Chairs:</label>
+                <input type="number" value="5">
+
+                <label>Tables:</label>
+                <input type="number" value="1">
+
+                <label>Status:</label>
+                <select id="choices">
+                    <option value="Avalable">Available</option>
+                    <option Value="Occupied">Occupied</option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="room-edit-footer">
+                <button class="room-edit-btn room-edit-btn-delete">Delete</button>
+                
+                <button class="room-edit-btn room-edit-btn-update">Update</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
