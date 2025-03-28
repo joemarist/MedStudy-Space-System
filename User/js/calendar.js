@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 info.el.style.color = style.color;
                 info.el.style.borderRadius = style.borderRadius;
                 info.el.style.cursor = "pointer";
+            } else{
+                info.el.style.cursor = "pointer";
             }
         },
 
@@ -61,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (vacantDates[dateStr]) {
                 openBookOverlay();
             } else if (occupiedDates[dateStr]) {
-                openBookConfirmationOverlay();
+                openFullyBookedOverlay();
             } else {
-                alert("This date is not clickable.");
+                openNotAvailableOverlay();
             }
         }
     });

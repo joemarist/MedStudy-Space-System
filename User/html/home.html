@@ -106,7 +106,7 @@
                         </div>
                         <div class="legendRoom">
                             <img src="/User/images/icons/legendUnnoccupied.png" alt="">
-                            <span>Occupied</span>
+                            <span>Fully Booked</span>
                         </div>
                     </div>
                 </div>
@@ -189,6 +189,22 @@
         </div>
     </div>
 
+    <div class="fullyBookedOverlay" id="fullyBookedOverlay">
+        <div class="fullyBookedBox">
+            <img src="/User/images/icons/information.png" alt="">
+            <p>This date is fully booked.</p>
+            <button onclick="closeFullyBookedOverlay()">Back</button>
+        </div>
+    </div>
+
+    <div class="notAvailableOverlay" id="notAvailableOverlay">
+        <div class="notAvailableBox">
+            <img src="/User/images/icons/warning.png" alt="">
+            <p>This date is not available.</p>
+            <button onclick="closeNotAvailableOverlay()">Back</button>
+        </div>
+    </div>
+
     <div class="footer">
         <div class="topFooter">
             <div class="medStudyLogo">
@@ -211,7 +227,7 @@
             <div class="infoCol">
                 <div><h2>About Us</h2></div>
                     <p>
-                        The University of Southeastern Philippines (USeP), a public, research, coeducational, regional state university based in Davao City, was established in 1978 by integrating four state educational institutions. 
+                        MedStudy System, developed by BSIT students in partnership with the SOM Library, streamlines study room reservations with easy booking, real-time scheduling, and fair access for medical students.
                     </p>
             </div>
         </div>
@@ -235,7 +251,7 @@
         </div>
     </div>
 
-
+    <!--Script For Overlays-->
     <script>
     /*Room Booking*/
     function openRoomOverlay() {
@@ -311,6 +327,40 @@
         const overlay = document.getElementById("bookConfirmedOverlay");
         overlay.classList.remove("active");
         document.body.style.overflow = "";
+    }
+
+    /*Fully Booked Overlay*/
+    function openFullyBookedOverlay() {
+            const overlay = document.getElementById("fullyBookedOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+            setTimeout(() => {
+                if (window.myCalendar) {
+                window.myCalendar.render();
+            }
+        }, 50);
+    }
+    function closeFullyBookedOverlay() {
+        const overlay = document.getElementById("fullyBookedOverlay");
+        overlay.classList.remove("active");
+    }
+
+    /*Not Available Date Overlay*/
+    function openNotAvailableOverlay() {
+            const overlay = document.getElementById("notAvailableOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+            setTimeout(() => {
+                if (window.myCalendar) {
+                window.myCalendar.render();
+            }
+        }, 50);
+    }
+    function closeNotAvailableOverlay() {
+        const overlay = document.getElementById("notAvailableOverlay");
+        overlay.classList.remove("active");
     }
 
     </script>
