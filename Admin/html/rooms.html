@@ -91,7 +91,7 @@
             <!-- ROOMS -->
 
             <div class="rooms-contain" id="rooms">
-                <button class="room-button" title="Add Rooms">
+                <button id="room_popup_open" class="room-button" title="Add Rooms">
                     <image src="../images/logos/addroombutton.png" width="150px"></image>
                 </button>
 
@@ -247,6 +247,126 @@
 
 
 
+<!-- Register -->
+
+
+<div id="room_popup_container" class="room_popup_overlay">
+    <div class="room_popup_box">
+        
+       
+        <div class="room_popup_image_section">
+            <img id="room_popup_image_preview" src="../images/logos/studyroom.png" alt="Room Image">
+            <span id="room_popup_upload" class="room_popup_upload_btn">Upload new photo</span>
+        </div>
+
+       
+        <div class="room_popup_details">
+            <h2>Register Room</h2>
+
+            <label>Room Name:</label>
+            <input type="text" id="room_popup_name" placeholder="Enter Room Name">
+
+            <label>Number of Students:</label>
+            <input type="number" id="room_popup_students" placeholder="Enter Number of Students">
+
+            <label>Number of Chairs:</label>
+            <input type="number" id="room_popup_chairs" placeholder="Enter Number of Chairs">
+
+            <label>Number of Tables:</label>
+            <input type="number" id="room_popup_tables" placeholder="Enter Number of Tables">
+
+            <label>Room Status:</label>
+            <select id="room_popup_status">
+                <option value="Available">Available</option>
+                <option value="Occupied">Occupied</option>
+            </select>
+
+            <label>Room Key:</label>
+            <input type="text" id="room_popup_key" value="R12NYUS2" readonly>
+
+           
+            <div class="room_popup_buttons">
+                <button id="room_popup_close" class="room_popup_cancel">Cancel</button>
+                <button id="room_popup_create" class="room_popup_create">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="room_popup" class="register_room_pop">
+    <div class="register_room_content">
+        <div class="register_room_header">
+            <h2>Register A Room</h2>
+            <button class="register_room_close" onclick="document.getElementById('room_popup').style.display='none'">×</button>
+        </div>
+        
+        <div class="register_room_body">
+            <div class="register_room_image">
+                <img id="room_popup_image_preview" src="../images/logos/defaultroom.png" alt="Room Image">
+                <input type="file" id="room_popup_image_input">
+            </div>
+
+            <div class="register_room_form">
+                <label>Name:</label>
+                <input type="text" id="room_popup_name" placeholder="Enter Room Name">
+                
+                <label>Students:</label>
+                <input type="number" id="room_popup_students" placeholder="Number of Students">
+                
+                <label>Chairs:</label>
+                <input type="number" id="room_popup_chairs" placeholder="Number of Chairs">
+                
+                <label>Tables:</label>
+                <input type="number" id="room_popup_tables" placeholder="Number of Tables">
+                
+                <label>Status:</label>
+                <select id="room_popup_status">
+                    <option value="Available">Available</option>
+                    <option value="Maintenancee">Maintenancee</option>
+                    <option value="Not Available">Not Avalable</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="register_room_footer">
+            <button class="register_room_cancel" onclick="document.getElementById('room_popup').style.display='none'">Cancel</button>
+            <button id="room_popup_create" class="register_room_create">Create</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div id="room-edit-overlay" class="room-edit-overlay">
         <div class="room-edit-popup">
@@ -281,8 +401,10 @@
 
                 <label>Status:</label>
                 <select id="choices">
-                    <option value="Available">Available</option>
-                    <option value="Occupied">Occupied</option>
+                        <option value="Available">Available</option>
+                        <option value="Maintenancee">Maintenancee</option>
+                        <option value="Not Available">Not Avalable</option>
+                 
                 </select>
             </div>
 
