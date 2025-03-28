@@ -202,9 +202,6 @@ body, html{
     flex: 20%;
     line-height: 150%;
 }
-.topFooter a, p{
-    text-align: left;
-}
 .infoCol div{
     border-bottom: 1px solid white;
     margin-bottom: 10%;
