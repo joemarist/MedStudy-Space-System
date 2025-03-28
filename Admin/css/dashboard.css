@@ -470,11 +470,18 @@ body {
 
 .activity-item {
     padding: 8px 0;
+    cursor: pointer;
     font-size: 14px;
     color: #333;
     line-height: 1.4;
     border-bottom: 1px solid #f5f5f5;
     margin-bottom: 0; /* Ensures no extra space between items */
+}
+
+.activity-item:hover{
+    background-color: gray;
+    color: white;
+ 
 }
 
 .activity-item:last-child {
