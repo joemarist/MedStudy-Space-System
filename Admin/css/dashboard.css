@@ -53,6 +53,9 @@ body {
 
 
 
+
+
+
 .sidebar {
     grid-area: box1;
     width: 250px;
@@ -84,7 +87,10 @@ body {
     background: #007bff;
 }
 
-
+.sidebar ul li.active {
+    background: #007bff;  /* Solid blue when active */
+    color: white;
+}
 
 
 
@@ -253,15 +259,15 @@ body {
     word-wrap: break-word;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
-   width: 100%;
-   height: 90%;
-   background-color: #F3F5F7;
-    display: block;
-
-
+    width: 100%;
+    height: 100vh; /* Ensure it takes full viewport height */
+    background-color: #F3F5F7;
+    display: flex;
+    flex-direction: column;
 }
 
-.dash{
+
+.dash2{
     word-wrap: break-word;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
@@ -271,6 +277,250 @@ body {
     display: block;
 
 }
+
+.dash {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    gap: 40px; /* Spacing between cards */
+    padding: 20px;
+    flex-wrap: wrap; /* Wraps items if needed */
+}
+
+
+.stat-card {
+    width: 350px;
+   
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.stat-card img {
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.stat-card h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+}
+.stat-card p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0 0;
+}
+
+
+
+
+
+
+
+
+.calendar-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+   
+    text-align: center;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.calendar-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.day-name {
+    font-weight: bold;
+    text-align: center;
+    color: gray;
+    font-size: 12px;
+}
+
+.calendar-grid div {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.reserved {
+    background-color: #0056b3;
+    color: white;
+    font-weight: bold;
+}
+
+.partially-reserved {
+    background-color: #85b4ff;
+    color: white;
+    font-weight: bold;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.legend span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.legend .reserved {
+    background-color: #0056b3;
+}
+
+.legend .partially-reserved {
+    background-color: #85b4ff;
+}
+
+
+
+
+
+
+.real-time-activity-container {
+    background: white;
+    padding: 16px;
+    border-radius: 0;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.activity-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#refresh-activity {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.activity-list {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 0; /* Removes extra space below */
+}
+
+.activity-item {
+    padding: 8px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    border-bottom: 1px solid #f5f5f5;
+    margin-bottom: 0; /* Ensures no extra space between items */
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0; /* Removes extra space after last item */
+}
+
+/* Scrollbar styling */
+.activity-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

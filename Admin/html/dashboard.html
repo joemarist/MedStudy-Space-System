@@ -24,20 +24,20 @@
             <hr>
             <ul>
                 <br><br>
-                <li onclick="titlechanges(1)">
+                <li  onclick="titlechanges(1,this)">
                     <image src="../../User/images/icons/dashboard.png" width="20px"></image>
                     <span style="margin-left: 5px;">Dashboard</span>
                 </li>
-                <li  onclick="titlechanges(2)">
+                <li        onclick="titlechanges(2,this)">
                     <image src="../../User/images/icons/room.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Room</span>
                 </li>
-                <li onclick="titlechanges(3)">
+                <li onclick="titlechanges(3,this)">
                     <image src="../../User/images/icons/appointment.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Booking</span>
                 </li>
 
-                <li onclick="titlechanges(4)">
+                <li  onclick="titlechanges(4,this)">
                     <image src="../../User/images/icons/bar-chart.png" width="20px"></image>
                     <span style="margin-left: 5px;"> Reports</span>
                 </li>
@@ -57,143 +57,293 @@
 
     <div class="box2">
 
-        <header class="header">
-            <h2 id="titlename">Dashboard</h2>
-            <div class="header-right">
-                <div class="user-avatar" >
-                    <img src="../../User/images/icons/profile.png" alt="User" width="32px">
-                </div  >
-               |<image onclick="openModal()" src="../images/logos/categories.png" width="30px" style="cursor: pointer;" ></image>
-            </div>
-        </header>
+      
 
         <!--Main Containers-->
 
 
-<div class="main-container">
 
-    <div class="dash" id="dashboard">
-        <h1>Dashboard</h1>
-      
-       
+
+
+        <div class="main-container">
+
+
+
+            <header class="header">
+                <h2 id="titlename">Dashboard</h2>
+                <div class="header-right">
+                    <div class="user-avatar">
+                        <img src="../../User/images/icons/profile.png" alt="User" width="32px">
+                    </div>
+                    |<image onclick="openModal()" src="../images/logos/categories.png" width="30px"
+                        style="cursor: pointer;"></image>
+                </div>
+            </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- DASHBOARD -->
+            <div class="dash" id="dashboard">
+
+
+                <div class="stat-card">
+                    <img src="../images/logos/p1.png" alt="Study Rooms">
+                    <h2 id="study-rooms">2</h2>
+                    <p>Study Rooms</p>
+                </div>
+                <div class="stat-card">
+                    <img src="../images/logos/p2.png" alt="Upcoming Bookings">
+                    <h2 id="bookings">5</h2>
+                    <p>Upcoming Bookings</p>
+                </div>
+                <div class="stat-card">
+                    <img src="../images/logos/p3.png" alt="Occupied Rooms">
+                    <h2 id="occupied-rooms">1</h2>
+                    <p>Occupied Rooms</p>
+                </div>
+        
+
+                <div class="calendar-container">
+                    <h2>Calendar</h2>
+                    <div class="calendar-header">
+                        <button id="prev-month">←</button>
+                        <h3 id="month-title">March 2025</h3>
+                        <button id="next-month">→</button>
+                    </div>
+                
+                    <div class="calendar-grid">
+                        <div class="day-name">SUN</div>
+                        <div class="day-name">MON</div>
+                        <div class="day-name">TUE</div>
+                        <div class="day-name">WED</div>
+                        <div class="day-name">THU</div>
+                        <div class="day-name">FRI</div>
+                        <div class="day-name">SAT</div>
+                    </div>
+                
+                    <div class="calendar-grid" id="calendar-days"></div>
+                
+                    <div class="legend">
+                        <span class="reserved"></span> Fully Booked
+                        <span class="partially-reserved"></span> Booked
+                    </div>
+                    <br>
+                    <br>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="real-time-activity-container">
+                    <div class="activity-header">
+                        <h2>Real-Time Activity</h2>
+                        <button id="refresh-activity" title="Refresh">⟳</button>
+                    </div>
+                    <div class="activity-list" id="activity-list">
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Vic Lawson didn’t show up.
+                        </div>
+                        <div class="activity-item ">
+                            <span class="icon">💡</span> Maria Brenen has booked a Study Room.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Vic Lawson didn’t show up.
+                        </div>
+                        <div class="activity-item ">
+                            <span class="icon">💡</span> Maria Brenen has booked a Study Room.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">💡</span> Christian Doong has entered the Study Room 1.
+                        </div>
+                    </div>
+                   
+                </div>
+
+
+
+
+
+
+                <br>
+                <br>
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- ROOMS -->
+
+            <div class="Rooms" id="rooms">
+                <h1>Rooms</h1>
+
+                <BR>
+                <h1>WALA PANG LAMAN MAG BUHAT PAH</h1>
+            </div>
+
+
+
+
+
+
+            <!-- BOOK -->
+            <div class="Booking" id="Booking">
+                <h1>Booking</h1>
+                <BR>
+                <h1>WALA PANG LAMAN MAG BUHAT PAH</h1>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="Rooms" id="rooms">
-        <h1>Rooms</h1>
-
-        <BR>
-            <h1>WALA PANG LAMAN MAG BUHAT PAH</h1>
-    </div>
-
-
-
-
-
-
-
-    <div class="Booking" id="Booking">
-        <h1>Booking</h1>
-        <BR>
-            <h1>WALA PANG LAMAN MAG BUHAT PAH</h1>
-    </div>
-
-
-
-
-
-
-
-
-    <div class="reports" id="reports">
-        <h1>Reports</h1>
-        <BR>
-            <h1>WALA PANG LAMAN MAG BUHAT PAH</h1>
-    </div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
 
 
 
@@ -286,27 +436,27 @@
         function closeModal() {
             document.getElementById("profileModal").style.display = "none";
         }
-       
+
     </script>
 
 
 
 
-<div class="popup" id="loadingPopup">
-    <div class="popup-content">
-        <p>Please Wait a Moment....</p>
-        <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+    <div class="popup" id="loadingPopup">
+        <div class="popup-content">
+            <p>Please Wait a Moment....</p>
+            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+        </div>
     </div>
-</div>
 
-<script>
-    function showLoading(redirectUrl) {
-        document.getElementById('loadingPopup').style.display = 'flex';
-        setTimeout(() => {
-            window.location.href = redirectUrl;
-        }, 3000);
-    }
-</script>
+    <script>
+        function showLoading(redirectUrl) {
+            document.getElementById('loadingPopup').style.display = 'flex';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 3000);
+        }
+    </script>
 
 
 
