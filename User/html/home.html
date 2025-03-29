@@ -316,10 +316,8 @@
     overlay.classList.add("active");
     document.body.style.overflow = "hidden";
 
-    // Set a flag in localStorage (so Schedule.html knows to display the divs)
     localStorage.setItem("showBookingDetails", "true");
 
-    // Store the booking confirmation flag for styling in schedule.html
     localStorage.setItem("bookingConfirmed", "true");
 
     setTimeout(() => {

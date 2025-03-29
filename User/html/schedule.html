@@ -162,7 +162,6 @@
             return;
         }
 
-        // Make yourSchedule globally accessible
         window.yourSchedule = {
             "2025-03-24": { backgroundColor: "#006CFD", color: "white", borderRadius: "100px" }
         };
@@ -173,7 +172,6 @@
             "2025-03-19": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" }
         };
 
-        // Check if the user has confirmed a booking
         var bookingConfirmed = localStorage.getItem("bookingConfirmed") === "true";
 
         window.myCalendar = new FullCalendar.Calendar(calendarEl, {
@@ -193,14 +191,12 @@
                 console.log("Cell Date:", dateStr);
 
                 if (bookingConfirmed && window.yourSchedule[dateStr]) {
-                    // Apply "yourSchedule" styles only if confirmed
                     let style = window.yourSchedule[dateStr];
                     info.el.style.backgroundColor = style.backgroundColor;
                     info.el.style.color = style.color;
                     info.el.style.borderRadius = style.borderRadius;
                     info.el.style.cursor = "pointer";
                 } else if (occupiedDates[dateStr]) {
-                    // Apply occupied dates styles
                     let style = occupiedDates[dateStr];
                     info.el.style.backgroundColor = style.backgroundColor;
                     info.el.style.color = style.color;
@@ -232,16 +228,13 @@
     // Function to cancel booking (removes flag and resets styles)
     function cancelBookingDate() {
         localStorage.removeItem("bookingConfirmed");
+        window.yourSchedule = {};
 
-        // Remove scheduled styles
-        window.yourSchedule = {}; // Clears the booked date styles
-
-        // Re-render the calendar to reflect changes
         if (window.myCalendar) {
             window.myCalendar.render();
         }
 
-        location.reload(); // Reload UI completely
+        location.reload();
     }
 </script>
 
@@ -271,7 +264,7 @@
         if (noBooking) noBooking.style.display = "block";
 
         localStorage.removeItem("showBookingDetails");
-        cancelBookingDate(); // Call the cancelBooking function to reset styles
+        cancelBookingDate();
     }
 </script>
 
