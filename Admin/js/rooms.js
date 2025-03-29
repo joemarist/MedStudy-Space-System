@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
 
             <div class="r3">
-                <div class="ts">
+                <div class="ts" id="room-edit-open">
                     <img src="../images/logos/edit.png" width="30px">
                 </div>
                 <br><br><br><br><br><br><br><br><br><br>
@@ -333,4 +333,30 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("room-edit-close").addEventListener("click", function () {
         document.getElementById("room-edit-overlay").style.display = "none";
     });
-});
+}); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
