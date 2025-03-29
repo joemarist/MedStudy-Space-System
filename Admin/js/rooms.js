@@ -286,3 +286,31 @@ document.getElementById("room_popup_image_input").addEventListener("change", fun
         reader.readAsDataURL(file);
     }
 });
+
+
+
+let selectedRoom = null; // Store the room that is being edited
+
+document.addEventListener("DOMContentLoaded", function () {
+    // When the edit button is clicked, store the room reference
+    document.querySelectorAll("#room-edit-open").forEach(button => {
+        button.addEventListener("click", function () {
+            selectedRoom = this.closest(".room-holder"); // Find the closest room-holder
+            document.getElementById("room-edit-overlay").style.display = "flex"; // Show the popup
+        });
+    });
+
+    // When the delete button in the popup is clicked
+    document.querySelector(".room-edit-btn-delete").addEventListener("click", function () {
+        if (selectedRoom) {
+            selectedRoom.remove(); // Remove the room from the DOM
+            selectedRoom = null; // Reset the reference
+        }
+        document.getElementById("room-edit-overlay").style.display = "none"; // Close the popup
+    });
+
+    // Close button for the popup
+    document.getElementById("room-edit-close").addEventListener("click", function () {
+        document.getElementById("room-edit-overlay").style.display = "none";
+    });
+});
