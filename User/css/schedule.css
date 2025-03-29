@@ -22,6 +22,9 @@
     border-radius: 100px;
     width: 40%;
 }
+.bookingInformation{
+    display: none;
+}
 .studyRoomInfo{
     color: #014E6F;
     font-weight: bold;
@@ -128,11 +131,14 @@
     text-align: center;
     align-content: center;
 }
-.bookingContainer img{
+.bookingDetails{
+    display: none;
+}
+.bookingDetails img{
     width: 50%;
     border-radius: 10px;
 }
-.bookingContainer button{
+.bookingDetails button{
     border-radius: 10px;
     color: white;
     background-color: #52BBBF;
@@ -140,7 +146,21 @@
     padding: 3% 4%;
     border: 0;
 }
-.bookingContainer button:hover{
+.bookingDetails button:hover{
+    cursor: pointer;
+    background-color: #4ca9ac;
+}
+
+/*No Booking*/
+.noBooking button{
+    background-color: #52BBBF;
+    color: white;
+    border-radius: 10px;
+    font-size: 16pt;
+    padding: 3% 4%;
+    border: 0;
+}
+.noBooking button:hover{
     cursor: pointer;
     background-color: #4ca9ac;
 }

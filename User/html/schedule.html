@@ -40,33 +40,35 @@
                 <p>Student Full Name</p>
                 <h2>Student Check-in</h2>
             </div>
-            <div class="studyRoomInfo">
-                <h1>Study Room 1</h1>
-                <div class="roomDescription">
-                    <img src="..\images\icons\crowd-of-users.png" alt="">
-                    <span>5 students</span>
-                </div>
-                <div class="roomDescription">
+            <div class="bookingInformation" id="bookingInformation">
+                <div class="studyRoomInfo">
+                    <h1>Study Room 1</h1>
                     <div class="roomDescription">
-                        <img src="..\images\icons\swivel-chair.png" alt="">
-                        <span>5 chairs</span>
+                        <img src="..\images\icons\crowd-of-users.png" alt="">
+                        <span>5 students</span>
+                    </div>
+                    <div class="roomDescription">
+                        <div class="roomDescription">
+                            <img src="..\images\icons\swivel-chair.png" alt="">
+                            <span>5 chairs</span>
+                        </div>
+                    </div>
+                    <div class="roomDescription">
+                        <div class="roomDescription">
+                            <img src="..\images\icons\table.png" alt="">
+                            <span>1 table</span>
+                        </div>
                     </div>
                 </div>
-                <div class="roomDescription">
-                    <div class="roomDescription">
-                        <img src="..\images\icons\table.png" alt="">
-                        <span>1 table</span>
-                    </div>
+                <div class="scanRoom" onclick="location.href='/User/html/scanner.html'">
+                    <img src="/User/images/icons/scanner.png" alt="">
+                    <span>
+                    <p>
+                        <span><b>Scan Your Room</b></span><br>
+                        Note: Scan the QR code of the Study Room to unlock the door. Access is only granted during your reserved time.
+                    </p>
+                    </span>
                 </div>
-            </div>
-            <div class="scanRoom" onclick="location.href='/User/html/scanner.html'">
-                <img src="/User/images/icons/scanner.png" alt="">
-                <span>
-                <p>
-                    <span><b>Scan Your Room</b></span><br>
-                    Note: Scan the QR code of the Study Room to unlock the door. Access is only granted during your reserved time.
-                </p>
-                </span>
             </div>
         </div>
 
@@ -89,10 +91,17 @@
         </div>
 
         <div class="bookingContainer">
-            <img src="/User/images/icons/studyRoom2.jpg" alt="">
-            <h1>Study Room 1</h1>
-            <p>March 22, 2025: 8:00 AM - 10:00 AM</p> <br>
-            <button>Cancel Book</button>
+            <div class="bookingDetails" id="bookingDetails">
+                <img src="/User/images/icons/studyRoom2.jpg" alt="">
+                <h1>Study Room 1</h1>
+                <p>March 24, 2025: 8:00 AM - 10:00 AM</p> <br>
+                <button onclick="cancelBooking()">Cancel Book</button>
+            </div>
+            <div class="noBooking" id="noBooking">
+                <img src="/User/images/icons/information2.png" alt="">
+                <p>You haven't book yet.</p>
+                <button onclick="location.href='/User/html/home.html#studyRoom'">Book a Room</button>
+            </div>
         </div>
     </div>
 
@@ -143,17 +152,128 @@
     </div>
 
 
-    <!--Calendar-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Default view (month)
-                
-            });
-            calendar.render();
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+
+        if (!calendarEl) {
+            console.error("Error: Calendar element not found.");
+            return;
+        }
+
+        // Make yourSchedule globally accessible
+        window.yourSchedule = {
+            "2025-03-24": { backgroundColor: "#006CFD", color: "white", borderRadius: "100px" }
+        };
+
+        var occupiedDates = {
+            "2025-03-21": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" },
+            "2025-03-20": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" },
+            "2025-03-19": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" }
+        };
+
+        // Check if the user has confirmed a booking
+        var bookingConfirmed = localStorage.getItem("bookingConfirmed") === "true";
+
+        window.myCalendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: "dayGridMonth",
+            height: "auto",
+            contentHeight: "auto",
+            expandRows: true,
+            headerToolbar: {
+                left: "prev,next today",
+                center: "title",
+                right: ""
+            },
+
+            dayCellDidMount: function (info) {
+                let dateStr = info.date.toLocaleDateString("en-CA");
+
+                console.log("Cell Date:", dateStr);
+
+                if (bookingConfirmed && window.yourSchedule[dateStr]) {
+                    // Apply "yourSchedule" styles only if confirmed
+                    let style = window.yourSchedule[dateStr];
+                    info.el.style.backgroundColor = style.backgroundColor;
+                    info.el.style.color = style.color;
+                    info.el.style.borderRadius = style.borderRadius;
+                    info.el.style.cursor = "pointer";
+                } else if (occupiedDates[dateStr]) {
+                    // Apply occupied dates styles
+                    let style = occupiedDates[dateStr];
+                    info.el.style.backgroundColor = style.backgroundColor;
+                    info.el.style.color = style.color;
+                    info.el.style.borderRadius = style.borderRadius;
+                    info.el.style.cursor = "pointer";
+                } else {
+                    info.el.style.cursor = "pointer";
+                }
+            },
+
+            dateClick: function (info) {
+                let dateStr = info.date.toLocaleDateString("en-CA");
+
+                console.log("Clicked Date:", dateStr);
+
+                if (window.yourSchedule[dateStr]) {
+                    openBookOverlay();
+                } else if (occupiedDates[dateStr]) {
+                    openFullyBookedOverlay();
+                } else {
+                    openNotAvailableOverlay();
+                }
+            }
         });
-    </script>
+
+        window.myCalendar.render();
+    });
+
+    // Function to cancel booking (removes flag and resets styles)
+    function cancelBookingDate() {
+        localStorage.removeItem("bookingConfirmed");
+
+        // Remove scheduled styles
+        window.yourSchedule = {}; // Clears the booked date styles
+
+        // Re-render the calendar to reflect changes
+        if (window.myCalendar) {
+            window.myCalendar.render();
+        }
+
+        location.reload(); // Reload UI completely
+    }
+</script>
+
+<!-- For Scheduling -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const shouldShowBookingDetails = localStorage.getItem("showBookingDetails");
+
+        if (shouldShowBookingDetails === "true") {
+            const bookingDetails = document.getElementById("bookingDetails");
+            const bookingInformation = document.getElementById("bookingInformation");
+            const noBooking = document.getElementById("noBooking");
+
+            if (bookingDetails) bookingDetails.style.display = "block";
+            if (bookingInformation) bookingInformation.style.display = "block";
+            if (noBooking) noBooking.style.display = "none";
+        }
+    });
+
+    function cancelBooking() {
+        const bookingDetails = document.getElementById("bookingDetails");
+        const bookingInformation = document.getElementById("bookingInformation");
+        const noBooking = document.getElementById("noBooking");
+
+        if (bookingDetails) bookingDetails.style.display = "none";
+        if (bookingInformation) bookingInformation.style.display = "none";
+        if (noBooking) noBooking.style.display = "block";
+
+        localStorage.removeItem("showBookingDetails");
+        cancelBookingDate(); // Call the cancelBooking function to reset styles
+    }
+</script>
+
 </body>
 </html>

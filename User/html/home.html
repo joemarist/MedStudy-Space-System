@@ -308,19 +308,26 @@
 
     /*Confirm Book*/
     function confirmBook() {
-        closeBookConfirmationOverlay();
-        closeBookOverlay();
-        closeRoomOverlay();
-        const overlay = document.getElementById("bookConfirmedOverlay");
-            overlay.classList.add("active");
-            document.body.style.overflow = "hidden";
+    closeBookConfirmationOverlay();
+    closeBookOverlay();
+    closeRoomOverlay();
 
-            setTimeout(() => {
-                if (window.myCalendar) {
-                window.myCalendar.render();
-            }
-        }, 50);
-    }
+    const overlay = document.getElementById("bookConfirmedOverlay");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    // Set a flag in localStorage (so Schedule.html knows to display the divs)
+    localStorage.setItem("showBookingDetails", "true");
+
+    // Store the booking confirmation flag for styling in schedule.html
+    localStorage.setItem("bookingConfirmed", "true");
+
+    setTimeout(() => {
+        if (window.myCalendar) {
+            window.myCalendar.render();
+        }
+    }, 50);
+}
 
     /*Close Confirmed Book*/
     function closeConfirmedBook() {
@@ -378,6 +385,20 @@
         }
     });
     
+    </script>
+
+    <!--For Scrolling Behaviour-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.location.hash === "#studyRoom") {
+                var studyRoomsSection = document.getElementById("studyRoom");
+                if (studyRoomsSection) {
+                    setTimeout(() => {
+                        studyRoomsSection.scrollIntoView({ behavior: "smooth" });
+                    }, 500);
+                }
+            }
+        });
     </script>
 </body>
 </html>
