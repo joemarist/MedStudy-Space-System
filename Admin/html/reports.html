@@ -102,7 +102,7 @@
                             <img src="../images/Roomusage.png" alt="Room Usage">
                             <p>Room Usage</p>
                         </div>
-                        <div class="report_booking_trends">
+                        <div id="bookingtrends_openModal"       class="report_booking_trends">
                             <img src="../images/booktrends.png" alt="Booking Trends" width="80%">
                             <p>Booking Trends</p>
                         </div>
@@ -192,7 +192,31 @@
 
 
 
-
+    <div id="bookingtrends_modal" class="bookingtrends_modal">
+        <div class="bookingtrends_modal-content">
+            <span class="bookingtrends_close">&times;</span>
+            <h2>Booking Trends</h2>
+            <hr>
+            <label for="bookingtrends_semester">Semester:</label>
+            <select id="bookingtrends_semester">
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+            </select>
+    
+            <label for="bookingtrends_filter">Filter by:</label>
+            <select id="bookingtrends_filter">
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+    
+            <canvas id="bookingtrends_chart"></canvas>
+    
+            <div class="bookingtrends_student-reserve">
+                <p>Total Student Reservers: <span id="bookingtrends_totalReservers">88</span></p>
+            </div>
+        </div>
+    </div>
+    
 
 
 

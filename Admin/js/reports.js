@@ -97,3 +97,72 @@ function change(){
         document.getElementById("title_room").innerHTML = "Study Room 4";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.getElementById("bookingtrends_openModal").addEventListener("click", function () {
+    document.getElementById("bookingtrends_modal").style.display = "block";
+});
+
+document.querySelector(".bookingtrends_close").addEventListener("click", function () {
+    document.getElementById("bookingtrends_modal").style.display = "none";
+});
+
+// Close modal if user clicks outside
+window.onclick = function (event) {
+    let modal = document.getElementById("bookingtrends_modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+// Chart.js functionality
+let ctx1 = document.getElementById("bookingtrends_chart").getContext("2d");
+
+let bookingTrendsChart = new Chart(ctx1, {
+    type: "bar",
+    data: {
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        datasets: [
+            {
+                label: "Reservations",
+                data: [30, 45, 50, 70, 90, 40, 25], // Example reservation data per day
+                backgroundColor: "#007bff"
+            },
+            {
+                label: "Non-Reservations",
+                data: [10, 15, 12, 20, 25, 18, 10], // Example non-reservation data
+                backgroundColor: "#ff6384"
+            },
+            {
+                label: "Cancelled",
+                data: [5, 7, 6, 8, 10, 4, 3], // Example cancelled reservations data
+                backgroundColor: "#36a2eb"
+            },
+            {
+                label: "Dropped",
+                data: [3, 5, 4, 6, 7, 3, 2], // Example dropped reservations data
+                backgroundColor: "#ffce56"
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
