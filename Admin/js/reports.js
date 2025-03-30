@@ -18,7 +18,7 @@ const reportChart = new Chart(ctx, {
     }
 });
 
-// Filter change event
+
 document.querySelector(".report_filter").addEventListener("change", function() {
     alert("Filter changed to: " + this.value);
 });
@@ -37,17 +37,17 @@ document.querySelector(".report_filter").addEventListener("change", function() {
 
 function openRoomUsage() {
     let modal = document.getElementById("roomUsageModal");
-    modal.style.display = "flex";  // Ensures modal is visible
-    modal.style.justifyContent = "center"; // Centers modal
+    modal.style.display = "flex";  
+    modal.style.justifyContent = "center"; 
     modal.style.alignItems = "center";
 }
 
-// Close Room Usage Modal
+
 function closeRoomUsage() {
     document.getElementById("roomUsageModal").style.display = "none";
 }
 
-// Sample Chart Data for Room Usage
+
 const roomCtx = document.getElementById("report_room_chart").getContext("2d");
 
 const reportRoomChart = new Chart(roomCtx, {
@@ -61,10 +61,10 @@ const reportRoomChart = new Chart(roomCtx, {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false,  // Allow better scaling
+        maintainAspectRatio: false,  
         plugins: {
             legend: {
-                position: 'bottom', // Move legend below
+                position: 'bottom',
                 labels: {
                     font: {
                         size: 14
@@ -74,7 +74,7 @@ const reportRoomChart = new Chart(roomCtx, {
         }
     }
 });
-// Close modal when clicking outside
+
 window.onclick = function(event) {
     let modal = document.getElementById("roomUsageModal");
     if (event.target == modal) {
@@ -119,7 +119,7 @@ document.querySelector(".bookingtrends_close").addEventListener("click", functio
     document.getElementById("bookingtrends_modal").style.display = "none";
 });
 
-// Close modal if user clicks outside
+
 window.onclick = function (event) {
     let modal = document.getElementById("bookingtrends_modal");
     if (event.target === modal) {
@@ -127,7 +127,7 @@ window.onclick = function (event) {
     }
 };
 
-// Chart.js functionality
+
 let ctx1 = document.getElementById("bookingtrends_chart").getContext("2d");
 
 let bookingTrendsChart = new Chart(ctx1, {
@@ -137,22 +137,22 @@ let bookingTrendsChart = new Chart(ctx1, {
         datasets: [
             {
                 label: "Reservations",
-                data: [30, 45, 50, 70, 90, 40, 25], // Example reservation data per day
+                data: [30, 45, 50, 70, 90, 40, 25], 
                 backgroundColor: "#007bff"
             },
             {
                 label: "Non-Reservations",
-                data: [10, 15, 12, 20, 25, 18, 10], // Example non-reservation data
+                data: [10, 15, 12, 20, 25, 18, 10], 
                 backgroundColor: "#ff6384"
             },
             {
                 label: "Cancelled",
-                data: [5, 7, 6, 8, 10, 4, 3], // Example cancelled reservations data
+                data: [5, 7, 6, 8, 10, 4, 3], 
                 backgroundColor: "#36a2eb"
             },
             {
                 label: "Dropped",
-                data: [3, 5, 4, 6, 7, 3, 2], // Example dropped reservations data
+                data: [3, 5, 4, 6, 7, 3, 2], 
                 backgroundColor: "#ffce56"
             }
         ]
