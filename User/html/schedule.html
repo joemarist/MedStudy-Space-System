@@ -37,7 +37,7 @@
         <div class="profileContainer">
             <div class="profile">
                 <img src="..\images\icons\black.jpg" alt="">
-                <p>Student Full Name</p>
+                <p>Kevin Luke A. Morant</p>
                 <h2>Student Check-in</h2>
             </div>
             <div class="bookingInformation" id="bookingInformation">
@@ -75,7 +75,7 @@
         <div class="calendarContainer">
             <H1>Scheduled Calendar</H1>
             <div class="calendarBody">
-                <img src="..\images\icons\notification.png" alt="">
+                <img src="..\images\icons\notification.png" alt="" onclick="openNotificationOverlay()">
                 <div id="calendar"></div>
                 <div class="legendForCalendar">
                     <div class="legend">
@@ -101,6 +101,59 @@
                 <img src="/User/images/icons/information2.png" alt="">
                 <p>You haven't book yet.</p>
                 <button onclick="location.href='/User/html/home.html#studyRoom'">Book a Room</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="notificationOverlay" id="notificationOverlay">
+        <div class="notificationBox">
+            <img src="/User/images/icons/close.png" alt="" onclick="closeNotificationOverlay()">
+            <div class="notificationContainer">
+                <h2>Notification</h2>
+                <div class="notificationSection">
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/notification.png" alt="">
+                        <span>
+                            <b>Booked Successfully</b> <br>
+                            You've successfully booked Study Room 1.
+                        </span>
+                    </div>
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <span>
+                            <b>Booking Has Been Void</b> <br>
+                            You did not show up in the booked date.
+                        </span>
+                    </div>
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/notification.png" alt="">
+                        <span>
+                            <b>Booked Successfully</b> <br>
+                            You've successfully booked Study Room 1.
+                        </span>
+                    </div>
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <span>
+                            <b>Booking Has Been Void</b> <br>
+                            You did not show up in the booked date.
+                        </span>
+                    </div>
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/notification.png" alt="">
+                        <span>
+                            <b>Booked Successfully</b> <br>
+                            You've successfully booked Study Room 1.
+                        </span>
+                    </div>
+                    <div class="notifPopUps">
+                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <span>
+                            <b>Booking Has Been Void</b> <br>
+                            You did not show up in the booked date.
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -266,6 +319,26 @@
         localStorage.removeItem("showBookingDetails");
         cancelBookingDate();
     }
+
+    /* Open Notification Overlay */
+function openNotificationOverlay() {
+    const overlay = document.getElementById("notificationOverlay");
+    overlay.style.display = "flex";
+    setTimeout(() => {
+        overlay.classList.add("active");
+    }, 10);
+    document.body.style.overflow = "hidden";
+}
+function closeNotificationOverlay() {
+    const overlay = document.getElementById("notificationOverlay");
+    overlay.classList.remove("active");
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 300);
+    document.body.style.overflow = "auto";
+}
+
 </script>
 
 </body>
