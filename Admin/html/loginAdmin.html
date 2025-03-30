@@ -90,19 +90,17 @@
             window.location.href = redirectUrl;
         }, 3000);
     } else {
-        // Apply red border if invalid, otherwise keep default color
         nameField.classList.toggle("error", !isNameValid);
         passField.classList.toggle("error", !isPassValid);
     }
 }
 
-// Remove the red border only if the input becomes valid
 document.getElementById("admin").addEventListener("input", function () {
-    this.classList.remove("error"); // Removes red border if user fixes input
+    this.classList.remove("error");
 });
 
 document.getElementById("password").addEventListener("input", function () {
-    this.classList.remove("error"); // Removes red border if user fixes input
+    this.classList.remove("error");
 });
 
     </script>

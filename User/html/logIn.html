@@ -94,10 +94,10 @@
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        eyeIcon.src = "/User/images/icons/eye.png"; // Show open eye
+        eyeIcon.src = "/User/images/icons/eye.png";
     } else {
         passwordField.type = "password";
-        eyeIcon.src = "/User/images/icons/hidden.png"; // Show hidden eye
+        eyeIcon.src = "/User/images/icons/hidden.png";
     }
 }
 
@@ -105,7 +105,6 @@ function toggleEyeVisibility() {
     const passwordField = document.getElementById("password");
     const eyeIcon = document.getElementById("eyeIcon");
 
-    // Show the eye icon only if there is text in the password field
     if (passwordField.value.length > 0) {
         eyeIcon.style.display = "block";
     } else {

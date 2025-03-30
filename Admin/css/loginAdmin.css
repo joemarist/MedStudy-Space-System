@@ -89,16 +89,16 @@ outline: 0;
 
 input {
     width: 100%;
-    padding-right: 40px; /* Space for the eye icon */
+    padding-right: 40px;
     color: #767676;
     font-size: 12pt;
     padding: 3% 2%;
     border: none;
-    border-bottom: 1px solid #014E6F; /* Always visible */
+    border-bottom: 1px solid #014E6F;
     outline: none;
 }
 input.error {
-    border-bottom: 2px solid red !important; /* Forces red on error */
+    border-bottom: 2px solid red !important;
 }
 
 .password-container img {
@@ -106,7 +106,7 @@ input.error {
     right: 10px;
     width: 20px;
     cursor: pointer;
-    display: none; /* Hidden by default */
+    display: none;
 }
 .logInForm a{
     text-decoration: none;
