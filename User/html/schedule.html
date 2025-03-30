@@ -36,7 +36,7 @@
     <div class="scheduling">
         <div class="profileContainer">
             <div class="profile">
-                <img src="..\images\icons\black.jpg" alt="">
+                <img src="..\images\icons\black.jpg" alt="" onclick="openProfileDetailsOverlay()">
                 <p>Kevin Luke A. Morant</p>
                 <h2>Student Check-in</h2>
             </div>
@@ -104,6 +104,48 @@
             </div>
         </div>
     </div>
+
+    <div class="profileDetailsOverlay" id="profileDetailsOverlay">
+        <div class="profileDetailsBox">
+            <h2>Account Details</h2>
+            <div class="profileDetailsContainer">
+                <div class="leftProfileDetails">
+                    <img id="profileImage" src="/User/images/icons/black.jpg" alt="Profile Picture">
+                    <div class="uploadPhoto" onclick="uploadImage()">
+                        <img src="/User/images/icons/image-.png" alt="">
+                        <span>Upload New Photo</span>
+                    </div>
+                    <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
+                </div>
+                <div class="rightProfileDetails">
+                    <div class="inputGroup">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="First Name">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" placeholder="Middle Name">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Last Name">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="contactNumber">Contact Number</label>
+                        <input type="text" id="contactNumber" placeholder="Contact Number">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="profileDetailsButtons">
+                <button onclick="closeProfileDetailsOverlay()">Cancel</button>
+                <button onclick="showLoading('schedule.html')">Save</button>
+            </div>
+        </div>
+    </div>    
 
     <div class="notificationOverlay" id="notificationOverlay">
         <div class="notificationBox">
@@ -301,6 +343,26 @@
     }
 </script>
 
+<!--Loading-->
+<div class="popup" id="loadingPopup">
+    <div class="popup-content">
+        <p>Please wait for a moment
+            <br><br>
+            Saving....
+        </p>
+        <img src="../images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+    </div>
+</div>
+<script>
+    function showLoading(redirectUrl) {
+        document.getElementById('loadingPopup').style.display = 'flex';
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 3000);
+        closeProfileDetailsOverlay();
+    }
+</script>
+
 <!-- For Scheduling -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -367,6 +429,47 @@ function closeBookCancelConfirmationOverlay() {
         overlay.style.display = "none";
     }, 300);
     document.body.style.overflow = "auto";
+}
+
+/*Profile Details Overlay*/
+function openProfileDetailsOverlay() {
+    const overlay = document.getElementById("profileDetailsOverlay");
+    overlay.style.display = "flex";
+    setTimeout(() => {
+        overlay.classList.add("active");
+    }, 10);
+    document.body.style.overflow = "hidden";
+}
+function closeProfileDetailsOverlay() {
+    const overlay = document.getElementById("profileDetailsOverlay");
+    overlay.classList.remove("active");
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 300);
+    document.body.style.overflow = "auto";
+}
+
+</script>
+
+<!--For Uploading New Photo-->
+<script>
+    function uploadImage() {
+    document.getElementById("imageUpload").click();
+}
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    if (file && file.type.startsWith("image/")) {
+        reader.onload = function(e) {
+            document.getElementById("profileImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Please upload a valid image file (PNG, JPG, JPEG).");
+    }
 }
 
 </script>

@@ -22,6 +22,9 @@
     border-radius: 100px;
     width: 40%;
 }
+.profile img:hover{
+    cursor: pointer;
+}
 .bookingInformation{
     display: none;
 }
@@ -296,4 +299,152 @@
     cursor: pointer;
     background-color: #4ca9ac;
     transition: 0.3s;
+}
+
+/* Profile Details Overlay */
+.profileDetailsOverlay {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.profileDetailsOverlay.active {
+    display: flex;
+    opacity: 1;
+}
+.profileDetailsBox {
+    background-color: white;
+    border-radius: 10px;
+    width: 45%;
+    padding: 2% 4%;
+    border: 3px solid #52BBBF;
+    color: #014E6F;
+    position: relative;
+    z-index: 10000;
+    font-size: 14pt;
+}
+.profileDetailsContainer {
+    display: flex;
+    gap: 5%;
+    border-top: 1px solid black;
+    padding: 3% 0%;
+}
+.leftProfileDetails {
+    flex: 30%;
+}
+.leftProfileDetails img {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.uploadPhoto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5390FE;
+    font-size: 12pt;
+    margin: 10% 0%;
+}
+.uploadPhoto:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.uploadPhoto img{
+    width: 15%;
+    border: 0;
+    margin: 0% 4%;
+}
+.rightProfileDetails {
+    flex: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+.inputGroup label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #014E6F;
+}
+.inputGroup input {
+    border: 1px solid #5390FE;
+    border-radius: 5px;
+    font-size: 12pt;
+    padding: 10px;
+    width: 100%;
+    outline: none;
+}
+.inputGroup input:focus {
+    border-color: #014E6F;
+}
+.inputGroup input::placeholder {
+    color: #999;
+}
+.profileDetailsButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profileDetailsButtons button{
+    margin: 1% 2%;
+    border: 0;
+    padding: 2% 4%;
+    width: 20%;
+    border-radius: 5px;
+    font-size: 12pt;
+    font-weight: bold;
+}
+.profileDetailsButtons button:hover{
+    cursor: pointer;
+}
+.profileDetailsButtons button:nth-child(1){
+    background-color: white;
+    border: 1px solid #5390FE;
+    color: #5390FE;
+}
+.profileDetailsButtons button:nth-child(2){
+    background-color: #5390FE;
+    color: white;
+}
+
+/*loading*/
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 10000;
+}
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.loading-image {
+    width: 64px;
+    height: 64px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
