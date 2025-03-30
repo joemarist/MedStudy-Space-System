@@ -27,8 +27,10 @@
             <form action="">
                 <input id="admin" type="email" name="email" placeholder="Email">
                 <br>
-                <input id="12345" type="password" name="password" placeholder="Password">
-                
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Password" oninput="toggleEyeVisibility()">
+                    <img id="eyeIcon" src="/Admin/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                </div>    
                 <br>
                 <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
                 <br><br>
@@ -42,43 +44,6 @@
             </form>
         </div>
     </div>
-    
-
-    <!--Loading-->
-    <div class="popup" id="loadingPopup">
-        <div class="popup-content">
-            <p>Please Wait a Moment....</p>
-            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
-        </div>
-    </div>
-    <script>
-        function showLoading(redirectUrl,num) {
-           let name = document.getElementById("admin").value;
-            let pass = document.getElementById("12345").value;
-
-
-            if(name == "admin" && pass == "12345" || num == 1){
-                document.getElementById('loadingPopup').style.display = 'flex';
-            setTimeout(() => {
-                    window.location.href = redirectUrl;
-            }, 3000);
-
-            }else{
-                if(name == null || name != "admin"){
-                    document.getElementById("admin").style.borderBottom = "2px solid red";
-                }else{
-                    document.getElementById("admin").style.borderBottom = "2px solid  #014E6F";
-                }
-                
-                if(pass != "12345" || pass == null){
-                    document.getElementById("12345").style.borderBottom = "2px solid red";
-                }else{
-                    document.getElementById("12345").style.borderBottom = "2px solid  #014E6F";
-                }
-            }
-
-        }
-    </script>
 
     <div class="forgetPassOverlay" id="forgetPassOverlay">
         <div class="forgetPassBox">
@@ -101,6 +66,74 @@
             </div>
         </div>
     </div>
+    
+    <!--Loading-->
+    <div class="popup" id="loadingPopup">
+        <div class="popup-content">
+            <p>Please Wait a Moment....</p>
+            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+        </div>
+    </div>
+    <script>
+        function showLoading(redirectUrl, num) {
+    let nameField = document.getElementById("admin");
+    let passField = document.getElementById("password");
+    let name = nameField.value.trim();
+    let pass = passField.value.trim();
+
+    let isNameValid = name === "admin";
+    let isPassValid = pass === "12345";
+
+    if (isNameValid && isPassValid || num === 1) {
+        document.getElementById('loadingPopup').style.display = 'flex';
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 3000);
+    } else {
+        // Apply red border if invalid, otherwise keep default color
+        nameField.classList.toggle("error", !isNameValid);
+        passField.classList.toggle("error", !isPassValid);
+    }
+}
+
+// Remove the red border only if the input becomes valid
+document.getElementById("admin").addEventListener("input", function () {
+    this.classList.remove("error"); // Removes red border if user fixes input
+});
+
+document.getElementById("password").addEventListener("input", function () {
+    this.classList.remove("error"); // Removes red border if user fixes input
+});
+
+    </script>
+
+    <!--Password Toggle Eye-->
+    <script>
+        function togglePassword() {
+    const passwordField = document.getElementById("password"); 
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.src = "/Admin/images/icons/eye.png";
+    } else {
+        passwordField.type = "password";
+        eyeIcon.src = "/Admin/images/icons/hidden.png";
+    }
+}
+
+function toggleEyeVisibility() {
+    const passwordField = document.getElementById("password"); 
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordField.value.length > 0) {
+        eyeIcon.style.display = "block";
+    } else {
+        eyeIcon.style.display = "none";
+    }
+}
+
+    </script>
 
     <!--Overlay Script-->
     <script>

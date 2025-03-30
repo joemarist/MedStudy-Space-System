@@ -67,6 +67,31 @@ body, html {overflow-y: hidden;
     border-style: solid;
     border-color: #014E6F;
 }
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+    color: #767676;
+    font-size: 12pt;
+    padding: 3% 2%;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: #014E6F;
+}
+
+.password-container img {
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
 .logInForm a{
     text-decoration: none;
     color: #272A3D;

@@ -95,7 +95,7 @@
                 <img src="/User/images/icons/studyRoom2.jpg" alt="">
                 <h1>Study Room 1</h1>
                 <p>March 24, 2025: 8:00 AM - 10:00 AM</p> <br>
-                <button onclick="cancelBooking()">Cancel Book</button>
+                <button onclick="openBookCancelConfirmationOverlay()">Cancel Book</button>
             </div>
             <div class="noBooking" id="noBooking">
                 <img src="/User/images/icons/information2.png" alt="">
@@ -154,6 +154,16 @@
                         </span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bookCancelConfirmationOverlay" id="bookCancelConfirmationOverlay">
+        <div class="bookCancelConfirmationBox">
+            <p>Do you want to cancel your schedule?</p>
+            <div>
+                <button onclick="closeBookCancelConfirmationOverlay()">No</button>
+                <button onclick="cancelBooking()">Yes</button>
             </div>
         </div>
     </div>
@@ -318,6 +328,7 @@
 
         localStorage.removeItem("showBookingDetails");
         cancelBookingDate();
+        closeBookCancelConfirmationOverlay();
     }
 
     /* Open Notification Overlay */
@@ -331,6 +342,25 @@ function openNotificationOverlay() {
 }
 function closeNotificationOverlay() {
     const overlay = document.getElementById("notificationOverlay");
+    overlay.classList.remove("active");
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 300);
+    document.body.style.overflow = "auto";
+}
+
+    /*Book Cancel Confirmation Overlay*/
+    function openBookCancelConfirmationOverlay() {
+    const overlay = document.getElementById("bookCancelConfirmationOverlay");
+    overlay.style.display = "flex";
+    setTimeout(() => {
+        overlay.classList.add("active");
+    }, 10);
+    document.body.style.overflow = "hidden";
+}
+function closeBookCancelConfirmationOverlay() {
+    const overlay = document.getElementById("bookCancelConfirmationOverlay");
     overlay.classList.remove("active");
 
     setTimeout(() => {

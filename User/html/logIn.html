@@ -29,7 +29,10 @@
                 <form action="">
                     <input type="email" name="email" placeholder="Email">
                     <br>
-                    <input type="password" name="password" placeholder="Password">
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" placeholder="Password" oninput="toggleEyeVisibility()">
+                        <img id="eyeIcon" src="/User/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                    </div>                   
                     <br>
                     <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
                     <br><br>
@@ -81,6 +84,35 @@
                 window.location.href = redirectUrl;
             }, 3000);
         }
+    </script>
+
+    <!--Password Toggle Eye-->
+    <script>
+        function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.src = "/User/images/icons/eye.png"; // Show open eye
+    } else {
+        passwordField.type = "password";
+        eyeIcon.src = "/User/images/icons/hidden.png"; // Show hidden eye
+    }
+}
+
+function toggleEyeVisibility() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    // Show the eye icon only if there is text in the password field
+    if (passwordField.value.length > 0) {
+        eyeIcon.style.display = "block";
+    } else {
+        eyeIcon.style.display = "none";
+    }
+}
+
     </script>
 
     <!--Overlay Script-->

@@ -71,7 +71,6 @@ outline: 0;
 
 .logInForm input{
     margin: 4% 0%;
-
     color: #767676;
     background-color: transparent;
     font-size: 12pt;
@@ -80,6 +79,34 @@ outline: 0;
     border-width: 0px 0px 1px 0px;
     border-style: solid;
     border-color: #014E6F;
+}
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+    color: #767676;
+    font-size: 12pt;
+    padding: 3% 2%;
+    border: none;
+    border-bottom: 1px solid #014E6F; /* Always visible */
+    outline: none;
+}
+input.error {
+    border-bottom: 2px solid red !important; /* Forces red on error */
+}
+
+.password-container img {
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
 }
 .logInForm a{
     text-decoration: none;
