@@ -29,7 +29,7 @@
                 <br>
                 <input id="12345" type="password" name="password" placeholder="Password">
                 <br>
-                <a href="">forgot password?</a>
+                <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
                 <br><br>
                 <button type="button" onclick="showLoading('dashboard.html',0)">Log In</button>
                 <br>
@@ -44,14 +44,12 @@
     
 
     <!--Loading-->
-
     <div class="popup" id="loadingPopup">
         <div class="popup-content">
             <p>Please Wait a Moment....</p>
             <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
         </div>
     </div>
-
     <script>
         function showLoading(redirectUrl,num) {
            let name = document.getElementById("admin").value;
@@ -79,6 +77,82 @@
             }
 
         }
+    </script>
+
+    <div class="forgetPassOverlay" id="forgetPassOverlay">
+        <div class="forgetPassBox">
+            <h2>Recover your password</h2>
+            <div class="recoverPass" id="recoverPass">
+                <p>
+                    Please enter your email so that we can send your password.
+                </p>
+                <input type="email" placeholder="Email">
+                <div class="recoverPassButtons">
+                    <button onclick="closeForgetPassOverlay()">Cancel</button>
+                    <button onclick="openSentEmail()">Send</button>
+                </div>
+            </div>
+            <div class="sentEmail" id="sentEmail">
+                <img src="/User/images/icons/sent.png" alt="">
+                <p>We have sent your password to your email.</p>
+                <br>
+                <button onclick="closeSentEmail()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Overlay Script-->
+    <script>
+        function openForgetPassOverlay() {
+            const overlay = document.getElementById("forgetPassOverlay");
+            overlay.style.display = "flex";
+            setTimeout(() => {
+                overlay.classList.add("active");
+            }, 10);
+            document.body.style.overflow = "hidden";
+        }
+        function closeForgetPassOverlay() {
+            const overlay = document.getElementById("forgetPassOverlay");
+            overlay.classList.remove("active");
+        
+            setTimeout(() => {
+                overlay.style.display = "none";
+            }, 300);
+            document.body.style.overflow = "auto";
+        }
+        
+        /*Succesfully sent email*/
+        function openSentEmail() {
+            const recoverPass = document.getElementById("recoverPass");
+            const sentEmail = document.getElementById("sentEmail");
+        
+            if (recoverPass) {
+                recoverPass.style.display = "none";
+            }
+            if (sentEmail) {
+                sentEmail.style.display = "block";
+                setTimeout(() => {
+                    sentEmail.classList.add("active");
+                }, 10);
+            }
+        
+            document.body.style.overflow = "hidden";
+        }
+        function closeSentEmail() {
+            closeForgetPassOverlay();
+        
+            const recoverPass = document.getElementById("recoverPass");
+            const sentEmail = document.getElementById("sentEmail");
+        
+            if (recoverPass) {
+                recoverPass.style.display = "block";
+            }
+            if (sentEmail) {
+                sentEmail.style.display = "none";
+                sentEmail.classList.remove("active");
+            }
+        }
+        
     </script>
 
     <!--Function for hotkey switch to Admin-->
