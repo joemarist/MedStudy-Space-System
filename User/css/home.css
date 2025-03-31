@@ -756,7 +756,7 @@ body, html{
 
 
 
-/* Responsive adjustments for medium screens (laptops, large tablets) */
+
 @media (max-width: 1000px) {
 
 
@@ -828,12 +828,12 @@ body, html{
     }
 }
 
-/* Adjustments for tablets and smaller screens */
+
 @media (max-width: 768px) {
 
 
     .rightNav button {
-        display: none; /* Hide the button in the navbar */
+        display: none; 
     }
 
     .logout-mobile {
@@ -901,21 +901,21 @@ body, html{
     }
 
     .navLinks a {
-        flex: 1; /* Makes links take equal space */
+        flex: 1; 
         text-align: center;
         font-size: 14pt;
         padding: 10px 0;
-        border-bottom: none; /* Remove underline effect */
+        border-bottom: none; 
     }
 
     .navLinks a:first-child {
-        border-right: 2px solid #ddd; /* Creates the || separator */
+        border-right: 2px solid #ddd; 
         padding-right: 10px;
     }
 
     
 
-    /* Align Home and Schedule properly */
+
     .navLinks {
         display: flex;
         flex-direction: column;
@@ -968,7 +968,7 @@ body, html{
     }
 }
 
-/* Remove introImage on Android-sized screens */
+
 @media (max-width: 480px) {
     .introImage {
         display: none;
