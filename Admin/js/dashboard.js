@@ -125,6 +125,8 @@ function titlechanges(num, element) {
 
         document.addEventListener("DOMContentLoaded", function () {
             const activityList = document.getElementById("activity-list");
+            const refreshButton = document.getElementById("refresh-activity");
+            
             const names = ["Christian Doong", "Vic Lawson", "Maria Brenen", "Lewis Anthony Godin", "Joshua Glen Garcia", "Emma Watson", "John Doe", "Jane Smith"];
             const actions = [
                 "has entered the Study Room 1.",
@@ -136,6 +138,15 @@ function titlechanges(num, element) {
                 "has checked in at the library."
             ];
         
+            let defaultActivities = [
+                '<span class="icon">💡</span> Christian Doong has entered the Study Room 1.',
+                '<span class="icon">💡</span> Vic Lawson didn’t show up.',
+                '<span class="icon">💡</span> Maria Brenen has booked a Study Room.',
+                '<span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.',
+                '<span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.'
+            ];
+            let latestActivities = [...defaultActivities];
+        
             function getRandomItem(array) {
                 return array[Math.floor(Math.random() * array.length)];
             }
@@ -143,18 +154,34 @@ function titlechanges(num, element) {
             function addActivity() {
                 const activityItem = document.createElement("div");
                 activityItem.classList.add("activity-item");
-                activityItem.innerHTML = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
+                const activityText = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
+                activityItem.innerHTML = activityText;
                 
                 // Insert the new activity at the top
                 activityList.prepend(activityItem);
+        
+                // Store latest activities
+                latestActivities.unshift(activityText);
+                if (latestActivities.length > 20) latestActivities.pop(); // Keep only the last 20 activities
             }
+        
+            function refreshActivity() {
+                activityList.innerHTML = "";
+                defaultActivities.forEach(activityText => {
+                    const activityItem = document.createElement("div");
+                    activityItem.classList.add("activity-item");
+                    activityItem.innerHTML = activityText;
+                    activityList.appendChild(activityItem);
+                });
+                latestActivities = [...defaultActivities];
+            }
+        
+            refreshButton.addEventListener("click", refreshActivity);
         
             // Add a new activity every 10 seconds
             setInterval(addActivity, 1000);
         });
         
-
-
 
 
 
@@ -196,6 +223,6 @@ function titlechanges(num, element) {
                 }
             }
         
-            setInterval(updateStats, 1000);
+            setInterval(updateStats, 3000);
         });
         
