@@ -283,7 +283,7 @@ body, html {overflow-y: hidden;
 
 
 
-/* Responsive Design with Scrollable Content */
+/* Responsive Design with Scrollable Content and Dynamic Font Sizes */
 
 @media screen and (max-width: 1024px) {
     body, html {
@@ -301,8 +301,8 @@ body, html {overflow-y: hidden;
     .welcomeImage img {
         width: 50%;
     }
-    .doctors img {
-        width: 100%;
+    .doctors {
+        display: none;
     }
     .logIn {
         flex: none;
@@ -313,14 +313,14 @@ body, html {overflow-y: hidden;
         width: 80%;
     }
     .logInForm h2 {
-        font-size: 20px;
+        font-size: 22px;
     }
     .logInForm input {
-        font-size: 16px;
+        font-size: 18px;
     }
     .logInForm button {
         width: 85%;
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
@@ -335,10 +335,10 @@ body, html {overflow-y: hidden;
         width: 90%;
     }
     .logInForm h2 {
-        font-size: 18px;
+        font-size: 20px;
     }
     .logInForm input {
-        font-size: 14px;
+        font-size: 16px;
         padding: 4% 2%;
     }
     .logInForm button {
@@ -347,6 +347,10 @@ body, html {overflow-y: hidden;
     }
     .forgetPassBox {
         width: 50%;
+        font-size: 14px;
+    }
+    .doctors {
+        display: none;
     }
 }
 
@@ -364,18 +368,22 @@ body, html {overflow-y: hidden;
         width: 95%;
     }
     .logInForm h2 {
-        font-size: 16px;
+        font-size: 18px;
     }
     .logInForm input {
-        font-size: 12px;
+        font-size: 14px;
         padding: 5% 2%;
     }
     .logInForm button {
         width: 90%;
-        font-size: 14px;
+        font-size: 12px;
     }
     .forgetPassBox {
         width: 60%;
+        font-size: 12px;
+    }
+    .doctors {
+        display: none;
     }
 }
 
@@ -393,7 +401,7 @@ body, html {overflow-y: hidden;
         width: 100%;
     }
     .logInForm h2 {
-        font-size: 14px;
+        font-size: 16px;
     }
     .logInForm input {
         font-size: 12px;
@@ -401,10 +409,14 @@ body, html {overflow-y: hidden;
     }
     .logInForm button {
         width: 100%;
-        font-size: 14px;
+        font-size: 10px;
     }
     .forgetPassBox {
         width: 75%;
+        font-size: 10px;
+    }
+    .doctors {
+        display: none;
     }
 }
 
@@ -422,7 +434,7 @@ body, html {overflow-y: hidden;
         width: 100%;
     }
     .logInForm h2 {
-        font-size: 12px;
+        font-size: 14px;
     }
     .logInForm input {
         font-size: 10px;
@@ -430,10 +442,14 @@ body, html {overflow-y: hidden;
     }
     .logInForm button {
         width: 100%;
-        font-size: 12px;
-        padding: 8px;
+        font-size: 10px;
+        padding: 6px;
     }
     .forgetPassBox {
         width: 85%;
+        font-size: 10px;
+    }
+    .doctors {
+        display: none;
     }
 }
