@@ -1,3 +1,6 @@
+
+
+
 @font-face {
     font-family: 'Roboto';
     src: url('fonts/Roboto-Regular.woff2') format('woff2'),
@@ -12,7 +15,7 @@ body, html{
     scroll-behavior: smooth;
 }
 
-/*Navigation Bar*/
+
 .navBar{
     display: flex;
     grid-template-columns: 70% 30%;
@@ -87,7 +90,7 @@ body, html{
     transition: 0.3s;
 }
 
-/*Header Intro*/
+
 .headerIntro{
     display: flex;
     grid-template-columns: 60% 40%;
@@ -133,7 +136,7 @@ body, html{
     margin: 2% auto;
 }
 
-/*Study Rooms*/
+
 .studyRooms{
     padding: 2% 4%;
 }
@@ -179,7 +182,7 @@ body, html{
 }
 
 
-/*Footer*/
+
 .footer{
     margin-top: 5%;
     background-color: #054970;
@@ -242,7 +245,7 @@ body, html{
     text-align: center;
 }
 
-/*Room Desciption Box*/
+
 .roomOverlay{
     visibility: hidden;
     opacity: 0;
@@ -334,11 +337,11 @@ body, html{
     width: 20%;
 }
 
-/*Calendar*/
+
 #calendar {
     width: 100%;
     height: 100%;
-    max-height: 100%; /* Prevent overflow */
+    max-height: 100%;
 }
 .fc {
     width: 100% !important;
@@ -721,6 +724,9 @@ body, html{
 }
 
 
+.logout-mobile{
+    display: none;
+}
 
 
 
@@ -735,3 +741,250 @@ body, html{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive adjustments for medium screens (laptops, large tablets) */
+@media (max-width: 1000px) {
+
+
+
+
+
+
+    .navBar {
+        grid-template-columns: 60% 40%;
+        padding: 1% 5%;
+    }
+
+    .navLinks a {
+        font-size: 13pt;
+        margin: 0 2%;
+    }
+
+    .introImage{
+        display: none;
+    }
+
+    .discover {
+        display: none;
+    }
+
+
+    .headerIntro {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .introInfo h1 {
+        font-size: 38pt;
+    }
+
+    .introInfo p {
+        font-size: 12pt;
+    }
+
+    .introInfo button {
+        font-size: 13pt;
+        padding: 10px 20px;
+    }
+
+    .introImage img {
+        width: 90%;
+    }
+
+    
+    .room {
+        width: 70%;
+    }
+    .mage{
+        width: 10%;
+    }
+
+    .roomInfo h3 {
+        font-size: 14pt;
+    }
+
+    .roomInfo button {
+        font-size: 12pt;
+        padding: 5px 15px;
+    }
+
+    .footer {
+        font-size: 12pt;
+    }
+}
+
+/* Adjustments for tablets and smaller screens */
+@media (max-width: 768px) {
+
+
+    .rightNav button {
+        display: none; /* Hide the button in the navbar */
+    }
+
+    .logout-mobile {
+        display: block;
+        bottom: 20px;
+        background-color: blue;
+        color: white;
+        padding: 12px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .logout-mobile:hover {
+        background-color: #3a9ea2;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .navBar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 5%;
+    }
+
+
+    .mage{
+        display: none;
+    }
+
+   .introImage{
+        display: none;
+    }
+
+    .discover {
+        display: none;
+    }
+
+    .leftNav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navLinks {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .navLinks a {
+        flex: 1; /* Makes links take equal space */
+        text-align: center;
+        font-size: 14pt;
+        padding: 10px 0;
+        border-bottom: none; /* Remove underline effect */
+    }
+
+    .navLinks a:first-child {
+        border-right: 2px solid #ddd; /* Creates the || separator */
+        padding-right: 10px;
+    }
+
+    
+
+    /* Align Home and Schedule properly */
+    .navLinks {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navLinks a {
+        width: 100%;
+        display: block;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .headerIntro {
+        flex-direction: column;
+        text-align: center;
+        padding: 5%;
+        gap: 20px;
+    }
+
+    .introInfo h1 {
+        font-size: 30pt;
+    }
+
+    .introInfo p {
+        font-size: 12pt;
+    }
+
+    .introInfo button {
+        font-size: 12pt;
+        padding: 8px 15px;
+    }
+
+    .introImage img {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+  
+    .footer {
+        text-align: center;
+        padding: 5%;
+    }
+
+    .topFooter {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Remove introImage on Android-sized screens */
+@media (max-width: 480px) {
+    .introImage {
+        display: none;
+    }
+
+    .introInfo h1 {
+        font-size: 25pt;
+    }
+
+    .introInfo p {
+        font-size: 10pt;
+    }
+
+   
+
+    .footer {
+        font-size: 10pt;
+    }
+}
