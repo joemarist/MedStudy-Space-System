@@ -66,3 +66,46 @@
     width: 90%;
     border: 0;
 }
+
+/*Responsive Code*/
+@media(max-width: 1024px){
+    .leftScanner h1{
+        font-size: 3vw;
+    }
+    .leftScanner img{
+        width: 25vw;
+    }
+    .roomDescription span{
+        font-size: 2vw;
+    }
+    .rightScanner button span{
+        font-size: 2vw;
+    }
+    .backButton img{
+        width: 5vw;
+    }
+}
+
+@media(max-width: 768px){
+    .rightScanner button{
+        padding: 3% 2%;
+    }
+    .scannerContainer{
+        display: block;
+    }
+    .leftScanner, .rightScanner{
+        margin: 5% 0%;
+    }
+    .leftScanner{
+        padding: 5% 8%;
+    }
+    .leftScanner h1{
+        font-size: 20pt;
+    }
+    .leftScanner img{
+        width: 40vw;
+    }
+    .rightScanner button span{
+        font-size: 3vw;
+    }
+}
