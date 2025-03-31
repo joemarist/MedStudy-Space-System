@@ -179,7 +179,7 @@ function titlechanges(num, element) {
             refreshButton.addEventListener("click", refreshActivity);
         
          
-            setInterval(addActivity, 1000);
+            setInterval(addActivity, 2000);
         });
         
 
@@ -223,6 +223,6 @@ function titlechanges(num, element) {
                 }
             }
         
-            setInterval(updateStats, 3000);
+            setInterval(updateStats, 5000);
         });
         
