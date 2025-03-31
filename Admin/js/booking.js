@@ -21,7 +21,7 @@ function closeBookingPopup() {
 
 
 
-let selectedBookingCard = null; // Store selected booking card
+let selectedBookingCard = null; 
 
 function openBookingPopup(element, firstName, middleName, lastName, contact, email, studyRoom, id, date) {
     document.getElementById('popup_firstname').value = firstName;
@@ -33,7 +33,7 @@ function openBookingPopup(element, firstName, middleName, lastName, contact, ema
     document.getElementById('popup_id').innerText = id;
     document.getElementById('popup_date').value = date;
 
-    selectedBookingCard = element; // Store the clicked booking card
+    selectedBookingCard = element; 
     document.getElementById('booking_popup_container').style.display = 'flex';
 }
 
@@ -53,8 +53,8 @@ function closeCancelPopup() {
 
 function confirmCancel() {
     if (selectedBookingCard) {
-        selectedBookingCard.remove(); // Remove the selected booking card
-        selectedBookingCard = null; // Reset selection
+        selectedBookingCard.remove(); 
+        selectedBookingCard = null;
     }
     closeBookingPopup();
     closeCancelPopup();

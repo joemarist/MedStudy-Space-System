@@ -111,3 +111,91 @@ function titlechanges(num, element) {
         nextMonthBtn.addEventListener("click", () => { if (++currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar(currentMonth, currentYear); });
         
         generateCalendar(currentMonth, currentYear);
+
+
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const activityList = document.getElementById("activity-list");
+            const names = ["Christian Doong", "Vic Lawson", "Maria Brenen", "Lewis Anthony Godin", "Joshua Glen Garcia", "Emma Watson", "John Doe", "Jane Smith"];
+            const actions = [
+                "has entered the Study Room 1.",
+                "has entered the Study Room 2.",
+                "has booked a Study Room.",
+                "didn’t show up.",
+                "left the Study Room.",
+                "is studying in the lounge.",
+                "has checked in at the library."
+            ];
+        
+            function getRandomItem(array) {
+                return array[Math.floor(Math.random() * array.length)];
+            }
+        
+            function addActivity() {
+                const activityItem = document.createElement("div");
+                activityItem.classList.add("activity-item");
+                activityItem.innerHTML = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
+                
+                // Insert the new activity at the top
+                activityList.prepend(activityItem);
+            }
+        
+            // Add a new activity every 10 seconds
+            setInterval(addActivity, 1000);
+        });
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const studyRooms = document.getElementById("study-rooms");
+            const bookings = document.getElementById("bookings");
+            const occupiedRooms = document.getElementById("occupied-rooms");
+            
+            const originalValues = {
+                studyRooms: parseInt(studyRooms.textContent, 10),
+                bookings: parseInt(bookings.textContent, 10),
+                occupiedRooms: parseInt(occupiedRooms.textContent, 10)
+            };
+        
+            function updateStats() {
+                let newStudyRooms = Math.floor(Math.random() * 50) + 1;
+                let newBookings = Math.floor(Math.random() * 50) + 1;
+                let newOccupiedRooms = Math.floor(Math.random() * 50) + 1;
+        
+                studyRooms.textContent = newStudyRooms;
+                bookings.textContent = newBookings;
+                occupiedRooms.textContent = newOccupiedRooms;
+        
+                if (newStudyRooms >= 50 || newBookings >= 50 || newOccupiedRooms >= 50) {
+                    setTimeout(() => {
+                        studyRooms.textContent = originalValues.studyRooms;
+                        bookings.textContent = originalValues.bookings;
+                        occupiedRooms.textContent = originalValues.occupiedRooms;
+                    }, 1000);
+                }
+            }
+        
+            setInterval(updateStats, 1000);
+        });
+        

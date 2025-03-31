@@ -199,7 +199,7 @@ input.error {
     100% { transform: rotate(360deg); }
 }
 
-/*Forget Password Overlay*/
+
 .forgetPassOverlay {
     display: none;
     opacity: 0;
