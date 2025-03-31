@@ -157,12 +157,12 @@ function titlechanges(num, element) {
                 const activityText = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
                 activityItem.innerHTML = activityText;
                 
-                // Insert the new activity at the top
+               
                 activityList.prepend(activityItem);
         
-                // Store latest activities
+             
                 latestActivities.unshift(activityText);
-                if (latestActivities.length > 20) latestActivities.pop(); // Keep only the last 20 activities
+                if (latestActivities.length > 20) latestActivities.pop(); 
             }
         
             function refreshActivity() {
@@ -178,7 +178,7 @@ function titlechanges(num, element) {
         
             refreshButton.addEventListener("click", refreshActivity);
         
-            // Add a new activity every 10 seconds
+         
             setInterval(addActivity, 1000);
         });
         
