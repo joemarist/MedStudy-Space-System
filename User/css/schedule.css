@@ -451,6 +451,30 @@
 
 /*Responsive Code*/
 @media(max-width: 1024px){
+    .legend span{
+        font-size: 1vw;
+    }
+    .fc .fc-button{
+        font-size: 1.5vw;
+    }
+    .bookingDetails h1{
+        font-size: 3vw;
+    }
+    .bookingDetails p{
+        font-size: 1.5vw;
+    }
+    .bookingDetails button{
+        font-size: 2vw;
+    }
+    .calendarContainer h1{
+        font-size: 3vw;
+    }
+    .profile p{
+        font-size: 2vw;
+    }
+    .profile h2{
+        font-size: 2.5vw;
+    }
     .studyRoomInfo h1{
         font-size: 3vw;
     }
@@ -471,5 +495,41 @@
 @media(max-width: 768px){
     .bookingDetails h1{
         font-size: 3vw;
+    }
+    .fc table{
+        font-size: 1.5vw;
+    }
+}
+
+@media(max-width: 426px){
+    .scheduling {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .profileContainer, .bookingContainer{
+        padding: 5% 8%;
+    }
+    .profile p{
+        font-size: 4vw;
+    }
+    .profile h2{
+        font-size: 5vw;
+    }
+    .studyRoomInfo h1{
+        font-size: 6vw;
+    }
+    .roomDescription span{
+        font-size: 3vw;
+    }
+    .scanRoom img{
+        width: 20%;
+    }
+    .scanRoom span p span{
+        font-size: 5vw;
+    }
+    .scanRoom span p{
+        font-size: 2.3vw;
     }
 }
