@@ -737,26 +737,6 @@ body, html{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 1000px) {
 
 
@@ -830,6 +810,36 @@ body, html{
 
 
 @media (max-width: 768px) {
+
+    .roomBoxContainer{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "box1"
+                             "box2";
+        
+    }
+    .ga{
+        display: flex;
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+        height: 300px; /* Adjust as needed */
+        width: 300px;
+        border: 1px solid black;
+    }
+
+    .rightRoom {
+       grid-area: box2;
+    }
+
+    .leftRoom{
+        justify-items: center;
+       grid-area: box1;
+    }
+  
+    
+   
+
+
 
 
     .rightNav button {
@@ -973,10 +983,12 @@ body, html{
     .introImage {
         display: none;
     }
+    
 
     .introInfo h1 {
         font-size: 25pt;
     }
+
 
     .introInfo p {
         font-size: 10pt;
@@ -988,3 +1000,48 @@ body, html{
         font-size: 10pt;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
