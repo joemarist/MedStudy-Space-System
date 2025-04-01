@@ -450,3 +450,26 @@
 }
 
 /*Responsive Code*/
+@media(max-width: 1024px){
+    .studyRoomInfo h1{
+        font-size: 3vw;
+    }
+    .roomDescription{
+        font-size: 1.2vw;
+    }
+    .scanRoom span p span{
+        font-size: 2vw;
+    }
+    .scanRoom span p{
+        font-size: 1vw;
+    }
+    .fc .fc-toolbar-title{
+        font-size: 2vw;
+    }
+}
+
+@media(max-width: 768px){
+    .bookingDetails h1{
+        font-size: 3vw;
+    }
+}
