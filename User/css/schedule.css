@@ -204,7 +204,6 @@
     color: #014E6F;
     position: relative;
     z-index: 10000;
-    height: 50%;
 }
 .notificationBox img{
     float: right;
@@ -495,6 +494,25 @@
 }
 
 @media(max-width: 768px){
+    .notificationBox{
+        width: 60%;
+    }
+    .notificationBox img{
+        width: 4%;
+    }
+    .notificationContainer h2{
+        font-size: 3vw;
+    }
+    .notifPopUps img{
+        width: 8%;
+    }
+    .notifPopUps span{
+        font-size: 2vw;
+    }
+    .notificationSection{
+        max-height: 230px;
+    }
+
     .bookingDetails h1{
         font-size: 3vw;
     }

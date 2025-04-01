@@ -725,6 +725,7 @@ body, html{
 
 .logout-mobile{
     display: none;
+    color: #054970;
 }
 
 
@@ -838,8 +839,6 @@ body, html{
 
 
 @media (max-width: 768px) {
-
-
     .roomBox {
         overflow-y: auto;
         max-height: 80vh;
@@ -855,11 +854,13 @@ body, html{
     }
     .ga{
         display: flex;
-        justify-content: center; /* Centers horizontally */
-        align-items: center; /* Centers vertically */
-        height: 300px; /* Adjust as needed */
-        width: 300px;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
         border: 1px solid black;
+    }
+    #backArrow{
+        width: 8%;
     }
 
     .rightRoom {
@@ -878,25 +879,24 @@ body, html{
         display: none; 
     }
 
-    .logout-mobile {
-        display: block;
-        bottom: 20px;
-        background-color: blue;
-        color: white;
-        padding: 12px 10px;
-        font-size: 16px;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        text-align: center;
-        
-        max-width: 300px;
+    .logout-mobile{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        margin: 3% 5%;
+    }
+    .logout-mobile span{
+        font-weight: bold;
+        font-size: 2vw;
+    }
+    .logout-mobile img{
+        width: 5%;
+        margin: 0% 1%;
     }
 
     .logout-mobile:hover {
         cursor: pointer;
-        background-color: #1e5ddb;
-        transition: 0.3s;
+        text-decoration: underline;
     }
 
 
