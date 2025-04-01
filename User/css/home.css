@@ -838,6 +838,8 @@ body, html{
 
 
 @media (max-width: 768px) {
+
+
     .roomBox {
         overflow-y: auto;
         max-height: 80vh;
@@ -881,18 +883,20 @@ body, html{
         bottom: 20px;
         background-color: blue;
         color: white;
-        padding: 12px 24px;
+        padding: 12px 10px;
         font-size: 16px;
         border: none;
-        border-radius: 5px;
+        border-radius: 15px;
         cursor: pointer;
         text-align: center;
-        width: 90%;
+        
         max-width: 300px;
     }
 
     .logout-mobile:hover {
-        background-color: #3a9ea2;
+        cursor: pointer;
+        background-color: #1e5ddb;
+        transition: 0.3s;
     }
 
 
