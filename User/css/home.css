@@ -840,7 +840,7 @@ body, html{
 @media (max-width: 768px) {
     .roomBox {
         overflow-y: auto;
-        max-height: 80vh; /* Adjust for better usability */
+        max-height: 80vh;
         padding: 10px;
     }
 
@@ -971,15 +971,11 @@ body, html{
     .navLinks a {
         flex: 1; 
         text-align: center;
-        font-size: 14pt;
+        font-size: 2.5vw;
         padding: 10px 0;
         border-bottom: none; 
     }
 
-    .navLinks a:first-child {
-        border-right: 2px solid #ddd; 
-        padding-right: 10px;
-    }
 
     
 
@@ -997,6 +993,14 @@ body, html{
         display: block;
         padding: 8px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .navLinks a:hover{
+        background-color: #054970;
+        color: white;
+    }
+    .link.active{
+        background-color: #054970;
+        color: white;
     }
 
     .headerIntro {
@@ -1056,6 +1060,21 @@ body, html{
 
     .footer {
         font-size: 10pt;
+    }
+}
+
+@media (max-width:  426px){
+    .studyRooms h2{
+        font-size: 5vw;
+    }
+    .roomInfo h3{
+        font-size: 4vw;
+    }
+    .roomInfo span{
+        font-size: 3vw;
+    }
+    .roomInfo button{
+        font-size: 3vw;
     }
 }
 
