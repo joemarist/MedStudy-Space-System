@@ -26,17 +26,17 @@
                     <span>Login</span>
                     your account
                 </h2>
-                <form action="verify.php">
-                    <input type="email" name="email" placeholder="Email">
+                <form method="POST" action="verify.php">
+                    <input type="email" name="email" placeholder="Email" required>
                     <br>
                     <div class="password-container">
-                        <input type="password" id="password" name="password" placeholder="Password" oninput="toggleEyeVisibility()">
+                        <input type="password" id="password" name="password" placeholder="Password" oninput="toggleEyeVisibility()" required>
                         <img id="eyeIcon" src="User/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
                     </div>                   
                     <br>
                     <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
                     <br><br>
-                    <button type="button" onclick=" showLoading('User/html/home.html')">Log In</button>
+                    <button type="submit">Log In</button>
                     <br>
                     <p>OR</p>
                     <br>
