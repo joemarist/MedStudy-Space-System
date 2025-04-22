@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="..\css\schedule.css">
     <link rel="stylesheet" href="..\css\home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.min.css" />
-    <script src="/User/js/linkActive.js"></script>
+    <script src="..\js\linkActive.js"></script>
 </head>
 </head>
 <body>
@@ -29,12 +29,12 @@
             </div>
         </div>
         <div class="rightNav">
-            <button onclick="location.href='index.html'">Log out</button>
+            <button onclick="location.href='/MedStudy-Space-System/index.html'">Log out</button>
         </div>
     </div>
     <div align="right" class="logout-mobile">
         <!--<button class="logout-mobile" onclick="location.href='login.html'">Log out</button>-->
-        <img src="/User/images/icons/logout3.png" alt="" onclick="location.href='index.html'">
+        <img src="..\images\icons\logout3.png" alt="" onclick="location.href='/MedStudy-Space-System/index.html'">
         <span>Log out</span>
     </div>
     <div class="scheduling">
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="scanRoom" onclick="location.href='/User/html/scanner.html'">
-                    <img src="/User/images/icons/scanner.png" alt="">
+                <div class="scanRoom" onclick="location.href='scanner.html'">
+                    <img src="..\images\icons\scanner.png" alt="">
                     <span>
                     <p>
                         <span><b>Scan Your Room</b></span><br>
@@ -83,11 +83,11 @@
                 <div id="calendar"></div>
                 <div class="legendForCalendar">
                     <div class="legend">
-                        <img src="/User/images/icons/legendOccupied.png" alt="">
+                        <img src="..\images\icons\legendOccupied.png" alt="">
                         <span>Your Schedule</span>
                     </div>
                     <div class="legend">
-                        <img src="/User/images/icons/legendUnnoccupied.png" alt="">
+                        <img src="..\images\icons\legendUnnoccupied.png" alt="">
                         <span>Occupied</span>
                     </div>
                 </div>
@@ -96,15 +96,15 @@
 
         <div class="bookingContainer">
             <div class="bookingDetails" id="bookingDetails">
-                <img src="/User/images/icons/studyRoom2.jpg" alt="">
+                <img src="..\images\icons\studyRoom2.jpg" alt="">
                 <h1>Study Room 1</h1>
                 <p>March 24, 2025: 8:00 AM - 10:00 AM</p> <br>
                 <button onclick="openBookCancelConfirmationOverlay()">Cancel Book</button>
             </div>
             <div class="noBooking" id="noBooking">
-                <img src="/User/images/icons/information2.png" alt="">
+                <img src="..\images\icons\information2.png" alt="">
                 <p>You haven't book yet.</p>
-                <button onclick="location.href='/User/html/home.html#studyRoom'">Book a Room</button>
+                <button onclick="location.href='home.html#studyRoom'">Book a Room</button>
             </div>
         </div>
     </div>
@@ -114,9 +114,9 @@
             <h2>Account Details</h2>
             <div class="profileDetailsContainer">
                 <div class="leftProfileDetails">
-                    <img id="profileImage" src="/User/images/icons/black.jpg" alt="Profile Picture">
+                    <img id="profileImage" src="..\images\icons\black.jpg" alt="Profile Picture">
                     <div class="uploadPhoto" onclick="uploadImage()">
-                        <img src="/User/images/icons/image-.png" alt="">
+                        <img src="..\images\icons\image-.png" alt="">
                         <span>Upload New Photo</span>
                     </div>
                     <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
@@ -153,47 +153,47 @@
 
     <div class="notificationOverlay" id="notificationOverlay">
         <div class="notificationBox">
-            <img src="/User/images/icons/close.png" alt="" onclick="closeNotificationOverlay()">
+            <img src="..\images\icons\close.png" alt="" onclick="closeNotificationOverlay()">
             <div class="notificationContainer">
                 <h2>Notification</h2>
                 <div class="notificationSection">
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/notification.png" alt="">
+                        <img src="..\images\icons\notification.png" alt="">
                         <span>
                             <b>Booked Successfully</b> <br>
                             You've successfully booked Study Room 1.
                         </span>
                     </div>
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <img src="..\images\icons\warningNotif.png" alt="">
                         <span>
                             <b>Booking Has Been Void</b> <br>
                             You did not show up in the booked date.
                         </span>
                     </div>
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/notification.png" alt="">
+                        <img src="..\images\icons\notification.png" alt="">
                         <span>
                             <b>Booked Successfully</b> <br>
                             You've successfully booked Study Room 1.
                         </span>
                     </div>
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <img src="..\images\icons\warningNotif.png" alt="">
                         <span>
                             <b>Booking Has Been Void</b> <br>
                             You did not show up in the booked date.
                         </span>
                     </div>
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/notification.png" alt="">
+                        <img src="..\images\icons\notification.png" alt="">
                         <span>
                             <b>Booked Successfully</b> <br>
                             You've successfully booked Study Room 1.
                         </span>
                     </div>
                     <div class="notifPopUps">
-                        <img src="/User/images/icons/warningNotif.png" alt="">
+                        <img src="..\images\icons\warningNotif.png" alt="">
                         <span>
                             <b>Booking Has Been Void</b> <br>
                             You did not show up in the booked date.
@@ -230,8 +230,8 @@
             </div>
             <div class="infoCol">
                 <div><h2>Helpful Links</h2></div>
-                <a href="/User/html/home.html">Home</a> <br>
-                <a href="/User/html/schedule.html">Schedule</a>
+                <a href="..\html\home.html">Home</a> <br>
+                <a href="..\html\schedule.html">Schedule</a>
             </div>
             <div class="infoCol">
                 <div><h2>About Us</h2></div>
