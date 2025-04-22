@@ -29,7 +29,7 @@
                 <br>
                 <div class="password-container">
                     <input type="password" id="password" placeholder="Password" oninput="toggleEyeVisibility()">
-                    <img id="eyeIcon" src="/Admin/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                    <img id="eyeIcon" src="../../Admin/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
                 </div>    
                 <br>
                 <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="sentEmail" id="sentEmail">
-                <img src="/User/images/icons/sent.png" alt="">
+                <img src="../../User/images/icons/sent.png" alt="">
                 <p>We have sent your password to your email.</p>
                 <br>
                 <button onclick="closeSentEmail()">Back</button>
@@ -113,10 +113,10 @@ document.getElementById("password").addEventListener("input", function () {
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        eyeIcon.src = "/Admin/images/icons/eye.png";
+        eyeIcon.src = "../../Admin/images/icons/eye.png";
     } else {
         passwordField.type = "password";
-        eyeIcon.src = "/Admin/images/icons/hidden.png";
+        eyeIcon.src = "../../Admin/images/icons/hidden.png";
     }
 }
 
@@ -192,7 +192,7 @@ function toggleEyeVisibility() {
         document.addEventListener("keydown", function(event) {
         if (event.altKey && event.key.toLowerCase() === "a") {
             event.preventDefault();
-            window.location.href = "/User/html/login.html";
+            window.location.href = "/MedStudy-Space-System/index.html";
         }
         });
 
@@ -208,15 +208,6 @@ function toggleEyeVisibility() {
         this.type = "password";
     });
 });
-
-
-
-
-
-
-
-
-
 
     </script>
     

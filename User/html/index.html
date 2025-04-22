@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedStudy | Log In</title>
+    <link rel="stylesheet" href="..\css\logIn.css">
+    <link rel="icon" href="..\images\logos\medstudyLogo.png">
+</head>
+<body>
+    <div class="container">
+        <div class="welcomeImage">
+            <img src="..\images\logos\medstudyresized.png" alt="">
+            <br>
+            <br>
+            <span class="doctors">
+                <img src="..\images\logos\doctors.png" alt="">
+            </span>
+        </div>
+        <div class="logIn">
+            <h1>Hello</h1>
+            <span><h1>Welcome Back!</h1></span>
+
+            <div class="logInForm">
+                <h2>
+                    <span>Login</span>
+                    your account
+                </h2>
+                <form action="">
+                    <input type="email" name="email" placeholder="Email">
+                    <br>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" placeholder="Password" oninput="toggleEyeVisibility()">
+                        <img id="eyeIcon" src="/User/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                    </div>                   
+                    <br>
+                    <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
+                    <br><br>
+                    <button type="button" onclick=" showLoading('home.html')">Log In</button>
+                    <br>
+                    <p>OR</p>
+                    <br>
+                    <button id="googleSignInBtn" type="button">
+                        <img src="User/images/logos/google.png" alt="">
+                        <span>Log In with Google</span>
+                    </button>                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="forgetPassOverlay" id="forgetPassOverlay">
+        <div class="forgetPassBox">
+            <h2>Recover your password</h2>
+            <div class="recoverPass" id="recoverPass">
+                <p>
+                    Please enter your email so that we can send your password.
+                </p>
+                <input type="email" placeholder="Email">
+                <div class="recoverPassButtons">
+                    <button onclick="closeForgetPassOverlay()">Cancel</button>
+                    <button onclick="openSentEmail()">Send</button>
+                </div>
+            </div>
+            <div class="sentEmail" id="sentEmail">
+                <img src="/User/images/icons/sent.png" alt="">
+                <p>We have sent your password to your email.</p>
+                <br>
+                <button onclick="closeSentEmail()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Loading-->
+    <div class="popup" id="loadingPopup">
+        <div class="popup-content">
+            <p>Please Wait a Moment....</p>
+            <img src="../images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+        </div>
+    </div>
+    <script>
+        function showLoading(redirectUrl) {
+            document.getElementById('loadingPopup').style.display = 'flex';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 3000);
+        }
+    </script>
+
+    <!--Password Toggle Eye-->
+    <script>
+        function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.src = "/User/images/icons/eye.png";
+    } else {
+        passwordField.type = "password";
+        eyeIcon.src = "/User/images/icons/hidden.png";
+    }
+}
+
+function toggleEyeVisibility() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordField.value.length > 0) {
+        eyeIcon.style.display = "block";
+    } else {
+        eyeIcon.style.display = "none";
+    }
+}
+
+    </script>
+
+    <!--Overlay Script-->
+    <script>
+function openForgetPassOverlay() {
+    const overlay = document.getElementById("forgetPassOverlay");
+    overlay.style.display = "flex";
+    setTimeout(() => {
+        overlay.classList.add("active");
+    }, 10);
+    document.body.style.overflow = "hidden";
+}
+function closeForgetPassOverlay() {
+    const overlay = document.getElementById("forgetPassOverlay");
+    overlay.classList.remove("active");
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 300);
+    document.body.style.overflow = "auto";
+}
+
+/*Succesfully sent email*/
+function openSentEmail() {
+    const recoverPass = document.getElementById("recoverPass");
+    const sentEmail = document.getElementById("sentEmail");
+
+    if (recoverPass) {
+        recoverPass.style.display = "none";
+    }
+    if (sentEmail) {
+        sentEmail.style.display = "block";
+        setTimeout(() => {
+            sentEmail.classList.add("active");
+        }, 10);
+    }
+
+    document.body.style.overflow = "hidden";
+}
+function closeSentEmail() {
+    closeForgetPassOverlay();
+
+    const recoverPass = document.getElementById("recoverPass");
+    const sentEmail = document.getElementById("sentEmail");
+
+    if (recoverPass) {
+        recoverPass.style.display = "block";
+    }
+    if (sentEmail) {
+        sentEmail.style.display = "none";
+        sentEmail.classList.remove("active");
+    }
+}
+
+    </script>
+
+    <!--Function for hotkey switch to Admin-->
+    <script>
+        document.addEventListener("keydown", function(event) {
+        if (event.altKey && event.key.toLowerCase() === "a") {
+            event.preventDefault();
+            window.location.href = "/Admin/html/loginAdmin.html";
+        }
+        });
+    </script>
+
+</body>
+</html>

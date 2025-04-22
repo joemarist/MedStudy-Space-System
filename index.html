@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedStudy | Log In</title>
-    <link rel="stylesheet" href="..\css\logIn.css">
-    <link rel="icon" href="..\images\logos\medstudyLogo.png">
+    <link rel="stylesheet" href="User/css/logIn.css">
+    <link rel="icon" href="User/images/logos/medstudyLogo.png">
 </head>
 <body>
     <div class="container">
         <div class="welcomeImage">
-            <img src="..\images\logos\medstudyresized.png" alt="">
+            <img src="User/images/logos/medstudyresized.png" alt="">
             <br>
             <br>
             <span class="doctors">
-                <img src="..\images\logos\doctors.png" alt="">
+                <img src="User/images/logos/doctors.png" alt="">
             </span>
         </div>
         <div class="logIn">
@@ -26,23 +26,37 @@
                     <span>Login</span>
                     your account
                 </h2>
-                <form action="">
+                <form action="verify.php">
                     <input type="email" name="email" placeholder="Email">
                     <br>
                     <div class="password-container">
                         <input type="password" id="password" name="password" placeholder="Password" oninput="toggleEyeVisibility()">
-                        <img id="eyeIcon" src="/User/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                        <img id="eyeIcon" src="User/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
                     </div>                   
                     <br>
                     <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
                     <br><br>
-                    <button type="button" onclick=" showLoading('home.html')">Log In</button>
+                    <button type="button" onclick=" showLoading('User/html/home.html')">Log In</button>
                     <br>
                     <p>OR</p>
                     <br>
-                    <button type="button" onclick=" showLoading('home.html')"><img src="..\images\logos\google.png" alt="">
-                        <span>Log In with Google</span>
-                    </button>
+                    <!-- Google Sign-In Button -->
+                    <div id="g_id_onload"
+                    data-client_id="80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="redirect"
+                    data-login_uri="http://localhost/MedStudy-Space-System/verify.php"
+                    data-auto_prompt="false">
+                    </div>
+
+                    <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                    </div>
                 </form>
             </div>
         </div>
@@ -62,7 +76,7 @@
                 </div>
             </div>
             <div class="sentEmail" id="sentEmail">
-                <img src="/User/images/icons/sent.png" alt="">
+                <img src="User/images/icons/sent.png" alt="">
                 <p>We have sent your password to your email.</p>
                 <br>
                 <button onclick="closeSentEmail()">Back</button>
@@ -74,18 +88,34 @@
     <div class="popup" id="loadingPopup">
         <div class="popup-content">
             <p>Please Wait a Moment....</p>
-            <img src="../images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+            <img src="User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
         </div>
     </div>
     <script>
-        function showLoading(redirectUrl) {
-            document.getElementById('loadingPopup').style.display = 'flex';
+        function showLoadingPopupAndRedirect() {
+          const popup = document.getElementById("loadingPopup");
+          if (popup) {
+            popup.style.display = "flex";
             setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 3000);
+              window.location.href = "User/html/home.html";
+            }, 2000);
+          }
         }
+    
+        window.onload = function () {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("status") === "success") {
+            showLoadingPopupAndRedirect();
+          } else if (params.get("status") === "denied") {
+            alert("❌ Only @usep.edu.ph accounts are allowed.");
+          } else if (params.get("status") === "invalid") {
+            alert("❌ Invalid token or client ID.");
+          } else if (params.get("status") === "missing") {
+            alert("❌ No token received.");
+          }
+        };
     </script>
-
+        
     <!--Password Toggle Eye-->
     <script>
         function togglePassword() {
@@ -94,10 +124,10 @@
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        eyeIcon.src = "/User/images/icons/eye.png";
+        eyeIcon.src = "User/images/icons/eye.png";
     } else {
         passwordField.type = "password";
-        eyeIcon.src = "/User/images/icons/hidden.png";
+        eyeIcon.src = "User/images/icons/hidden.png";
     }
 }
 
@@ -116,7 +146,7 @@ function toggleEyeVisibility() {
 
     <!--Overlay Script-->
     <script>
-function openForgetPassOverlay() {
+    function openForgetPassOverlay() {
     const overlay = document.getElementById("forgetPassOverlay");
     overlay.style.display = "flex";
     setTimeout(() => {
@@ -173,10 +203,12 @@ function closeSentEmail() {
         document.addEventListener("keydown", function(event) {
         if (event.altKey && event.key.toLowerCase() === "a") {
             event.preventDefault();
-            window.location.href = "/Admin/html/loginAdmin.html";
+            window.location.href = "Admin/html/loginAdmin.html";
         }
         });
-    </script>
+    </script>  
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </body>
 </html>
