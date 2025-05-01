@@ -43,10 +43,14 @@ body, html {overflow-y: hidden;
     color: #3D4063;
     font-weight: bolder;
 }
+
 /*Log In form*/
 .logInForm{
     text-align: center;
-    margin: 15% auto;
+    margin-top: 5%;
+    margin-bottom: 15%;
+    margin-right: auto;
+    margin-left: auto;
     width: 60%;
 }
 .logInForm h2 span{

@@ -1,3 +1,7 @@
+<?php
+require_once 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,11 +24,6 @@
         <div class="logIn">
             <h1>Hello</h1>
             <span><h1>Welcome Back!</h1></span>
-
-            <span>
-                <p></p>
-            </span>
-
             <div class="logInForm">
                 <h2>
                     <span>Login</span>
