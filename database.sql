@@ -1,21 +1,25 @@
 CREATE DATABASE IF NOT EXISTS medstudy;
 USE medstudy;
 
+-- Table: user_accounts
 CREATE TABLE IF NOT EXISTS user_accounts (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(250) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(64) NOT NULL
 );
 
+-- Table: user_details
 CREATE TABLE IF NOT EXISTS user_details (
     user_id INT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(15),
-    profile_pic LONGBLOB,
+    email VARCHAR(250) NOT NULL,
+    profile_pic BLOB NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_accounts(user_id) ON DELETE CASCADE
 );
 
+-- Table: rooms
 CREATE TABLE IF NOT EXISTS rooms (
     room_id INT AUTO_INCREMENT PRIMARY KEY,
     room_name VARCHAR(250) NOT NULL,
@@ -26,6 +30,7 @@ CREATE TABLE IF NOT EXISTS rooms (
     room_qr_code LONGBLOB NOT NULL
 );
 
+-- Table: booking
 CREATE TABLE IF NOT EXISTS booking (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
