@@ -44,14 +44,14 @@ require_once 'config.php';
                     <p>OR</p>
                     <br>
                     <!-- Google Sign-In Button -->
-                    <div class="googleButton" style="display: flex; justify-content: center; align-items: center;">
-                        <div id="g_id_onload"
+                    <div id="g_id_onload"
                         data-client_id="80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com"
                         data-context="signin"
                         data-ux_mode="redirect"
                         data-login_uri="http://localhost/MedStudy-Space-System/verify.php"
-                        data-auto_prompt="false">
-                        </div>
+                        data-auto_prompt="false"
+                        data-scope="profile email">
+                    </div>
 
                         <div class="g_id_signin"
                         data-type="standard"
@@ -98,27 +98,32 @@ require_once 'config.php';
     </div>
     <script>
         function showLoadingPopupAndRedirect() {
-          const popup = document.getElementById("loadingPopup");
-          if (popup) {
+        const popup = document.getElementById("loadingPopup");
+        if (popup) {
             popup.style.display = "flex";
             setTimeout(() => {
-              window.location.href = "User/html/home.html";
+                window.location.href = "User/html/home.html";
             }, 2000);
-          }
         }
+}
+
     
         window.onload = function () {
-          const params = new URLSearchParams(window.location.search);
-          if (params.get("status") === "success") {
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("status") === "loading") {
             showLoadingPopupAndRedirect();
-          } else if (params.get("status") === "denied") {
+        } else if (params.get("status") === "success") {
+            showLoadingPopupAndRedirect();
+        } else if (params.get("status") === "denied") {
             alert("❌ Only @usep.edu.ph accounts are allowed.");
-          } else if (params.get("status") === "invalid") {
+        } else if (params.get("status") === "invalid") {
             alert("❌ Invalid token or client ID.");
-          } else if (params.get("status") === "missing") {
+        } else if (params.get("status") === "missing") {
             alert("❌ No token received.");
-          }
-        };
+        }
+    };
+
     </script>
         
     <!--Password Toggle Eye-->
