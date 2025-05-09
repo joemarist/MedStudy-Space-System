@@ -1,94 +1,104 @@
-.scheduling{
+.scheduling {
     display: flex;
     grid-template-columns: 30% 35% 35%;
     gap: 1%;
     margin: 5% 2%;
 }
 
-/*Profile*/
-.profileContainer{
+/* Profile */
+.profileContainer {
     flex: 30%;
     background-color: white;
     border-radius: 5px;
     padding: 3% 2%;
+    max-width: 30%;
+    box-sizing: border-box;
 }
-.profile{
+.profile {
     color: #4D6380;
+    max-width: 100%;
+    overflow: hidden;
 }
-.profile p{
+.profile p {
     font-size: 16pt;
 }
-.profile img{
+.profile img {
     border-radius: 100px;
-    width: 40%;
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    display: block;
 }
-.profile img:hover{
+.profile img:hover {
     cursor: pointer;
 }
-.bookingInformation{
+.bookingInformation {
     display: none;
 }
-.studyRoomInfo{
+.studyRoomInfo {
     color: #014E6F;
     font-weight: bold;
     padding: 2% 10%;
 }
-.roomDescription{
+.roomDescription {
     margin: 3% 0%;
 }
-.roomDescription img{
+.roomDescription img {
     width: 10%;
 }
-.roomDescription > img, .roomDescription > span{
+.roomDescription > img,
+.roomDescription > span {
     vertical-align: middle;
 }
-.scanRoom{
+.scanRoom {
     display: flex;
     align-items: center;
     justify-content: center;
     align-content: center;
-    color:#014E6F;
+    color: #014E6F;
     padding: 2% 4%;
     margin: 2% auto;
-    
 }
-.scanRoom:hover{
+.scanRoom:hover {
     cursor: pointer;
     background-color: rgb(217, 216, 216);
     border-radius: 10px;
     transition: 0.3s;
 }
-.scanRoom img{
+.scanRoom img {
     width: 50%;
     margin: 0% 2%;
 }
-.scanRoom p{
+.scanRoom p {
     font-size: 10pt;
 }
-.scanRoom p span{
+.scanRoom p span {
     font-size: 18pt;
 }
 
-
-/*Calendar*/
-.calendarContainer{
+/* Calendar */
+.calendarContainer {
     flex: 35%;
     text-align: center;
     border-radius: 5px;
 }
-.calendarContainer h1{
+.calendarContainer h1 {
     color: #014E6F;
 }
-#calendar{
+#calendar {
     margin: 5% 0%;
 }
-.calendarBody img{
+.calendarBody img {
     width: 5%;
 }
-.calendarBody img:hover{
+.calendarBody img:hover {
     cursor: pointer;
 }
-.calendarBody{
+.calendarBody {
     text-align: right;
     background-color: white;
     border-radius: 5px;
@@ -99,7 +109,7 @@
     font-size: 24px;
     font-weight: bold;
 }
-.fc-col-header-cell{
+.fc-col-header-cell {
     color: #014E6F;
 }
 .fc-daygrid-day {
@@ -111,26 +121,26 @@
     align-items: center;
     height: 100%;
 }
-.legendForCalendar{
+.legendForCalendar {
     text-align: left;
     color: #014E6F;
 }
-.legend span{
+.legend span {
     font-size: 10pt;
 }
-.legend{
+.legend {
     margin: 2% 0%;
 }
-.legend img{
+.legend img {
     width: 4%;
 }
-
-.legend > img, .legend > span{
+.legend > img,
+.legend > span {
     vertical-align: middle;
 }
 
-/*Booking*/
-.bookingContainer{
+/* Booking */
+.bookingContainer {
     flex: 35%;
     background-color: white;
     border-radius: 5px;
@@ -138,14 +148,14 @@
     text-align: center;
     align-content: center;
 }
-.bookingDetails{
+.bookingDetails {
     display: none;
 }
-.bookingDetails img{
+.bookingDetails img {
     width: 50%;
     border-radius: 10px;
 }
-.bookingDetails button{
+.bookingDetails button {
     border-radius: 10px;
     color: white;
     background-color: #52BBBF;
@@ -153,14 +163,14 @@
     padding: 3% 4%;
     border: 0;
 }
-.bookingDetails button:hover{
+.bookingDetails button:hover {
     cursor: pointer;
     background-color: #4ca9ac;
     transition: 0.3s;
 }
 
-/*No Booking*/
-.noBooking button{
+/* No Booking */
+.noBooking button {
     background-color: #52BBBF;
     color: white;
     border-radius: 10px;
@@ -168,13 +178,13 @@
     padding: 3% 4%;
     border: 0;
 }
-.noBooking button:hover{
+.noBooking button:hover {
     cursor: pointer;
     background-color: #4ca9ac;
     transition: 0.3s;
 }
 
-/*Notification Overlay*/
+/* Notification Overlay */
 .notificationOverlay {
     display: none;
     opacity: 0;
@@ -189,12 +199,10 @@
     align-items: center;
     z-index: 9999;
 }
-
 .notificationOverlay.active {
     display: flex;
     opacity: 1;
 }
-
 .notificationBox {
     background-color: white;
     border-radius: 10px;
@@ -205,11 +213,11 @@
     position: relative;
     z-index: 10000;
 }
-.notificationBox img{
+.notificationBox img {
     float: right;
     width: 5%;
 }
-.notificationBox img:hover{
+.notificationBox img:hover {
     cursor: pointer;
 }
 .notificationSection {
@@ -222,7 +230,6 @@
 .notificationSection::-webkit-scrollbar {
     width: 5px;
 }
-
 .notificationSection::-webkit-scrollbar-track {
     background: #f1f1f1;
     margin: 15px 0;
@@ -232,27 +239,24 @@
     background-color: #014E6F;
     border-radius: 4px;
 }
-.notificationSection::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-.notificationSection img{
+.notificationSection img {
     float: left;
     width: 10%;
     margin: 0% 2%;
 }
-.notifPopUps{
+.notifPopUps {
     display: flex;
     align-items: center;
     gap: 2%;
     padding: 3% 2%;
 }
-.notifPopUps:hover{
+.notifPopUps:hover {
     background-color: #e8e8e8;
     transition: 0.3s;
     cursor: pointer;
 }
 
-/*Book Cancel Confirmation Overlay*/
+/* Book Cancel Confirmation Overlay */
 .bookCancelConfirmationOverlay {
     display: none;
     opacity: 0;
@@ -267,12 +271,10 @@
     align-items: center;
     z-index: 9999;
 }
-
 .bookCancelConfirmationOverlay.active {
     display: flex;
     opacity: 1;
 }
-
 .bookCancelConfirmationBox {
     background-color: white;
     border-radius: 10px;
@@ -285,7 +287,7 @@
     text-align: center;
     font-size: 14pt;
 }
-.bookCancelConfirmationBox div button{
+.bookCancelConfirmationBox div button {
     font-size: 14pt;
     background-color: #52BBBF;
     color: white;
@@ -294,7 +296,7 @@
     padding: 2% 6%;
     margin: 2% 2%;
 }
-.bookCancelConfirmationBox div button:hover{
+.bookCancelConfirmationBox div button:hover {
     cursor: pointer;
     background-color: #4ca9ac;
     transition: 0.3s;
@@ -329,8 +331,8 @@
     position: relative;
     z-index: 10000;
     font-size: 14pt;
-    max-height: 90vh; /* Prevent it from exceeding the screen height */
-    overflow-y: auto; /* Enable scrolling inside the box */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .profileDetailsContainer {
     display: flex;
@@ -340,13 +342,21 @@
 }
 .leftProfileDetails {
     flex: 30%;
+    overflow: hidden;
 }
 .leftProfileDetails img {
-    width: 100%;
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
     border: 1px solid black;
     border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    display: block;
 }
-.uploadPhoto{
+.uploadPhoto {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -354,11 +364,11 @@
     font-size: 12pt;
     margin: 10% 0%;
 }
-.uploadPhoto:hover{
+.uploadPhoto:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.uploadPhoto img{
+.uploadPhoto img {
     width: 15%;
     border: 0;
     margin: 0% 4%;
@@ -392,12 +402,12 @@
 .inputGroup input::placeholder {
     color: #999;
 }
-.profileDetailsButtons{
+.profileDetailsButtons {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.profileDetailsButtons button{
+.profileDetailsButtons button {
     margin: 1% 2%;
     border: 0;
     padding: 2% 4%;
@@ -406,20 +416,20 @@
     font-size: 12pt;
     font-weight: bold;
 }
-.profileDetailsButtons button:hover{
+.profileDetailsButtons button:hover {
     cursor: pointer;
 }
-.profileDetailsButtons button:nth-child(1){
+.profileDetailsButtons button:nth-child(1) {
     background-color: white;
     border: 1px solid #5390FE;
     color: #5390FE;
 }
-.profileDetailsButtons button:nth-child(2){
+.profileDetailsButtons button:nth-child(2) {
     background-color: #5390FE;
     color: white;
 }
 
-/*loading*/
+/* Loading */
 .popup {
     position: fixed;
     top: 0;
@@ -446,205 +456,243 @@
     animation: spin 2s linear infinite;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-/*Responsive Code*/
-@media(max-width: 1024px){
-    .legend span{
+/* Responsive Code */
+@media (max-width: 1024px) {
+    .legend span {
         font-size: 1vw;
     }
-    .fc .fc-button{
+    .fc .fc-button {
         font-size: 1.5vw;
     }
-    .bookingDetails h1{
+    .bookingDetails h1 {
         font-size: 3vw;
     }
-    .bookingDetails p{
+    .bookingDetails p {
         font-size: 1.5vw;
     }
-    .bookingDetails button{
+    .bookingDetails button {
         font-size: 2vw;
     }
-    .calendarContainer h1{
+    .calendarContainer h1 {
         font-size: 3vw;
     }
-    .profile p{
+    .profile p {
         font-size: 2vw;
     }
-    .profile h2{
+    .profile h2 {
         font-size: 2.5vw;
     }
-    .studyRoomInfo h1{
+    .studyRoomInfo h1 {
         font-size: 3vw;
     }
-    .roomDescription{
+    .roomDescription {
         font-size: 1.2vw;
     }
-    .scanRoom span p span{
+    .scanRoom span p span {
         font-size: 2vw;
     }
-    .scanRoom span p{
+    .scanRoom span p {
         font-size: 1vw;
     }
-    .fc .fc-toolbar-title{
+    .fc .fc-toolbar-title {
         font-size: 2vw;
     }
 }
 
-@media(max-width: 768px){
-    .notificationBox{
+@media (max-width: 768px) {
+    .notificationBox {
         width: 60%;
     }
-    .notificationBox img{
+    .notificationBox img {
         width: 4%;
     }
-    .notificationContainer h2{
+    .notificationContainer h2 {
         font-size: 3vw;
     }
-    .notifPopUps img{
+    .notifPopUps img {
         width: 8%;
     }
-    .notifPopUps span{
+    .notifPopUps span {
         font-size: 2vw;
     }
-    .notificationSection{
+    .notificationSection {
         max-height: 230px;
     }
-
-    .bookingDetails h1{
+    .bookingDetails h1 {
         font-size: 3vw;
     }
-    .fc table{
+    .fc table {
         font-size: 1.5vw;
     }
     .profileDetailsContainer {
         flex-direction: column;
         align-items: center;
     }
-
     .leftProfileDetails,
     .rightProfileDetails {
         flex: 100%;
         width: 100%;
         text-align: center;
     }
-
     .leftProfileDetails img {
-        width: 50%;
+        width: 120px;
+        height: 120px;
+        max-width: 120px;
+        max-height: 120px;
     }
-
     .uploadPhoto {
         justify-content: center;
     }
-    .uploadPhoto span{
+    .uploadPhoto span {
         font-size: 2vw;
     }
-
     .rightProfileDetails {
         align-items: center;
         text-align: left;
         margin: 4% 0%;
     }
-    .rightProfileDetails label, .rightProfileDetails input::placeholder{
+    .rightProfileDetails label,
+    .rightProfileDetails input::placeholder {
         font-size: 2vw;
     }
     .profileDetailsBox {
         width: 80%;
         max-height: 85vh;
     }
-    .profileDetailsBox h2{
+    .profileDetailsBox h2 {
         font-size: 3.5vw;
     }
-    .uploadPhoto{
+    .uploadPhoto {
         margin: 5% 0%;
     }
-    .uploadPhoto img{
+    .uploadPhoto img {
         width: 5%;
         margin: 0% 2%;
     }
-    .profileDetailsButtons button{
+    .profileDetailsButtons button {
         font-size: 2vw;
+    }
+    .profile img {
+        width: 80px;
+        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+    .profileContainer {
+        max-width: 100%;
     }
 }
 
-@media(max-width: 426px){
+@media (max-width: 426px) {
     .scheduling {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
-    .profileContainer, .bookingContainer{
+    .profileContainer,
+    .bookingContainer {
         padding: 5% 8%;
+        max-width: 100%;
     }
-    .profile p{
+    .profile p {
         font-size: 4vw;
     }
-    .profile h2{
+    .profile h2 {
         font-size: 5vw;
     }
-    .studyRoomInfo h1{
+    .studyRoomInfo h1 {
         font-size: 6vw;
     }
-    .roomDescription span{
+    .roomDescription span {
         font-size: 3vw;
     }
-    .scanRoom img{
+    .scanRoom img {
         width: 20%;
     }
-    .scanRoom span p span{
+    .scanRoom span p span {
         font-size: 5vw;
     }
-    .scanRoom span p{
+    .scanRoom span p {
         font-size: 2.3vw;
     }
-    .calendarContainer h1{
+    .calendarContainer h1 {
         font-size: 5vw;
     }
-    .fc table{
+    .fc table {
         font-size: 3vw;
     }
-    .fc .fc-toolbar-title{
+    .fc .fc-toolbar-title {
         font-size: 4vw;
     }
-    .fc .fc-button{
+    .fc .fc-button {
         font-size: 3vw;
     }
-    .legend span{
+    .legend span {
         font-size: 2.8vw;
     }
-    .bookingDetails h1{
+    .bookingDetails h1 {
         font-size: 5.5vw;
     }
-    .bookingDetails p{
+    .bookingDetails p {
         font-size: 3vw;
     }
-    .bookingDetails button{
+    .bookingDetails button {
         font-size: 4vw;
     }
-
-    /*Overlays*/
-    .bookCancelConfirmationBox{
+    /* Overlays */
+    .bookCancelConfirmationBox {
         width: 55%;
     }
-    .bookCancelConfirmationBox p{
+    .bookCancelConfirmationBox p {
         font-size: 4vw;
     }
-    .bookCancelConfirmationBox div button{
+    .bookCancelConfirmationBox div button {
         font-size: 3.5vw;
     }
-    .profileDetailsBox{
+    .profileDetailsBox {
         width: 80%;
+    }
+    .profile img {
+        width: 60px;
+        height: 60px;
+        max-width: 60px;
+        max-height: 60px;
+    }
+    .leftProfileDetails img {
+        width: 100px;
+        height: 100px;
+        max-width: 100px;
+        max-height: 100px;
     }
 }
 
-@media(max-width: 376px){
-    .inputGroup input{
+@media (max-width: 376px) {
+    .inputGroup input {
         width: 90%;
     }
-    .inputGroup label, .inputGroup input::placeholder{
+    .inputGroup label,
+    .inputGroup input::placeholder {
         font-size: 2.5vw;
+    }
+    .profile img {
+        width: 50px;
+        height: 50px;
+        max-width: 50px;
+        max-height: 50px;
+    }
+    .leftProfileDetails img {
+        width: 80px;
+        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
     }
 }

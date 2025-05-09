@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 
 // Fetch user details
 $email = $_SESSION['email'];
-$stmt = $conn->prepare("SELECT ud.first_name, ud.last_name, ud.contact_number, ud.profile_pic 
+$stmt = $conn->prepare("SELECT ud.first_name, ud.last_name, ud.middle_name, ud.contact_number, ud.profile_pic 
                        FROM user_details ud 
                        JOIN user_accounts ua ON ud.user_id = ua.user_id 
                        WHERE ua.email = ?");
@@ -33,9 +33,11 @@ $conn->close();
 // Use session data as fallback
 $first_name = $user['first_name'] ?? $_SESSION['first_name'] ?? 'Firstname';
 $last_name = $user['last_name'] ?? $_SESSION['last_name'] ?? 'Lastname';
+$middle_name = $user['middle_name'] ?? $_SESSION['middle_name'] ?? '';
 $contact_number = $user['contact_number'] ?? '';
 $profile_pic = $user['profile_pic'] ? 'data:image/jpeg;base64,' . base64_encode($user['profile_pic']) : '/MedStudy-Space-System/User/images/icons/black.jpg';
-$full_name = $first_name . ' ' . $last_name;
+$middle_initial = $middle_name ? substr($middle_name, 0, 1) . '.' : '';
+$full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') . $last_name;
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +99,7 @@ $full_name = $first_name . ' ' . $last_name;
                         <span>1 table</span>
                     </div>
                 </div>
-                <div class="scanRoom" onclick="location.href='/MedStudy-Space-System/User/html/scanner.php'">
+                <div class="scanRoom" onclick="location.href='/MedStudy-Space-System/User/html/scanner.html'">
                     <img src="/MedStudy-Space-System/User/images/icons/scanner.png" alt="">
                     <span>
                         <p>
@@ -164,7 +166,7 @@ $full_name = $first_name . ' ' . $last_name;
                     </div>
                     <div class="inputGroup">
                         <label for="middleName">Middle Name</label>
-                        <input type="text" id="middleName" placeholder="Middle Name">
+                        <input type="text" id="middleName" value="<?php echo htmlspecialchars($middle_name); ?>">
                     </div>
                     <div class="inputGroup">
                         <label for="lastName">Last Name</label>
@@ -359,23 +361,37 @@ $full_name = $first_name . ' ' . $last_name;
 
         function saveProfileDetails() {
             const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName').value;
             const lastName = document.getElementById('lastName').value;
             const contactNumber = document.getElementById('contactNumber').value;
             const fileInput = document.getElementById('imageUpload');
             const formData = new FormData();
             formData.append('first_name', firstName);
+            formData.append('middle_name', middleName);
             formData.append('last_name', lastName);
             formData.append('contact_number', contactNumber);
             if (fileInput.files[0]) {
                 formData.append('profile_pic', fileInput.files[0]);
+                console.log('File selected:', fileInput.files[0].name, fileInput.files[0].type, fileInput.files[0].size);
+            } else {
+                console.log('No file selected');
             }
 
             fetch('/MedStudy-Space-System/User/php/update_profile.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error('HTTP error ' + response.status + ': ' + text);
+                    });
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log('Response data:', data);
                 if (data.success) {
                     showLoading('/MedStudy-Space-System/User/html/schedule.php');
                 } else {
@@ -383,7 +399,8 @@ $full_name = $first_name . ' ' . $last_name;
                 }
             })
             .catch(error => {
-                alert('Error updating profile: ' + error);
+                console.error('Fetch error:', error);
+                alert('Error updating profile: ' + error.message);
             });
         }
 
@@ -448,6 +465,7 @@ $full_name = $first_name . ' ' . $last_name;
             if (file && file.type.startsWith("image/")) {
                 reader.onload = function(e) {
                     document.getElementById("profileImage").src = e.target.result;
+                    console.log('Image preview updated:', e.target.result.substring(0, 50) + '...');
                 };
                 reader.readAsDataURL(file);
             } else {
