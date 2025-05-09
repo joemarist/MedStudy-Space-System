@@ -14,7 +14,7 @@
 <body>
     <div class="navBar">
         <div class="leftNav">
-            <div class="logo" onclick="location.href='home.html'">
+            <div class="logo" onclick="location.href='home.php'">
             <h2>
                 <img src="..\images\logos\medstudyLogoResized.png" alt="">
                 <span>
@@ -24,8 +24,8 @@
             </div>
 
             <div class="navLinks">
-                <a href="home.html" class="link">Home</a>
-                <a href="schedule.html" class="link active">Schedule</a>
+                <a href="home.php" class="link">Home</a>
+                <a href="schedule.php" class="link active">Schedule</a>
             </div>
         </div>
         <div class="rightNav">
@@ -40,7 +40,7 @@
     </div>
 
     <div class="scanner">
-        <div class="backButton" onclick="location.href='schedule.html'">
+        <div class="backButton" onclick="location.href='schedule.phps'">
             <img src="..\images\icons\left-arrow.png" alt="">
         </div>
 
@@ -87,8 +87,8 @@
             </div>
             <div class="infoCol">
                 <div><h2>Helpful Links</h2></div>
-                    <a href="..\html\home.html">Home</a> <br>
-                    <a href="..\html\schedule.html">Schedule</a>
+                    <a href="..\html\home.php">Home</a> <br>
+                    <a href="..\html\schedule.php">Schedule</a>
             </div>
             <div class="infoCol">
                 <div><h2>About Us</h2></div>

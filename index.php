@@ -102,7 +102,7 @@ require_once 'config.php';
         if (popup) {
             popup.style.display = "flex";
             setTimeout(() => {
-                window.location.href = "User/html/home.html";
+                window.location.href = "User/html/home.php";
             }, 2000);
         }
 }
