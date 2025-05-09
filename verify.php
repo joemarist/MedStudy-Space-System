@@ -67,7 +67,7 @@ if ($id_token) {
             file_put_contents("debug_log.txt", "Existing user found: user_id=$user_id, email=$email\n", FILE_APPEND);
         }
 
-        $stmt = $conn->prepare("SELECT user_id, first_name, last_name, profile_pic FROM user_details WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT user_id, first_name, last_name, middle_name, profile_pic FROM user_details WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -75,14 +75,14 @@ if ($id_token) {
         $stmt->close();
 
         if (!$detailsExist) {
-            $stmt = $conn->prepare("INSERT INTO user_details (user_id, first_name, last_name, profile_pic) VALUES (?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO user_details (user_id, first_name, last_name, middle_name, profile_pic) VALUES (?, ?, ?, ?, ?)");
             $null = null;
-            $stmt->bind_param("issb", $user_id, $firstName, $lastName, $null);
+            $stmt->bind_param("isssb", $user_id, $firstName, $lastName, $null, $null);
             if ($profilePicBlob) {
-                $stmt->send_long_data(3, $profilePicBlob);
+                $stmt->send_long_data(4, $profilePicBlob);
             }
             if ($stmt->execute()) {
-                file_put_contents("debug_log.txt", "User details inserted: user_id=$user_id, first_name=$firstName, last_name=$lastName, profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
+                file_put_contents("debug_log.txt", "User details inserted: user_id=$user_id, first_name=$firstName, last_name=$lastName, middle_name=null, profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
             } else {
                 file_put_contents("debug_log.txt", "Insert into user_details failed: " . $stmt->error . "\n", FILE_APPEND);
                 echo "<script>alert('Failed to save user details.'); window.location.href='index.php?status=error';</script>";
@@ -92,16 +92,18 @@ if ($id_token) {
         } else {
             $firstName = $detailsExist['first_name'];
             $lastName = $detailsExist['last_name'];
+            $middleName = $detailsExist['middle_name'];
             $profilePicBlob = $detailsExist['profile_pic'];
-            file_put_contents("debug_log.txt", "User details exist: user_id=$user_id, first_name=$firstName, last_name=$lastName, profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
+            file_put_contents("debug_log.txt", "User details exist: user_id=$user_id, first_name=$firstName, last_name=$lastName, middle_name=" . ($middleName ?? "null") . ", profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
         }
 
         session_unset();
         $_SESSION['email'] = $email;
         $_SESSION['first_name'] = $firstName;
         $_SESSION['last_name'] = $lastName;
+        $_SESSION['middle_name'] = $middleName ?? null;
         $_SESSION['profile_pic'] = $profilePicBlob ? 'data:image/jpeg;base64,' . base64_encode($profilePicBlob) : null;
-        file_put_contents("debug_log.txt", "Session set: email=$email, first_name=$firstName, last_name=$lastName, profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
+        file_put_contents("debug_log.txt", "Session set: email=$email, first_name=$firstName, last_name=$lastName, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();
@@ -112,21 +114,26 @@ if ($id_token) {
     }
 }
 
-if (isset($_POST['email'], $_POST['password'])) {
+if (isset($_POST['email'])) {
     $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT user_id, password FROM user_accounts WHERE email = ?");
+    if (!str_ends_with($email, '@usep.edu.ph')) {
+        file_put_contents("debug_log.txt", "Non-usep.edu.ph email detected for manual login: $email\n", FILE_APPEND);
+        echo "<script>alert('Only @usep.edu.ph accounts are allowed.'); window.location.href='index.php?status=denied';</script>";
+        exit();
+    }
+
+    $stmt = $conn->prepare("SELECT user_id FROM user_accounts WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $userAccount = $result->fetch_assoc();
     $stmt->close();
 
-    if ($userAccount && password_verify($password, $userAccount['password'])) {
+    if ($userAccount) {
         $user_id = $userAccount['user_id'];
 
-        $stmt = $conn->prepare("SELECT first_name, last_name, profile_pic FROM user_details WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT first_name, last_name, middle_name, profile_pic FROM user_details WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -137,14 +144,15 @@ if (isset($_POST['email'], $_POST['password'])) {
         $_SESSION['email'] = $email;
         $_SESSION['first_name'] = $userDetails['first_name'] ?? 'Firstname';
         $_SESSION['last_name'] = $userDetails['last_name'] ?? 'Lastname';
+        $_SESSION['middle_name'] = $userDetails['middle_name'] ?? null;
         $_SESSION['profile_pic'] = $userDetails['profile_pic'] ? 'data:image/jpeg;base64,' . base64_encode($userDetails['profile_pic']) : null;
-        file_put_contents("debug_log.txt", "Manual login session set: email=$email, first_name={$_SESSION['first_name']}, last_name={$_SESSION['last_name']}, profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
+        file_put_contents("debug_log.txt", "Manual login session set: email=$email, first_name={$_SESSION['first_name']}, last_name={$_SESSION['last_name']}, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();
     } else {
-        file_put_contents("debug_log.txt", "Manual login failed: email=$email\n", FILE_APPEND);
-        echo "<script>alert('Invalid email or password.'); window.location.href='index.php?status=invalid_credentials';</script>";
+        file_put_contents("debug_log.txt", "Manual login failed: email=$email not found in user_accounts\n", FILE_APPEND);
+        echo "<script>alert('Email not found. Please use Google Sign-In or register.'); window.location.href='index.php?status=invalid_credentials';</script>";
         exit();
     }
 }

@@ -291,13 +291,6 @@ $full_name = $first_name . ' ' . $last_name;
         </div>
     </div>
 
-    <div class="popup" id="loadingPopup">
-        <div class="popup-content">
-            <p>Please wait for a moment<br><br>Saving....</p>
-            <img src="/MedStudy-Space-System/User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
-        </div>
-    </div>
-
     <!-- Script for Overlays -->
     <script>
         function openRoomOverlay() {
@@ -452,14 +445,6 @@ $full_name = $first_name . ' ' . $last_name;
             } else {
                 alert("Please upload a valid image file (PNG, JPG, JPEG).");
             }
-        }
-
-        function showLoading(redirectUrl) {
-            document.getElementById('loadingPopup').style.display = 'flex';
-            setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 3000);
-            closeProfileDetailsOverlay();
         }
 
         function saveProfileDetails() {

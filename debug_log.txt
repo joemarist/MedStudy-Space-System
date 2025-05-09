@@ -648,3 +648,7 @@ Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTB
 Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
 User details exist: user_id=1, first_name=JOEMjbbb, last_name=ABELLANA, profile_pic=set
 Session set: email=jaabellana00471@usep.edu.ph, first_name=JOEMjbbb, last_name=ABELLANA, profile_pic=set
+Manual login failed: email=jaabellana00471@usep.edu.ph
+Manual login failed: email=jaabellana00471@usep.edu.ph
+Manual login failed: email=jaabellana00471@usep.edu.ph
+Manual login session set: email=jaabellana00471@usep.edu.ph, first_name=JOEMjbbb, last_name=ABELLANA, middle_name=Acma, profile_pic=set
