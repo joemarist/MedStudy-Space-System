@@ -16,6 +16,10 @@ body, html {overflow-y: hidden;
     grid-template-columns: 65% 35%;
     padding: 3% 2%;
 }
+.g_id_signin {
+    display: flex;
+    justify-content: center;
+}
 
 /*Welcome Image Div*/
 .welcomeImage{

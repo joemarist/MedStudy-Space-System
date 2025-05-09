@@ -52,15 +52,15 @@ require_once 'config.php';
                         data-auto_prompt="false"
                         data-scope="profile email">
                     </div>
-
-                        <div class="g_id_signin"
+                    <div class="g_id_signin"
                         data-type="standard"
                         data-shape="rectangular"
                         data-theme="outline"
                         data-text="signin_with"
                         data-size="large"
-                        data-logo_alignment="left">
-                        </div>
+                        data-logo_alignment="left"
+                        style="display: flex; justify-content: center;">
+                    </div>
                     </div>
                 </form>
             </div>

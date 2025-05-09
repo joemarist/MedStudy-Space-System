@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS user_details (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(15),
-    email VARCHAR(250) NOT NULL,
-    profile_pic BLOB NOT NULL,
+    profile_pic LONGBLOB,
     FOREIGN KEY (user_id) REFERENCES user_accounts(user_id) ON DELETE CASCADE
 );
 
