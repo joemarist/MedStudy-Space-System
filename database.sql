@@ -1,11 +1,10 @@
 CREATE DATABASE IF NOT EXISTS medstudy;
-
 USE medstudy;
 
 CREATE TABLE IF NOT EXISTS user_accounts (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(250) NOT NULL UNIQUE,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_details (
@@ -13,8 +12,7 @@ CREATE TABLE IF NOT EXISTS user_details (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(15),
-    email VARCHAR(250) NOT NULL,
-    profile_pic BLOB NOT NULL,
+    profile_pic LONGBLOB,
     FOREIGN KEY (user_id) REFERENCES user_accounts(user_id) ON DELETE CASCADE
 );
 
@@ -25,7 +23,7 @@ CREATE TABLE IF NOT EXISTS rooms (
     room_num_chair INT NOT NULL,
     room_num_table INT NOT NULL,
     room_status VARCHAR(60) NOT NULL,
-    room_qr_code BLOB NOT NULL
+    room_qr_code LONGBLOB NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS booking (
