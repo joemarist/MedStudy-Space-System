@@ -15,45 +15,30 @@
 
 <body>
     <div class="container">
-
         <aside class="sidebar">
-
-
-
-            <br><br>
-            <image src="../images/logos/adminIcon.png" width="100%"></image>
-            <br><br>
+            <img src="../images/logos/adminIcon.png" alt="Admin Icon" width="100%">
             <hr>
             <ul>
-                <br><br>
-                <li  onclick="titlechanges(1,this)">
-                    <image src="../../User/images/icons/dashboard.png" width="20px"></image>
-                    <span style="margin-left: 5px;">Dashboard</span>
+                <li onclick="titlechanges(1,this)">
+                    <img src="../../User/images/icons/dashboard.png" alt="Dashboard" width="20px">
+                    <span>Dashboard</span>
                 </li>
-                <li     onclick="titlechanges(2,this)">
-                    <image src="../../User/images/icons/room.png" width="20px"></image>
-                    <span style="margin-left: 5px;"> Room</span>
+                <li onclick="titlechanges(2,this)">
+                    <img src="../../User/images/icons/room.png" alt="Room" width="20px">
+                    <span>Room</span>
                 </li>
-                <li   onclick="titlechanges(3,this)">
-                    <image src="../../User/images/icons/appointment.png" width="20px"></image>
-                    <span style="margin-left: 5px;"> Booking</span>
+                <li onclick="titlechanges(3,this)">
+                    <img src="../../User/images/icons/appointment.png" alt="Booking" width="20px">
+                    <span>Booking</span>
                 </li>
-
-                <li  class="pok"   onclick="titlechanges(4,this)">
-                    <image src="../../User/images/icons/bar-chart.png" width="20px"></image>
-                    <span style="margin-left: 5px;"> Reports</span>
+                <li class="pok" onclick="titlechanges(4,this)">
+                    <img src="../../User/images/icons/bar-chart.png" alt="Reports" width="20px">
+                    <span>Reports</span>
                 </li>
             </ul>
-            <br>
             <hr>
-
-
-            <br>
-            <br<br><br><br><br><br><br><br><br><br><br>
-                <image src="../images/logos/usep.png" width="100%"></image>
-
+            <img src="../images/logos/usep.png" alt="USEP Logo" width="100%">
         </aside>
-
     </div>
 
 
@@ -230,7 +215,7 @@
 
 
 
-    <div class="modal" id="profileModal">
+    <div class="modal" id="profileModal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close-btn" onclick="closeModal()">×</button>
@@ -243,6 +228,13 @@
         </div>
     </div>
 
+    <div class="popup" id="loadingPopup" style="display: none;">
+        <div class="popup-content">
+            <p>Please Wait a Moment....</p>
+            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
+        </div>
+    </div>
+
     <script>
         function openModal() {
             document.getElementById("profileModal").style.display = "flex";
@@ -252,19 +244,6 @@
             document.getElementById("profileModal").style.display = "none";
         }
 
-    </script>
-
-
-
-
-    <div class="popup" id="loadingPopup">
-        <div class="popup-content">
-            <p>Please Wait a Moment....</p>
-            <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
-        </div>
-    </div>
-
-    <script>
         function showLoading(redirectUrl) {
             document.getElementById('loadingPopup').style.display = 'flex';
             setTimeout(() => {
@@ -272,22 +251,6 @@
             }, 3000);
         }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script src="../js/dashboard.js"></script>
     <script src="../js/rooms.js"></script>

@@ -151,7 +151,7 @@ async function refreshRoomsList() {
             const currentRoomsList = document.querySelector('.rooms-list');
             if (currentRoomsList) {
                 currentRoomsList.innerHTML = newRoomsList.innerHTML;
-                setupEditButtons();
+                setupRoomCards();
                 debugLog("Rooms list refreshed successfully");
             }
         }
@@ -159,6 +159,55 @@ async function refreshRoomsList() {
         debugLog("Error refreshing rooms: " + error.message);
         window.location.reload(true);
     }
+}
+
+// Function to set up room card click events
+function setupRoomCards() {
+    debugLog("Setting up room card click events");
+    document.querySelectorAll('.room-holder').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Ignore if clicking on the download QR button
+            if (e.target.classList.contains('download-qr-btn')) {
+                return; // Just return, the download will be handled by the button's own click handler
+            }
+
+            const roomId = this.getAttribute('data-room-id');
+            if (!roomId) {
+                debugLog("Error: No room_id found on card");
+                return;
+            }
+
+            debugLog(`Room card clicked for room_id: ${roomId}`);
+            currentRoomId = roomId;
+
+            // Get room data from the card
+            const roomData = {
+                room_id: roomId,
+                room_name: this.querySelector('.room-name')?.textContent?.trim() || '',
+                student_capacity: this.querySelector('.student-capacity')?.textContent?.trim() || '',
+                chairs: this.querySelector('.chairs-count')?.textContent?.trim() || '',
+                tables: this.querySelector('.tables-count')?.textContent?.trim() || '',
+                status: this.querySelector('.room-status')?.textContent?.trim() || '',
+                room_image: this.querySelector('.room-image')?.src || '',
+                qr_code: this.querySelector('.qr-code-img')?.src || ''
+            };
+
+            debugLog('Room data collected:', JSON.stringify(roomData));
+            showEditForm(roomData);
+        });
+    });
+
+    // Add click event listeners to download QR buttons
+    document.querySelectorAll('.download-qr-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent any default behavior
+            e.stopPropagation(); // Prevent event from bubbling up to the room card
+            const roomId = this.closest('.room-holder').getAttribute('data-room-id');
+            if (roomId) {
+                downloadQrCode(roomId);
+            }
+        });
+    });
 }
 
 // Update edit button setup
@@ -282,6 +331,16 @@ function showEditForm(roomData) {
         if (editQrCode && roomData.qr_code) {
             editQrCode.src = roomData.qr_code;
             debugLog('Set QR code image');
+        }
+
+        // Add click handler for edit QR code download button
+        const editDownloadQrBtn = document.getElementById('edit_download_qr_btn');
+        if (editDownloadQrBtn) {
+            editDownloadQrBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                downloadQrCode(roomData.room_id);
+            };
         }
 
     } catch (error) {
@@ -410,7 +469,7 @@ document.getElementById('pop_up_delete_cancel_button').addEventListener('click',
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     debugLog("DOM loaded, initializing room functionality");
-    setupEditButtons();
+    setupRoomCards();
     
     // Single event listener for the upload button
     const uploadBtn = document.querySelector('.room-edit-upload-btn');

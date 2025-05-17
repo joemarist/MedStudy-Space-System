@@ -1034,3 +1034,9 @@ QR code downloaded for room_id=2, room_key=room_682037b96d148
 2025-05-17 08:11:05 [updateRoom.php] Request received
 2025-05-17 08:11:05 [updateRoom.php] POST: {"room_id":"5","room_name":"Cool Study","student_capacity":"6","chairs":"4","tables":"2","status":"Available"}
 2025-05-17 08:11:05 [updateRoom.php] FILES: {"room_image":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+2025-05-17 08:53:57 [updateRoom.php] Request received
+2025-05-17 08:53:57 [updateRoom.php] POST: {"room_id":"3","room_name":"Happy Room","student_capacity":"3","chairs":"1","tables":"2","status":"Available"}
+2025-05-17 08:53:57 [updateRoom.php] FILES: {"room_image":{"name":"Michael - Michael Labastida.jpg","full_path":"Michael - Michael Labastida.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\php1568.tmp","error":0,"size":802403}}
+2025-05-17 08:54:10 [updateRoom.php] Request received
+2025-05-17 08:54:10 [updateRoom.php] POST: {"room_id":"3","room_name":"Happy Room","student_capacity":"3","chairs":"1","tables":"2","status":"Available"}
+2025-05-17 08:54:10 [updateRoom.php] FILES: {"room_image":{"name":"462576597_1086808566101489_3064721557953920278_n.jpg","full_path":"462576597_1086808566101489_3064721557953920278_n.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\php4A16.tmp","error":0,"size":195839}}

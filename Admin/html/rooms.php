@@ -19,29 +19,29 @@ require_once '../php/rooms_connect.php';
     <link rel="stylesheet" href="../css/room.css?v=<?php echo time(); ?>">
     <style>
         .popup {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
             justify-content: center;
             align-items: center;
+            z-index: 9999;
         }
 
         .popup-content {
-            background-color: white;
-            text-align: center;
-            padding: 30px;
+            background: white;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .loading-image {
-            width: 100px;
-            height: 100px;
+            width: 64px;
+            height: 64px;
             margin-top: 20px;
             animation: spin 2s linear infinite;
         }
@@ -55,33 +55,28 @@ require_once '../php/rooms_connect.php';
 <body>
     <div class="container">
         <aside class="sidebar">
-            <br><br>
-            <img src="../images/logos/adminIcon.png" width="100%">
-            <br><br>
+            <img src="../images/logos/adminIcon.png" alt="Admin Icon" width="100%">
             <hr>
             <ul>
-                <br><br>
                 <li onclick="titlechanges(1,this)">
-                    <img src="../../User/images/icons/dashboard.png" width="20px">
-                    <span style="margin-left: 5px;">Dashboard</span>
+                    <img src="../../User/images/icons/dashboard.png" alt="Dashboard" width="20px">
+                    <span>Dashboard</span>
                 </li>
                 <li class="pok" onclick="titlechanges(2,this)">
-                    <img src="../../User/images/icons/room.png" width="20px">
-                    <span style="margin-left: 5px;">Room</span>
+                    <img src="../../User/images/icons/room.png" alt="Room" width="20px">
+                    <span>Room</span>
                 </li>
                 <li onclick="titlechanges(3,this)">
-                    <img src="../../User/images/icons/appointment.png" width="20px">
-                    <span style="margin-left: 5px;">Booking</span>
+                    <img src="../../User/images/icons/appointment.png" alt="Booking" width="20px">
+                    <span>Booking</span>
                 </li>
                 <li onclick="titlechanges(4,this)">
-                    <img src="../../User/images/icons/bar-chart.png" width="20px">
-                    <span style="margin-left: 5px;">Reports</span>
+                    <img src="../../User/images/icons/bar-chart.png" alt="Reports" width="20px">
+                    <span>Reports</span>
                 </li>
             </ul>
-            <br>
             <hr>
-            <br><br><br><br><br><br><br><br><br><br><br>
-            <img src="../images/logos/usep.png" width="100%">
+            <img src="../images/logos/usep.png" alt="USEP Logo" width="100%">
         </aside>
     </div>
 
@@ -98,10 +93,11 @@ require_once '../php/rooms_connect.php';
             </header>
 
             <div class="rooms-contain" id="rooms">
-                <button id="room_popup_open" class="room-button" title="Add Rooms">
-                    <img src="../images/logos/addroombutton.png" width="150px">
-                </button>
-                <br><br><br><br><br>
+                <div class="rooms-header">
+                    <button id="room_popup_open" class="room-button" title="Add Rooms">
+                        <img src="../images/logos/addroombutton.png" width="150px">
+                    </button>
+                </div>
                 <?php if (empty($rooms)): ?>
                     <p class="no-rooms">No rooms found. Add a room to get started.</p>
                 <?php else: ?>
@@ -112,37 +108,28 @@ require_once '../php/rooms_connect.php';
                                     <img class="room-image" src="<?php echo $room['room_image_base64'] ? 'data:image/png;base64,' . $room['room_image_base64'] : '../images/logos/studyroom.png'; ?>" width="100%" alt="Room Image">
                                 </div>
                                 <div class="r2">
-                                    <h1 class="des room-name"><?php echo htmlspecialchars($room['room_name']); ?></h1>
-                                    <br>
+                                    <h2 class="room-name"><?php echo htmlspecialchars($room['room_name']); ?></h2>
+                                    <div class="room-status" data-status="<?php echo htmlspecialchars($room['status']); ?>"><?php echo htmlspecialchars($room['status']); ?></div>
                                     <table>
                                         <tr>
-                                            <td><img src="../images/people.png" width="40px" alt="Students"></td>
-                                            <td><h4 class="des"><b class="student-capacity"><?php echo htmlspecialchars($room['student_capacity']); ?></b> Students</h4></td>
+                                            <td><img src="../images/icons/students.png" width="30px" alt="Student Capacity"></td>
+                                            <td class="des">Student Capacity: <span class="student-capacity"><?php echo htmlspecialchars($room['student_capacity']); ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td><img src="../images/logos/chair.png" width="40px" alt="Chairs"></td>
-                                            <td><h4 class="des"><b class="chairs-count"><?php echo htmlspecialchars($room['chairs']); ?></b> Chairs</h4></td>
+                                            <td><img src="../images/icons/chair.png" width="30px" alt="Chairs"></td>
+                                            <td class="des">Chairs: <span class="chairs-count"><?php echo htmlspecialchars($room['chairs']); ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td><img src="../images/logos/table.png" width="40px" alt="Tables"></td>
-                                            <td><h4 class="des"><b class="tables-count"><?php echo htmlspecialchars($room['tables']); ?></b> Table</h4></td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="../images/icons/key.png" width="40px" alt="Room Key"></td>
-                                            <td><h4 class="des"><b class="room-key"><?php echo htmlspecialchars($room['room_key']); ?></b></h4></td>
+                                            <td><img src="../images/icons/table.png" width="30px" alt="Tables"></td>
+                                            <td class="des">Tables: <span class="tables-count"><?php echo htmlspecialchars($room['tables']); ?></span></td>
                                         </tr>
                                     </table>
                                     <div class="qr-code-container">
-                                        <img src="<?php echo $room['qr_code_base64'] ? 'data:image/png;base64,' . $room['qr_code_base64'] : '../images/logos/studyroom.png'; ?>" class="qr-code-img" alt="QR Code">
-                                        <button class="download-qr-btn" onclick="downloadQrCode(<?php echo htmlspecialchars($room['room_id']); ?>)">Download QR Code</button>
+                                        <div class="qr-code-wrapper">
+                                            <img src="<?php echo $room['qr_code_base64'] ? 'data:image/png;base64,' . $room['qr_code_base64'] : '../images/logos/studyroom.png'; ?>" class="qr-code-img" alt="QR Code">
+                                            <button class="download-qr-btn">Download QR Code</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="r3">
-                                    <button class="ts room-edit-btn" data-room-id="<?php echo htmlspecialchars($room['room_id']); ?>" onclick="handleEditButtonClick(event)">
-                                        <img src="../images/logos/edit.png" width="30px" alt="Edit Room" data-room-id="<?php echo htmlspecialchars($room['room_id']); ?>">
-                                    </button>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                                                                                            <div align="right">                                        <h3 class="room-status" data-status="<?php echo htmlspecialchars($room['status']); ?>"><?php echo htmlspecialchars($room['status']); ?></h3>                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -294,7 +281,6 @@ require_once '../php/rooms_connect.php';
         }
 
         function showLoading(redirectUrl) {
-            closeModal();
             document.getElementById('loadingPopup').style.display = 'flex';
             setTimeout(() => {
                 window.location.href = redirectUrl;

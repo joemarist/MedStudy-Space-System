@@ -9,7 +9,7 @@ body {
     display: grid;
     height: 100vh;
     overflow: hidden;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 280px 1fr;
     grid-template-areas: 
     "box1 box2";
 }
@@ -58,38 +58,116 @@ body {
 
 .sidebar {
     grid-area: box1;
-    width: 250px;
+    width: 280px;
     background: #1F272E;
     color: white;
-    padding: 20px;
+    padding: 25px 20px;
     height: 100vh;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 20px;
+.sidebar img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.sidebar hr {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 20px 0;
+    width: 100%;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    flex-grow: 1;
 }
 
 .sidebar ul li {
-    font-size: 25px;
-    padding: 15px;
+    font-size: 16px;
+    padding: 12px 15px;
+    margin: 8px 0;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-.sidebar ul li:hover, .sidebar ul .active {
-    background: #007bff;
+.sidebar ul li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
 }
 
-.sidebar ul li.active {
-    background: #007bff;  /* Solid blue when active */
+.sidebar ul li span {
+    margin-left: 5px;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255, 255, 255, 0.15);
     color: white;
+    transform: translateX(5px);
+}
+
+.sidebar ul li:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.sidebar ul li.pok {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 500;
+}
+
+.sidebar ul li.pok img {
+    opacity: 1;
+}
+
+/* Bottom logo */
+.sidebar > img:last-child {
+    margin-top: auto;
+    width: 100%;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    padding: 15px 0;
+}
+
+.sidebar > img:last-child:hover {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+    
+    body {
+        grid-template-columns: 250px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    body {
+        grid-template-columns: 220px 1fr;
+    }
 }
 
 .pok{
