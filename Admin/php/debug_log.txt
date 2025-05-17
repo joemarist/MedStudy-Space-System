@@ -1,0 +1,344 @@
+[2025-05-16 09:22:29] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 645
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundarygzGMEds3azoZdx2z
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:22:29] Raw FILES: Array
+(
+)
+
+[2025-05-16 09:22:29] Raw POST: Array
+(
+    [room_name] => Cool Study
+    [student_capacity] => 2
+    [chairs] => 3
+    [tables] => 1
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:22:29] Raw input: 
+[2025-05-16 09:22:29] Form inputs: room_name=Cool Study, student_capacity=2, chairs=3, tables=1, status=Available, file_selected=1
+[2025-05-16 09:22:29] No file uploaded or file error: none
+[2025-05-16 09:30:21] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 27445
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundary85DUAsTatitxfI3A
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:30:21] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => 7eec0330-53ab-4c8c-a7dd-487073b105de (1).jpg
+            [full_path] => 7eec0330-53ab-4c8c-a7dd-487073b105de (1).jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpF31F.tmp
+            [error] => 0
+            [size] => 26618
+        )
+
+)
+
+[2025-05-16 09:30:21] Raw POST: Array
+(
+    [room_name] => Study Room 1
+    [student_capacity] => 2
+    [chairs] => 3
+    [tables] => 1
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:30:21] Raw input: 
+[2025-05-16 09:30:21] Form inputs: room_name=Study Room 1, student_capacity=2, chairs=3, tables=1, status=Available, file_selected=1
+[2025-05-16 09:30:21] File details: type=image/jpeg, size=26618, tmp_name=C:\xampp\tmp\phpF31F.tmp, error=0
+[2025-05-16 09:30:50] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 27443
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundaryrWYZK0LxAP2E5Xk2
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:30:50] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => 7eec0330-53ab-4c8c-a7dd-487073b105de (1).jpg
+            [full_path] => 7eec0330-53ab-4c8c-a7dd-487073b105de (1).jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php64C6.tmp
+            [error] => 0
+            [size] => 26618
+        )
+
+)
+
+[2025-05-16 09:30:50] Raw POST: Array
+(
+    [room_name] => Cool Study
+    [student_capacity] => 2
+    [chairs] => 3
+    [tables] => 1
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:30:50] Raw input: 
+[2025-05-16 09:30:50] Form inputs: room_name=Cool Study, student_capacity=2, chairs=3, tables=1, status=Available, file_selected=1
+[2025-05-16 09:30:50] File details: type=image/jpeg, size=26618, tmp_name=C:\xampp\tmp\php64C6.tmp, error=0
+[2025-05-16 09:33:13] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 4507
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundaryufiny2OkAO7YSn7G
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:33:13] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => Maam Editha.jpg
+            [full_path] => Maam Editha.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php91F8.tmp
+            [error] => 0
+            [size] => 3711
+        )
+
+)
+
+[2025-05-16 09:33:13] Raw POST: Array
+(
+    [room_name] => Cool Study
+    [student_capacity] => 1
+    [chairs] => 2
+    [tables] => 3
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:33:13] Raw input: 
+[2025-05-16 09:33:54] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 894238
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundaryp7nT6TNKAD9hOscN
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:33:54] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => black.jpg
+            [full_path] => black.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php3221.tmp
+            [error] => 0
+            [size] => 893446
+        )
+
+)
+
+[2025-05-16 09:33:54] Raw POST: Array
+(
+    [room_name] => Study Room 1
+    [student_capacity] => 3
+    [chairs] => 2
+    [tables] => 1
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:33:54] Raw input: 
+[2025-05-16 09:36:43] Database connection status: Connected, host_info=localhost via TCP/IP
+[2025-05-16 09:36:43] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 894238
+    [Cache-Control] => max-age=0
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [sec-ch-ua-mobile] => ?0
+    [sec-ch-ua-platform] => "Windows"
+    [Origin] => http://localhost
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundaryz3ROA3zQncUaBXNe
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => navigate
+    [Sec-Fetch-User] => ?1
+    [Sec-Fetch-Dest] => document
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:36:43] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => black.jpg
+            [full_path] => black.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpC669.tmp
+            [error] => 0
+            [size] => 893446
+        )
+
+)
+
+[2025-05-16 09:36:43] Raw POST: Array
+(
+    [room_name] => Study Room 1
+    [student_capacity] => 2
+    [chairs] => 1
+    [tables] => 3
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:36:43] Raw input: 
+[2025-05-16 09:36:43] Form inputs: room_name=Study Room 1, student_capacity=2, chairs=1, tables=3, status=Available, file_selected=1
+[2025-05-16 09:36:43] File details: type=image/jpeg, size=893446, tmp_name=C:\xampp\tmp\phpC669.tmp, error=0
+[2025-05-16 09:36:43] Exception: Column 'room_image' cannot be null
+[2025-05-16 09:58:21] Database connection status: Connected, host_info=localhost via TCP/IP
+[2025-05-16 09:58:21] Request headers: Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 4507
+    [sec-ch-ua-platform] => "Windows"
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+    [sec-ch-ua] => "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"
+    [Content-Type] => multipart/form-data; boundary=----WebKitFormBoundaryvwf1JBE8KscsPz5m
+    [sec-ch-ua-mobile] => ?0
+    [Accept] => */*
+    [Origin] => http://localhost
+    [Sec-Fetch-Site] => same-origin
+    [Sec-Fetch-Mode] => cors
+    [Sec-Fetch-Dest] => empty
+    [Referer] => http://localhost/MedStudy-Space-System/Admin/html/rooms.php
+    [Accept-Encoding] => gzip, deflate, br, zstd
+    [Accept-Language] => en-US,en;q=0.9
+    [Cookie] => g_state={"i_l":0}; PHPSESSID=2261jf39ttusapm6pccd6ivses
+)
+
+[2025-05-16 09:58:21] Raw FILES: Array
+(
+    [room_image] => Array
+        (
+            [name] => Maam Editha.jpg
+            [full_path] => Maam Editha.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php944D.tmp
+            [error] => 0
+            [size] => 3711
+        )
+
+)
+
+[2025-05-16 09:58:21] Raw POST: Array
+(
+    [room_name] => Cool Study
+    [student_capacity] => 2
+    [chairs] => 3
+    [tables] => 1
+    [status] => Available
+    [file_selected] => 1
+)
+
+[2025-05-16 09:58:21] Raw input: 
+[2025-05-16 09:58:21] Form inputs: room_name=Cool Study, student_capacity=2, chairs=3, tables=1, status=Available, file_selected=1
+[2025-05-16 09:58:21] File details: type=image/jpeg, size=3711, tmp_name=C:\xampp\tmp\php944D.tmp, error=0
+[2025-05-16 09:58:21] Exception: Column 'room_image' cannot be null

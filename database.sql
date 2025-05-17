@@ -22,12 +22,15 @@ CREATE TABLE IF NOT EXISTS user_details (
 -- Table: rooms
 CREATE TABLE IF NOT EXISTS rooms (
     room_id INT AUTO_INCREMENT PRIMARY KEY,
-    room_name VARCHAR(250) NOT NULL,
-    room_num_stud INT NOT NULL,
-    room_num_chair INT NOT NULL,
-    room_num_table INT NOT NULL,
-    room_status VARCHAR(60) NOT NULL,
-    room_qr_code LONGBLOB NOT NULL
+    room_name VARCHAR(255) NOT NULL,
+    student_capacity INT NOT NULL,
+    chairs INT NOT NULL,
+    tables INT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    room_key VARCHAR(50) UNIQUE NOT NULL,
+    qr_code LONGBLOB NOT NULL,
+    room_image LONGBLOB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table: booking

@@ -1,61 +1,76 @@
-
+function debugLog(message) {
+    console.log(`[dashboard.js] ${message}`);
+}
 
 function titlechanges(num, element) {
-  
+    try {
+        const titlename = document.getElementById("titlename");
+        const dashboard = document.getElementById("dashboard");
+        const rooms = document.getElementById("rooms");
+        const booking = document.getElementById("Booking");
+        const reports = document.getElementById("reports");
 
-    
-    if (num == 1) {
-        document.getElementById("titlename").textContent = "Dashboard";
-        window.location.href = "dashboard.html";
-    
+        if (!titlename) {
+            debugLog("Error: titlename element not found");
+            return;
+        }
 
-        document.getElementById("dashboard").style.display = "flex";
-        document.getElementById("rooms").style.display = "none";
-        document.getElementById("Booking").style.display = "none";
-        document.getElementById("reports").style.display = "none";
-    } else if (num == 2) {
-        document.getElementById("titlename").textContent = "Room";
-        window.location.href = "rooms.html";
-      
-
-        document.getElementById("dashboard").style.display = "none";
-        document.getElementById("rooms").style.display = "block";
-        document.getElementById("Booking").style.display = "none";
-        document.getElementById("reports").style.display = "none";
-    } else if (num == 3) {
-        document.getElementById("titlename").textContent = "Booking";
-        window.location.href = "booking.html";
-
-        document.getElementById("dashboard").style.display = "none";
-        document.getElementById("rooms").style.display = "none";
-        document.getElementById("Booking").style.display = "block";
-        document.getElementById("reports").style.display = "none";
-    } else {
-        document.getElementById("titlename").textContent = "Reports";
-        window.location.href = "reports.html";
-
-        document.getElementById("dashboard").style.display = "none";
-        document.getElementById("rooms").style.display = "none";
-        document.getElementById("Booking").style.display = "none";
-        document.getElementById("reports").style.display = "block";
+        if (num == 1) {
+            titlename.textContent = "Dashboard";
+            window.location.href = "dashboard.html";
+            if (dashboard && rooms && booking && reports) {
+                dashboard.style.display = "flex";
+                rooms.style.display = "none";
+                booking.style.display = "none";
+                reports.style.display = "none";
+            }
+        } else if (num == 2) {
+            titlename.textContent = "Room";
+            window.location.href = "rooms.php";
+            if (dashboard && rooms && booking && reports) {
+                dashboard.style.display = "none";
+                rooms.style.display = "block";
+                booking.style.display = "none";
+                reports.style.display = "none";
+            }
+        } else if (num == 3) {
+            titlename.textContent = "Booking";
+            window.location.href = "booking.html";
+            if (dashboard && rooms && booking && reports) {
+                dashboard.style.display = "none";
+                rooms.style.display = "none";
+                booking.style.display = "block";
+                reports.style.display = "none";
+            }
+        } else {
+            titlename.textContent = "Reports";
+            window.location.href = "reports.html";
+            if (dashboard && rooms && booking && reports) {
+                dashboard.style.display = "none";
+                rooms.style.display = "none";
+                booking.style.display = "none";
+                reports.style.display = "block";
+            }
+        }
+    } catch (error) {
+        debugLog(`Error in titlechanges: ${error.message}`);
     }
 }
 
-
-
-
-
-
-
-
-
- const calendar = document.getElementById("calendar-days");
+document.addEventListener("DOMContentLoaded", function () {
+    try {
+        const calendar = document.getElementById("calendar-days");
         const monthTitle = document.getElementById("month-title");
         const prevMonthBtn = document.getElementById("prev-month");
         const nextMonthBtn = document.getElementById("next-month");
         const popup = document.getElementById("popup");
         const popupContent = document.getElementById("popup-content");
-        
+
+        if (!calendar || !monthTitle || !prevMonthBtn || !nextMonthBtn || !popup || !popupContent) {
+            debugLog("Calendar elements not found, skipping calendar logic");
+            return;
+        }
+
         let currentDate = new Date();
         let currentMonth = currentDate.getMonth();
         let currentYear = currentDate.getFullYear();
@@ -109,120 +124,112 @@ function titlechanges(num, element) {
 
         prevMonthBtn.addEventListener("click", () => { if (--currentMonth < 0) { currentMonth = 11; currentYear--; } generateCalendar(currentMonth, currentYear); });
         nextMonthBtn.addEventListener("click", () => { if (++currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar(currentMonth, currentYear); });
-        
+
         generateCalendar(currentMonth, currentYear);
+    } catch (error) {
+        debugLog(`Error in calendar logic: ${error.message}`);
+    }
+});
 
+document.addEventListener("DOMContentLoaded", function () {
+    try {
+        const activityList = document.getElementById("activity-list");
+        const refreshButton = document.getElementById("refresh-activity");
 
+        if (!activityList || !refreshButton) {
+            debugLog("Activity elements not found, skipping activity logic");
+            return;
+        }
 
+        const names = ["Christian Doong", "Vic Lawson", "Maria Brenen", "Lewis Anthony Godin", "Joshua Glen Garcia", "Emma Watson", "John Doe", "Jane Smith"];
+        const actions = [
+            "has entered the Study Room 1.",
+            "has entered the Study Room 2.",
+            "has booked a Study Room.",
+            "didn’t show up.",
+            "left the Study Room.",
+            "is studying in the lounge.",
+            "has checked in at the library."
+        ];
 
+        let defaultActivities = [
+            '<span class="icon">💡</span> Christian Doong has entered the Study Room 1.',
+            '<span class="icon">💡</span> Vic Lawson didn’t show up.',
+            '<span class="icon">💡</span> Maria Brenen has booked a Study Room.',
+            '<span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.',
+            '<span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.'
+        ];
+        let latestActivities = [...defaultActivities];
 
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
 
+        function addActivity() {
+            const activityItem = document.createElement("div");
+            activityItem.classList.add("activity-item");
+            const activityText = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
+            activityItem.innerHTML = activityText;
+            activityList.prepend(activityItem);
+            latestActivities.unshift(activityText);
+            if (latestActivities.length > 20) latestActivities.pop();
+        }
 
-
-
-
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const activityList = document.getElementById("activity-list");
-            const refreshButton = document.getElementById("refresh-activity");
-            
-            const names = ["Christian Doong", "Vic Lawson", "Maria Brenen", "Lewis Anthony Godin", "Joshua Glen Garcia", "Emma Watson", "John Doe", "Jane Smith"];
-            const actions = [
-                "has entered the Study Room 1.",
-                "has entered the Study Room 2.",
-                "has booked a Study Room.",
-                "didn’t show up.",
-                "left the Study Room.",
-                "is studying in the lounge.",
-                "has checked in at the library."
-            ];
-        
-            let defaultActivities = [
-                '<span class="icon">💡</span> Christian Doong has entered the Study Room 1.',
-                '<span class="icon">💡</span> Vic Lawson didn’t show up.',
-                '<span class="icon">💡</span> Maria Brenen has booked a Study Room.',
-                '<span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.',
-                '<span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.'
-            ];
-            let latestActivities = [...defaultActivities];
-        
-            function getRandomItem(array) {
-                return array[Math.floor(Math.random() * array.length)];
-            }
-        
-            function addActivity() {
+        function refreshActivity() {
+            activityList.innerHTML = "";
+            defaultActivities.forEach(activityText => {
                 const activityItem = document.createElement("div");
                 activityItem.classList.add("activity-item");
-                const activityText = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
                 activityItem.innerHTML = activityText;
-                
-               
-                activityList.prepend(activityItem);
-        
-             
-                latestActivities.unshift(activityText);
-                if (latestActivities.length > 20) latestActivities.pop(); 
+                activityList.appendChild(activityItem);
+            });
+            latestActivities = [...defaultActivities];
+        }
+
+        refreshButton.addEventListener("click", refreshActivity);
+        setInterval(addActivity, 2000);
+    } catch (error) {
+        debugLog(`Error in activity logic: ${error.message}`);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    try {
+        const studyRooms = document.getElementById("study-rooms");
+        const bookings = document.getElementById("bookings");
+        const occupiedRooms = document.getElementById("occupied-rooms");
+
+        if (!studyRooms || !bookings || !occupiedRooms) {
+            debugLog("Stats elements not found, skipping stats logic");
+            return;
+        }
+
+        const originalValues = {
+            studyRooms: parseInt(studyRooms.textContent, 10),
+            bookings: parseInt(bookings.textContent, 10),
+            occupiedRooms: parseInt(occupiedRooms.textContent, 10)
+        };
+
+        function updateStats() {
+            let newStudyRooms = Math.floor(Math.random() * 50) + 1;
+            let newBookings = Math.floor(Math.random() * 50) + 1;
+            let newOccupiedRooms = Math.floor(Math.random() * 50) + 1;
+
+            studyRooms.textContent = newStudyRooms;
+            bookings.textContent = newBookings;
+            occupiedRooms.textContent = newOccupiedRooms;
+
+            if (newStudyRooms >= 50 || newBookings >= 50 || newOccupiedRooms >= 50) {
+                setTimeout(() => {
+                    studyRooms.textContent = originalValues.studyRooms;
+                    bookings.textContent = originalValues.bookings;
+                    occupiedRooms.textContent = originalValues.occupiedRooms;
+                }, 1000);
             }
-        
-            function refreshActivity() {
-                activityList.innerHTML = "";
-                defaultActivities.forEach(activityText => {
-                    const activityItem = document.createElement("div");
-                    activityItem.classList.add("activity-item");
-                    activityItem.innerHTML = activityText;
-                    activityList.appendChild(activityItem);
-                });
-                latestActivities = [...defaultActivities];
-            }
-        
-            refreshButton.addEventListener("click", refreshActivity);
-        
-         
-            setInterval(addActivity, 2000);
-        });
-        
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const studyRooms = document.getElementById("study-rooms");
-            const bookings = document.getElementById("bookings");
-            const occupiedRooms = document.getElementById("occupied-rooms");
-            
-            const originalValues = {
-                studyRooms: parseInt(studyRooms.textContent, 10),
-                bookings: parseInt(bookings.textContent, 10),
-                occupiedRooms: parseInt(occupiedRooms.textContent, 10)
-            };
-        
-            function updateStats() {
-                let newStudyRooms = Math.floor(Math.random() * 50) + 1;
-                let newBookings = Math.floor(Math.random() * 50) + 1;
-                let newOccupiedRooms = Math.floor(Math.random() * 50) + 1;
-        
-                studyRooms.textContent = newStudyRooms;
-                bookings.textContent = newBookings;
-                occupiedRooms.textContent = newOccupiedRooms;
-        
-                if (newStudyRooms >= 50 || newBookings >= 50 || newOccupiedRooms >= 50) {
-                    setTimeout(() => {
-                        studyRooms.textContent = originalValues.studyRooms;
-                        bookings.textContent = originalValues.bookings;
-                        occupiedRooms.textContent = originalValues.occupiedRooms;
-                    }, 1000);
-                }
-            }
-        
-            setInterval(updateStats, 5000);
-        });
-        
+        setInterval(updateStats, 5000);
+    } catch (error) {
+        debugLog(`Error in stats logic: ${error.message}`);
+    }
+});

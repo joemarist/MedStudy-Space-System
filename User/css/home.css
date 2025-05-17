@@ -136,48 +136,317 @@ body, html{
 
 .studyRooms{
     padding: 2% 4%;
-}
-.room{
-    background-color: white;
-    border-radius: 20px;
-    padding: 2% 3%;
-    display: flex;
-    grid-template-columns: 30% 70%;
-    gap: 30px;
-    width: 40%;
-}
-.roomImage{
-    flex: 30%;
-}
-.roomInfo{
-    flex: 70%;
-}
-.roomInfo span{
-    color: #0A6738;
-}
-.roomInfo h3{
-    font-size: 16pt;
-}
-.room img{
-    width: 100%;
-    border-radius: 10px;
-}
-.roomInfo button{
-    float: right;
-    background-color: #1F65EC;
-    color: white;
-    font-size: 13pt;
-    padding: 2% 7%;
-    border: 0px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-.roomInfo button:hover{
-    cursor: pointer;
-    background-color: #1856d2;
-    transition: 0.3s;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px 25px;
+    justify-content: center;
 }
 
+.studyRooms h2 {
+    color: #014E6F;
+    font-size: 2.2em;
+    text-align: center;
+    margin-bottom: 1.5em;
+    position: relative;
+    grid-column: 1 / -1;
+}
+
+.studyRooms h2:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #52BBBF, #014E6F);
+    border-radius: 2px;
+}
+
+.room {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.room:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.roomImage {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.roomImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room:hover .roomImage img {
+    transform: scale(1.05);
+}
+
+.roomInfo {
+    padding: 1.25rem;
+}
+
+.roomInfo h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.room-status {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.room-status.available {
+    background-color: #e3f8e7;
+    color: #28a745;
+    border: 1px solid #c3e6c3;
+}
+
+.room-status.occupied {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.room-status.maintenance {
+    background-color: #ffe9e9;
+    color: #dc3545;
+    border: 1px solid #ffcccc;
+}
+
+.room-status.not-available, .room-status.not.available {
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.room-details {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-item img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.detail-item span {
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.roomInfo button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background: #52BBBF;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.roomInfo button:hover:not(:disabled) {
+    background: #3da8ac;
+}
+
+.roomInfo button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+}
+
+.no-rooms {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.2em;
+    margin: 2em 0;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 1400px) {
+    .studyRooms {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px 20px;
+        max-width: 1000px;
+    }
+    .detail-item img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .detail-item span {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 1024px) {
+    .studyRooms {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 700px;
+    }
+    .detail-item {
+        gap: 8px;
+    }
+    
+    .detail-item img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .detail-item span {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 768px) {
+    .studyRooms {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 0.875rem;
+    }
+    
+    .room {
+        max-width: 100%;
+    }
+    
+    .roomImage {
+        height: 180px;
+    }
+    
+    .roomInfo {
+        padding: 1rem;
+    }
+    
+    .roomInfo h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .room-status {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .room-details {
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .detail-item {
+        gap: 0.35rem;
+    }
+    
+    .detail-item img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .detail-item span {
+        font-size: 0.85rem;
+    }
+    
+    .roomInfo button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .studyRooms {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.75rem;
+    }
+    
+    .studyRooms h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+    
+    .roomImage {
+        height: 160px;
+    }
+    
+    .roomInfo {
+        padding: 0.875rem;
+    }
+    
+    .roomInfo h3 {
+        font-size: 1rem;
+    }
+    
+    .room-status {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .room-details {
+        gap: 0.4rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .detail-item img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .detail-item span {
+        font-size: 0.8rem;
+    }
+    
+    .roomInfo button {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .studyRooms {
+        width: 96%;
+        padding: 8px;
+    }
+    
+    .room {
+        padding: 10px;
+    }
+
+    .roomImage {
+        height: 160px;
+    }
+}
 
 
 .footer{
@@ -321,9 +590,18 @@ body, html{
 }
 .additionalInfo{
     margin: 2% 0%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.additionalInfo > img, .additionalInfo > span{
-    vertical-align: middle;
+.additionalInfo img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+.additionalInfo span {
+    color: #014E6F;
+    font-size: 1em;
 }
 .rightRoomBoxDesc{
     flex: 50%;
@@ -817,10 +1095,11 @@ body, html{
 
     
     .room {
-        width: 70%;
+        padding: 15px;
+        gap: 12px;
     }
-    .mage{
-        width: 10%;
+    .roomImage {
+        height: 180px;
     }
 
     .roomInfo h3 {
@@ -1080,6 +1359,131 @@ body, html{
     .roomInfo button{
         font-size: 3vw;
     }
+}
+
+/* Make rooms display in a grid */
+.studyRooms {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding: 2em;
+}
+
+.studyRooms h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+    .studyRooms {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2em;
+        padding: 2em;
+    }
+
+    .studyRooms h2 {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Room overlay styles */
+.ga {
+    width: 50% !important;
+    height: 300px !important;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .room {
+        width: 95%;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .roomImage, .roomInfo {
+        flex: 100%;
+    }
+    
+    .room img {
+        height: 200px;
+    }
+    
+    .roomInfo h3 {
+        font-size: 14pt;
+    }
+    
+    .roomInfo button {
+        float: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .room {
+        padding: 15px;
+    }
+    
+    .room img {
+        height: 150px;
+    }
+    
+    .roomInfo h3 {
+        font-size: 12pt;
+    }
+    
+    .roomInfo span {
+        font-size: 12px;
+    }
+    
+    .roomInfo button {
+        font-size: 11pt;
+        padding: 8px 15px;
+    }
+}
+
+/* Enhance status colors for better visibility */
+.room-status.available {
+    background-color: #e3f8e7;
+    color: #28a745;
+    border: 1px solid #c3e6c3;
+}
+
+.room-status.occupied {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.room-status.maintenance {
+    background-color: #ffe9e9;
+    color: #dc3545;
+    border: 1px solid #ffcccc;
+}
+
+.room-status.not-available, .room-status.not.available {
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+/* Add smooth transitions */
+.room-status, .roomInfo button, .detail-item {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Enhance button states */
+.roomInfo button:active {
+    transform: scale(0.98);
+}
+
+.roomInfo button:disabled {
+    background: #e0e0e0;
+    transform: none;
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 

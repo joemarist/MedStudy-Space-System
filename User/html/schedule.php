@@ -154,7 +154,7 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
                 <div class="leftProfileDetails">
                     <img id="profileImage" src="<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture">
                     <div class="uploadPhoto" onclick="uploadImage()">
-                        <img src="/MedStudy-Space-System/User/images/icons/image-.png" alt="">
+                        <img src="/MedStudy-Space-System/User/images/icons/image-.png" alt="" style="height: 1%;">
                         <span>Upload New Photo</span>
                     </div>
                     <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">

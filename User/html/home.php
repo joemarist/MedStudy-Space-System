@@ -98,17 +98,88 @@ $full_name = $first_name . ' ' . $last_name;
 
     <div class="studyRooms" id="studyRoom">
         <h2>Study Rooms</h2>
-        <div class="room">
-            <div class="roomImage">
-                <img src="/MedStudy-Space-System/User/images/icons/studyRoom2.jpg" alt="">
+        <?php 
+        require_once '../php/get_rooms.php';
+        
+        // Debug information
+        error_log("=== Home.php Room Display Debug ===");
+        error_log("Number of rooms received: " . count($rooms));
+        
+        if (empty($rooms)): 
+        ?>
+            <p class="no-rooms">No study rooms available at the moment.</p>
+        <?php else:
+            // Create a copy of the rooms array to avoid reference issues
+            $display_rooms = array_values($rooms);
+            
+            error_log("Number of rooms to display: " . count($display_rooms));
+            
+            foreach ($display_rooms as $index => $room): 
+                // Skip if room ID is missing
+                if (!isset($room['room_id'])) {
+                    error_log("Error: Room at index $index missing ID - skipping");
+                    continue;
+                }
+                
+                error_log("Processing display for index $index - Room ID: {$room['room_id']}");
+                
+                // Set default values for display
+                $roomName = htmlspecialchars($room['room_name'] ?? 'Unnamed Room');
+                $status = htmlspecialchars($room['status'] ?? 'Unknown');
+                $capacity = htmlspecialchars($room['student_capacity'] ?? '0');
+                $chairs = htmlspecialchars($room['chairs'] ?? '0');
+                $tables = htmlspecialchars($room['tables'] ?? '0');
+                
+                $roomImage = isset($room['room_image_base64']) && $room['room_image_base64'] 
+                    ? 'data:image/png;base64,' . htmlspecialchars($room['room_image_base64'])
+                    : '/MedStudy-Space-System/User/images/icons/studyRoom2.jpg';
+                    
+                $statusClass = strtolower(str_replace(' ', '-', $status));
+                
+                error_log("Displaying room - Name: $roomName, Status: $status");
+        ?>
+            <div class="room" data-room-id="<?php echo htmlspecialchars($room['room_id']); ?>">
+                <div class="roomImage">
+                    <img src="<?php echo $roomImage; ?>" alt="<?php echo $roomName; ?>">
+                </div>
+                <div class="roomInfo">
+                    <h3><?php echo $roomName; ?></h3>
+                    <span class="room-status <?php echo $statusClass; ?>"><?php echo $status; ?></span>
+                    <div class="room-details">
+                        <div class="detail-item">
+                            <img src="/MedStudy-Space-System/User/images/icons/crowd-of-users.png" alt="">
+                            <span><?php echo $capacity; ?> Students</span>
+                        </div>
+                        <div class="detail-item">
+                            <img src="/MedStudy-Space-System/User/images/icons/swivel-chair.png" alt="">
+                            <span><?php echo $chairs; ?> Chairs</span>
+                        </div>
+                        <div class="detail-item">
+                            <img src="/MedStudy-Space-System/User/images/icons/table.png" alt="">
+                            <span><?php echo $tables; ?> Tables</span>
+                        </div>
+                    </div>
+                    <button onclick="openRoomOverlay(
+                        <?php echo htmlspecialchars($room['room_id']); ?>, 
+                        '<?php echo $roomName; ?>', 
+                        '<?php echo $roomImage; ?>', 
+                        '<?php echo $status; ?>', 
+                        <?php echo $capacity; ?>, 
+                        <?php echo $chairs; ?>, 
+                        <?php echo $tables; ?>)" 
+                        <?php echo $status !== 'Available' ? 'disabled' : ''; ?>>
+                        Book Now
+                    </button>
+                </div>
             </div>
-            <div class="roomInfo">
-                <h3>Study Room 1</h3>
-                <span>Available</span>
-                <br><br>
-                <button onclick="openRoomOverlay()">Book</button>
-            </div>
-        </div>
+        <?php 
+                error_log("Finished displaying room ID: {$room['room_id']}");
+            endforeach;
+            
+            error_log("=== Display Summary ===");
+            error_log("Total rooms displayed: " . count($display_rooms));
+        endif; 
+        ?>
     </div>
 
     <div class="roomOverlay" id="roomOverlay">
@@ -116,22 +187,22 @@ $full_name = $first_name . ' ' . $last_name;
             <img src="/MedStudy-Space-System/User/images/icons/left-arrow.png" id="backArrow" alt="" onclick="closeRoomOverlay()">
             <div class="roomBoxContainer">
                 <div class="leftRoom">
-                    <img class="ga" src="/MedStudy-Space-System/User/images/icons/studyRoom2.jpg" alt="">
-                    <h1>Study Room 1</h1>
-                    <span>Available</span>
+                    <img class="ga" id="roomOverlayImage" src="/MedStudy-Space-System/User/images/icons/studyRoom2.jpg" alt="">
+                    <h1 id="roomOverlayName">Study Room 1</h1>
+                    <span id="roomOverlayStatus" class="room-status">Available</span>
                     <div class="roomBoxDescription">
                         <div class="leftRoomBoxDesc">
                             <div class="additionalInfo">
                                 <img src="/MedStudy-Space-System/User/images/icons/crowd-of-users.png" alt="">
-                                <span>5 Students</span>
+                                <span id="roomOverlayCapacity">5 Students</span>
                             </div>
                             <div class="additionalInfo">
                                 <img src="/MedStudy-Space-System/User/images/icons/swivel-chair.png" alt="">
-                                <span>5 Chairs</span>
+                                <span id="roomOverlayChairs">5 Chairs</span>
                             </div>
                             <div class="additionalInfo">
                                 <img src="/MedStudy-Space-System/User/images/icons/table.png" alt="">
-                                <span>1 Table</span>
+                                <span id="roomOverlayTables">1 Table</span>
                             </div>
                         </div>
                         <div class="rightRoomBoxDesc">
@@ -293,7 +364,7 @@ $full_name = $first_name . ' ' . $last_name;
 
     <!-- Script for Overlays -->
     <script>
-        function openRoomOverlay() {
+        function openRoomOverlay(roomId, roomName, roomImage, status, capacity, chairs, tables) {
             const overlay = document.getElementById("roomOverlay");
             overlay.style.display = "flex";
             setTimeout(() => {
@@ -303,6 +374,12 @@ $full_name = $first_name . ' ' . $last_name;
             if (window.myCalendar) {
                 window.myCalendar.render();
             }
+            document.getElementById("roomOverlayImage").src = roomImage;
+            document.getElementById("roomOverlayName").innerText = roomName;
+            document.getElementById("roomOverlayStatus").innerText = status;
+            document.getElementById("roomOverlayCapacity").innerText = capacity + " Students";
+            document.getElementById("roomOverlayChairs").innerText = chairs + " Chairs";
+            document.getElementById("roomOverlayTables").innerText = tables + " Tables";
         }
 
         function closeRoomOverlay() {

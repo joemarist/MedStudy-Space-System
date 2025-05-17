@@ -1,3 +1,137 @@
+.room-holder {
+    display: flex;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    z-index: 1;
+}
+.r1 {
+    flex: 1;
+}
+.r2 {
+    flex: 2;
+    padding: 0 20px;
+}
+.r3 {
+    flex: 1;
+    text-align: right;
+}
+.no-rooms {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+}
+.room_popup_overlay, .room-edit-overlay, .pop_up_delete_confirmation_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+}
+.room_popup_box, .room-edit-popup, .pop_up_delete_confirmation_box {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 500px;
+    z-index: 1001;
+}
+.room_popup_image_section img, .room-edit-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.room_popup_upload_btn, .room-edit-upload-btn {
+    display: block;
+    text-align: center;
+    background: #52BBBF;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+.room_popup_buttons, .room-edit-footer, .pop_up_delete_confirmation_buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.room_popup_cancel, .room_popup_create, .room-edit-btn, .pop_up_delete_confirmation_button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.room_popup_create, .room-edit-btn-update {
+    background: #52BBBF;
+    color: white;
+}
+.room_popup_cancel, .room-edit-btn-delete, .pop_up_delete_confirmation_button {
+    background: #ccc;
+}
+.room-edit-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.room-holder .qr-code-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+.room-holder .download-qr-btn {
+    background-color: #52BBBF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.room-holder .download-qr-btn:hover {
+    background-color: #4ca9ac;
+}
+.room-edit-popup .qr-code-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 10px 0;
+}
+.room-edit-popup .download-qr-btn {
+    background-color: #52BBBF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.room-edit-popup .download-qr-btn:hover {
+    background-color: #4ca9ac;
+}
+.ts#room-edit-open {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+}
+.ts#room-edit-open img {
+    pointer-events: auto;
+}
+.popup-active .ts#room-edit-open {
+    pointer-events: none;
+    opacity: 0.5;
+}
+#room_popup_image_input {
+    display: none;
+}
+
+
 .rooms-contain{
     word-wrap: break-word;
     overflow-y: auto; 
@@ -66,8 +200,30 @@
     float: right;
     padding-right: 10px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
+.ts img {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.ts:hover img {
+    transform: scale(1.1);
+}
+
+.room-edit-btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.room-edit-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
 #status{
     color: #0A6738;
@@ -100,18 +256,16 @@
 
 
 .room-edit-overlay {
+    display: none;
     position: fixed;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 1500;
 }
 
 /* Modal Box */
@@ -119,104 +273,130 @@
     background: white;
     padding: 20px;
     border-radius: 12px;
-    width: 500px;
+    width: 650px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-20px);
-    transition: transform 0.3s ease-in-out;
+    position: relative;
+    z-index: 1001;
+    display: flex;
+    gap: 20px;
 }
 
 /* Show Modal */
 .room-edit-overlay.active {
-    visibility: visible;
-    opacity: 1;
+    display: flex;
 }
 
 .room-edit-overlay.active .room-edit-popup {
-    transform: translateY(0);
+    transform: none;
 }
 
 /* Modal Header */
 .room-edit-header {
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 18px;
-    font-weight: bold;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
+}
+
+.room-edit-header span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
 }
 
 /* Close Button */
 .room-edit-close {
-    cursor: pointer;
-    font-size: 24px;
-    color: gray;
-    border: none;
     background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.room-edit-close:hover {
+    color: #333;
 }
 
 /* Image Container */
 .room-edit-image-container {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
+    width: 40%;
+    text-align: center;
 }
 
 .room-edit-image-container img {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.room-edit-upload-btn {
-    margin-left: 15px;
-    color: blue;
-    cursor: pointer;
-    font-size: 14px;
+.room-edit-form-container {
+    width: 60%;
 }
 
 /* Form Fields */
 .room-edit-form label {
     display: block;
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
 }
 
 .room-edit-form input, 
 .room-edit-form select {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 14px;
+}
+
+.room-edit-form input:focus,
+.room-edit-form select:focus {
+    border-color: #52BBBF;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(82, 187, 191, 0.2);
 }
 
 /* Footer Buttons */
 .room-edit-footer {
     display: flex;
     justify-content: flex-end;
-    margin-top: 15px;
-    gap: 20px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .room-edit-btn {
-    padding: 8px 12px;
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
 }
 
 .room-edit-btn-delete {
-    background: #a855f7;
+    background: #dc3545;
     color: white;
 }
 
+.room-edit-btn-delete:hover {
+    background: #c82333;
+}
+
 .room-edit-btn-update {
-    background: #3b82f6;
+    background: #52BBBF;
     color: white;
+}
+
+.room-edit-btn-update:hover {
+    background: #45a0a3;
 }
 
 /* Open Button */
@@ -280,7 +460,7 @@
 .room_popup_upload_btn {
     display: block;
     margin-top: 10px;
-    color: blue;
+    color: white;
     cursor: pointer;
 }
 
@@ -495,6 +675,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1600;
 }
 
 .pop_up_delete_confirmation_box {
@@ -525,3 +706,280 @@
 .pop_up_delete_confirmation_button:hover {
     background: #42a5a7;
 }
+
+.qr-code-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.qr-code-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.download-qr-btn {
+    background: #52BBBF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.download-qr-btn:hover {
+    background: #45a0a3;
+}
+
+#edit_room_key {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    color: #495057;
+    font-family: monospace;
+    margin: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+input[type="number"].form-control {
+    padding-right: 8px;
+}
+
+select.form-control {
+    cursor: pointer;
+}
+
+.room_popup_buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.room_popup_cancel,
+.room_popup_create {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.room_popup_cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.room_popup_create {
+    background-color: #52BBBF;
+    color: white;
+}
+
+.room_popup_cancel:hover {
+    background-color: #5a6268;
+}
+
+.room_popup_create:hover {
+    background-color: #45a0a3;
+}
+
+.room-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+select.form-control {
+    padding-right: 1.75rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 8px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type="number"].form-control {
+    padding-right: 0.5rem;
+}
+
+.room_popup_buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.room_popup_cancel,
+.room_popup_create {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.room_popup_cancel {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.room_popup_create {
+    background-color: #52BBBF;
+    color: #fff;
+}
+
+.room_popup_cancel:hover {
+    background-color: #5a6268;
+}
+
+.room_popup_create:hover {
+    background-color: #45a0a3;
+}
+
+.rooms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.room-holder {
+    padding: 20px;
+    width: 90%;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+    grid-template-rows: auto;
+    grid-template-areas: "box1 box2 box3";
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.room-holder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.room-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.room-status[data-status="Available"] {
+    color: #0A6738;
+}
+
+.room-status[data-status="Occupied"] {
+    color: #E3A700;
+}
+
+.room-status[data-status="Maintenance"] {
+    color: #D60000;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 2001;
+}
+
