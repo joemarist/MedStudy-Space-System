@@ -98,12 +98,14 @@ if ($id_token) {
         }
 
         session_unset();
+        $_SESSION['user_id'] = $user_id;
         $_SESSION['email'] = $email;
         $_SESSION['first_name'] = $firstName;
         $_SESSION['last_name'] = $lastName;
         $_SESSION['middle_name'] = $middleName ?? null;
         $_SESSION['profile_pic'] = $profilePicBlob ? 'data:image/jpeg;base64,' . base64_encode($profilePicBlob) : null;
-        file_put_contents("debug_log.txt", "Session set: email=$email, first_name=$firstName, last_name=$lastName, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
+        $_SESSION['last_activity'] = time();
+        file_put_contents("debug_log.txt", "Session set: user_id=$user_id, email=$email, first_name=$firstName, last_name=$lastName, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();
@@ -141,12 +143,14 @@ if (isset($_POST['email'])) {
         $stmt->close();
 
         session_unset();
+        $_SESSION['user_id'] = $user_id;
         $_SESSION['email'] = $email;
         $_SESSION['first_name'] = $userDetails['first_name'] ?? 'Firstname';
         $_SESSION['last_name'] = $userDetails['last_name'] ?? 'Lastname';
         $_SESSION['middle_name'] = $userDetails['middle_name'] ?? null;
         $_SESSION['profile_pic'] = $userDetails['profile_pic'] ? 'data:image/jpeg;base64,' . base64_encode($userDetails['profile_pic']) : null;
-        file_put_contents("debug_log.txt", "Manual login session set: email=$email, first_name={$_SESSION['first_name']}, last_name={$_SESSION['last_name']}, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
+        $_SESSION['last_activity'] = time();
+        file_put_contents("debug_log.txt", "Manual login session set: user_id=$user_id, email=$email, first_name={$_SESSION['first_name']}, last_name={$_SESSION['last_name']}, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();

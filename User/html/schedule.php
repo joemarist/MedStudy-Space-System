@@ -218,10 +218,13 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
     <!-- Cancel Booking Overlay -->
     <div class="bookCancelConfirmationOverlay" id="bookCancelConfirmationOverlay">
         <div class="bookCancelConfirmationBox">
-            <p>Do you want to cancel your schedule?</p>
-            <div>
-                <button onclick="closeBookCancelConfirmationOverlay()">No</button>
-                <button onclick="cancelBooking()">Yes</button>
+            <img src="/MedStudy-Space-System/User/images/icons/warning.png" alt="">
+            <h2>Cancel Booking Confirmation</h2>
+            <div id="cancelBookingDetails"></div>
+            <p>Are you sure you want to cancel this booking?</p>
+            <div class="confirmation-buttons">
+                <button class="cancel-btn" onclick="closeBookCancelConfirmationOverlay()">No, Keep it</button>
+                <button class="confirm-btn" onclick="cancelBooking()">Yes, Cancel it</button>
             </div>
         </div>
     </div>
@@ -273,76 +276,501 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
         </div>
     </div>
 
+    <!-- Calendar Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var calendarEl = document.getElementById("calendar");
-            if (!calendarEl) {
-                console.error("Error: Calendar element not found.");
+        let calendarInitialized = false;
+        let currentCalendarInstance = null;
+        let currentBookings = {};
+        let selectedBooking = null;
+
+        // Helper Functions
+        async function loadUserBookingsAndAvailability(start, end) {
+            try {
+                const formData = new FormData();
+                formData.append('start_date', start);
+                formData.append('end_date', end);
+
+                const response = await fetch('/MedStudy-Space-System/User/php/get_user_bookings.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    currentBookings = data.user_bookings;
+                    return data;
+                }
+                throw new Error(data.message || 'Failed to load bookings');
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                return null;
+            }
+        }
+
+        function formatTime(timeStr) {
+            return new Date('2000-01-01T' + timeStr).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function updateBookingDisplay(bookings, selectedDate = null) {
+            const bookingDetails = document.getElementById("bookingDetails");
+            const noBooking = document.getElementById("noBooking");
+            const bookingInfo = document.getElementById("bookingInformation");
+
+            if (!bookings || Object.keys(bookings).length === 0) {
+                if (bookingDetails) bookingDetails.style.display = "none";
+                if (bookingInfo) bookingInfo.style.display = "none";
+                if (noBooking) noBooking.style.display = "block";
                 return;
             }
 
-            window.yourSchedule = {
-                "2025-03-24": { backgroundColor: "#006CFD", color: "white", borderRadius: "100px" }
-            };
-            var occupiedDates = {
-                "2025-03-21": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" },
-                "2025-03-20": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" },
-                "2025-03-19": { backgroundColor: "#D4E9FF", color: "#006CFD", borderRadius: "100px" }
-            };
-            var bookingConfirmed = localStorage.getItem("bookingConfirmed") === "true";
+            // Get the booking to display (either selected date or most recent)
+            const dateToShow = selectedDate || Object.keys(bookings)[0];
+            const bookingToShow = bookings[dateToShow][0];
+            selectedBooking = { date: dateToShow, ...bookingToShow };
 
-            window.myCalendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: "dayGridMonth",
-                height: "auto",
-                contentHeight: "auto",
-                expandRows: true,
-                headerToolbar: {
-                    left: "prev,next today",
-                    center: "title",
-                    right: ""
-                },
-                dayCellDidMount: function (info) {
-                    let dateStr = info.date.toLocaleDateString("en-CA");
-                    if (bookingConfirmed && window.yourSchedule[dateStr]) {
-                        let style = window.yourSchedule[dateStr];
-                        info.el.style.backgroundColor = style.backgroundColor;
-                        info.el.style.color = style.color;
-                        info.el.style.borderRadius = style.borderRadius;
-                        info.el.style.cursor = "pointer";
-                    } else if (occupiedDates[dateStr]) {
-                        let style = occupiedDates[dateStr];
-                        info.el.style.backgroundColor = style.backgroundColor;
-                        info.el.style.color = style.color;
-                        info.el.style.borderRadius = style.borderRadius;
-                        info.el.style.cursor = "pointer";
-                    } else {
-                        info.el.style.cursor = "pointer";
+            // Update booking details in the right panel
+            if (bookingDetails) {
+                bookingDetails.style.display = "block";
+                bookingDetails.querySelector("h1").textContent = bookingToShow.room_name;
+                bookingDetails.querySelector("p").textContent = 
+                    `${formatDate(dateToShow)}: ${formatTime(bookingToShow.start_time)} - ${formatTime(bookingToShow.end_time)}`;
+                
+                // Update the room image if it exists in the booking data
+                const roomImage = bookingDetails.querySelector("img");
+                if (roomImage && bookingToShow.room_image) {
+                    roomImage.src = bookingToShow.room_image;
+                } else {
+                    roomImage.src = "/MedStudy-Space-System/User/images/icons/studyRoom2.jpg";
+                }
+            }
+
+            // Update booking information in the left panel
+            if (bookingInfo) {
+                bookingInfo.style.display = "block";
+                const studyRoomInfo = bookingInfo.querySelector(".studyRoomInfo");
+                if (studyRoomInfo) {
+                    // Update room name
+                    const roomName = studyRoomInfo.querySelector("h1");
+                    if (roomName) {
+                        roomName.textContent = bookingToShow.room_name;
                     }
-                },
-                dateClick: function (info) {
-                    let dateStr = info.date.toLocaleDateString("en-CA");
-                    if (window.yourSchedule[dateStr]) {
-                        openBookOverlay();
-                    } else if (occupiedDates[dateStr]) {
-                        openFullyBookedOverlay();
+
+                    // Update room details
+                    const roomDetails = studyRoomInfo.querySelectorAll(".roomDescription");
+                    if (roomDetails.length >= 3) {
+                        // Update student capacity
+                        if (bookingToShow.student_capacity) {
+                            roomDetails[0].querySelector("span").textContent = `${bookingToShow.student_capacity} students`;
+                        }
+                        // Update chairs
+                        if (bookingToShow.chairs) {
+                            roomDetails[1].querySelector("span").textContent = `${bookingToShow.chairs} chairs`;
+                        }
+                        // Update tables
+                        if (bookingToShow.tables) {
+                            roomDetails[2].querySelector("span").textContent = `${bookingToShow.tables} tables`;
+                        }
+                    }
+                }
+
+                // Update QR code section if available
+                const scanRoom = bookingInfo.querySelector(".scanRoom");
+                if (scanRoom && bookingToShow.qr_code) {
+                    const qrImage = scanRoom.querySelector("img");
+                    if (qrImage) {
+                        qrImage.src = bookingToShow.qr_code;
+                    }
+                }
+            }
+
+            if (noBooking) {
+                noBooking.style.display = "none";
+            }
+        }
+
+        function updateCalendarCells(userBookings, roomAvailability) {
+            document.querySelectorAll('.fc-daygrid-day').forEach(cell => {
+                const date = cell.getAttribute('data-date');
+                const cellDate = new Date(date);
+                const now = new Date();
+                now.setHours(0, 0, 0, 0);
+                
+                // Remove any existing status classes
+                cell.classList.remove('fc-day-user-booking', 'fc-day-fully-booked', 'fc-day-available');
+                
+                // Past dates
+                if (cellDate < now) {
+                    cell.classList.add('fc-day-past');
+                    return;
+                }
+                
+                // Weekends
+                const day = cellDate.getDay();
+                if (day === 0 || day === 6) {
+                    return;
+                }
+
+                // Check user bookings first
+                if (userBookings && userBookings[date]) {
+                    cell.classList.add('fc-day-user-booking');
+                    cell.querySelector('.fc-daygrid-day-number').style.color = '#ffffff';
+                    cell.querySelector('.fc-daygrid-day-number').style.fontWeight = 'bold';
+                }
+                // Then check room availability
+                else if (roomAvailability && roomAvailability[date]) {
+                    const availability = roomAvailability[date];
+                    if (availability.status === 'fully_booked') {
+                        cell.classList.add('fc-day-fully-booked');
                     } else {
-                        openNotAvailableOverlay();
+                        cell.classList.add('fc-day-available');
                     }
                 }
             });
-            window.myCalendar.render();
-        });
-
-        function cancelBookingDate() {
-            localStorage.removeItem("bookingConfirmed");
-            window.yourSchedule = {};
-            if (window.myCalendar) {
-                window.myCalendar.render();
-            }
-            location.reload();
         }
+
+        async function cancelBooking() {
+            if (!selectedBooking) {
+                showCustomAlert("No booking selected to cancel", "error");
+                return;
+            }
+
+            try {
+                const response = await fetch('/MedStudy-Space-System/User/php/cancel_booking.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        room_id: selectedBooking.room_id,
+                        booking_date: selectedBooking.date,
+                        start_time: selectedBooking.start_time,
+                        end_time: selectedBooking.end_time
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    // Remove the cancelled booking from currentBookings
+                    delete currentBookings[selectedBooking.date];
+                    
+                    // Close the confirmation overlay first
+                    closeBookCancelConfirmationOverlay();
+
+                    // Update displays
+                    if (Object.keys(currentBookings).length === 0) {
+                        const bookingDetails = document.getElementById("bookingDetails");
+                        const bookingInfo = document.getElementById("bookingInformation");
+                        const noBooking = document.getElementById("noBooking");
+                        
+                        if (bookingDetails) bookingDetails.style.display = "none";
+                        if (bookingInfo) bookingInfo.style.display = "none";
+                        if (noBooking) noBooking.style.display = "block";
+                    } else {
+                        updateBookingDisplay(currentBookings);
+                    }
+
+                    // Completely reinitialize calendar
+                    if (currentCalendarInstance) {
+                        const calendarEl = document.getElementById("calendar");
+                        if (calendarEl) {
+                            currentCalendarInstance.destroy();
+                            calendarInitialized = false;
+                            setTimeout(() => {
+                                initializeCalendar();
+                                
+                                // Fetch and update data for the current month
+                                const currentDate = new Date();
+                                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                                
+                                loadUserBookingsAndAvailability(
+                                    firstDay.toISOString().split('T')[0],
+                                    lastDay.toISOString().split('T')[0]
+                                ).then(data => {
+                                    if (data) {
+                                        updateCalendarCells(data.user_bookings, data.room_availability);
+                                    }
+                                });
+                            }, 100);
+                        }
+                    }
+
+                    showCustomAlert("Booking cancelled successfully", "success");
+                } else {
+                    throw new Error(data.message || 'Failed to cancel booking');
+                }
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                showCustomAlert("Failed to cancel booking: " + error.message, "error");
+            }
+        }
+
+        function closeBookCancelConfirmationOverlay() {
+            const overlay = document.getElementById("bookCancelConfirmationOverlay");
+            overlay.classList.remove("active");
+            setTimeout(() => {
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto";
+            }, 300);
+        }
+
+        function initializeCalendar() {
+            const calendarEl = document.getElementById("calendar");
+            if (!calendarEl) {
+                console.error("Calendar element not found");
+                return null;
+            }
+
+            // Destroy existing calendar if it exists
+            if (currentCalendarInstance) {
+                currentCalendarInstance.destroy();
+                currentCalendarInstance = null;
+            }
+
+            // Clear the calendar element
+            calendarEl.innerHTML = '';
+
+            try {
+                // Create new calendar instance
+                currentCalendarInstance = new FullCalendar.Calendar(calendarEl, {
+                    initialView: "dayGridMonth",
+                    height: "auto",
+                    contentHeight: "auto",
+                    expandRows: true,
+                    fixedWeekCount: false,
+                    headerToolbar: {
+                        left: "prev,next today",
+                        center: "title",
+                        right: ""
+                    },
+                    datesSet: async function(info) {
+                        const data = await loadUserBookingsAndAvailability(
+                            info.start.toISOString().split('T')[0],
+                            info.end.toISOString().split('T')[0]
+                        );
+
+                        if (data) {
+                            updateBookingDisplay(data.user_bookings);
+                            updateCalendarCells(data.user_bookings, data.room_availability);
+                        }
+                    },
+                    dateClick: function(info) {
+                        const date = info.dateStr;
+                        const cell = info.dayEl;
+                        
+                        if (currentBookings && currentBookings[date]) {
+                            updateBookingDisplay(currentBookings, date);
+                            
+                            // Add highlight effect
+                            cell.style.transition = 'background-color 0.3s ease';
+                            cell.style.backgroundColor = 'rgba(1, 78, 111, 0.1)';
+                            setTimeout(() => {
+                                cell.style.backgroundColor = '';
+                            }, 300);
+                        }
+                    }
+                });
+
+                // Add hover effects for tooltips
+                const tooltip = document.createElement('div');
+                tooltip.className = 'fc-day-tooltip';
+                document.body.appendChild(tooltip);
+
+                calendarEl.addEventListener('mouseover', (e) => {
+                    const cell = e.target.closest('.fc-daygrid-day');
+                    if (!cell) return;
+
+                    const date = cell.getAttribute('data-date');
+                    if (currentBookings && currentBookings[date]) {
+                        const booking = currentBookings[date][0];
+                        tooltip.textContent = `${booking.room_name}: ${formatTime(booking.start_time)} - ${formatTime(booking.end_time)}`;
+                        tooltip.style.left = e.pageX + 10 + 'px';
+                        tooltip.style.top = e.pageY + 10 + 'px';
+                        tooltip.classList.add('show');
+                    }
+                });
+
+                calendarEl.addEventListener('mouseout', () => {
+                    tooltip.classList.remove('show');
+                });
+
+                // Render calendar
+                currentCalendarInstance.render();
+                calendarInitialized = true;
+                return currentCalendarInstance;
+            } catch (error) {
+                console.error("Error initializing calendar:", error);
+                return null;
+            }
+        }
+
+        // Initialize calendar when DOM is loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                const calendar = initializeCalendar();
+                if (!calendar) {
+                    console.error("Failed to initialize calendar");
+                }
+            }, 100);
+        });
     </script>
+
+    <!-- Calendar Styles -->
+    <style>
+        /* Calendar Container */
+        #calendar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Calendar Header */
+        .fc .fc-toolbar {
+            margin-bottom: 1.5em;
+        }
+
+        .fc .fc-toolbar-title {
+            font-size: 1.5em;
+            color: #014E6F;
+        }
+
+        .fc .fc-button-primary {
+            background-color: #52BBBF;
+            border-color: #52BBBF;
+        }
+
+        .fc .fc-button-primary:hover {
+            background-color: #014E6F;
+            border-color: #014E6F;
+        }
+
+        /* Calendar Days */
+        .fc .fc-daygrid-day {
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .fc .fc-day-user-booking {
+            position: relative;
+            background-color: #ffffff !important;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .fc .fc-day-user-booking:hover {
+            transform: scale(1.02);
+        }
+
+        .fc .fc-day-user-booking::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background-color: #014E6F;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .fc .fc-day-user-booking:hover::after {
+            box-shadow: 0 0 15px rgba(1, 78, 111, 0.5);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .fc .fc-day-fully-booked {
+            position: relative;
+            background-color: #ffffff !important;
+            cursor: not-allowed;
+        }
+
+        .fc .fc-day-fully-booked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background-color: #E6F3FF;
+            border: 2px solid #014E6F;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .fc .fc-day-available {
+            position: relative;
+            background-color: #ffffff !important;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .fc .fc-day-available:hover {
+            transform: scale(1.02);
+        }
+
+        .fc .fc-day-available::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background-color: #52BBBF;
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .fc .fc-day-available:hover::after {
+            opacity: 0.3;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Calendar Tooltip */
+        .fc-day-tooltip {
+            position: absolute;
+            background-color: rgba(1, 78, 111, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .fc-day-tooltip.show {
+            opacity: 1;
+        }
+    </style>
 
     <div class="popup" id="loadingPopup">
         <div class="popup-content">
@@ -422,20 +850,26 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
         }
 
         function openBookCancelConfirmationOverlay() {
+            if (!selectedBooking) {
+                showCustomAlert("No booking selected to cancel", "error");
+                return;
+            }
+
             const overlay = document.getElementById("bookCancelConfirmationOverlay");
+            const detailsContainer = document.getElementById("cancelBookingDetails");
+            
+            // Update the cancellation details
+            detailsContainer.innerHTML = `
+                <p><strong>Room:</strong> ${selectedBooking.room_name}</p>
+                <p><strong>Date:</strong> ${formatDate(selectedBooking.date)}</p>
+                <p><strong>Time:</strong> ${formatTime(selectedBooking.start_time)} - ${formatTime(selectedBooking.end_time)}</p>
+            `;
+
             overlay.style.display = "flex";
             setTimeout(() => {
                 overlay.classList.add("active");
             }, 10);
             document.body.style.overflow = "hidden";
-        }
-        function closeBookCancelConfirmationOverlay() {
-            const overlay = document.getElementById("bookCancelConfirmationOverlay");
-            overlay.classList.remove("active");
-            setTimeout(() => {
-                overlay.style.display = "none";
-            }, 300);
-            document.body.style.overflow = "auto";
         }
 
         function openProfileDetailsOverlay() {
@@ -471,30 +905,6 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
             } else {
                 alert("Please upload a valid image file (PNG, JPG, JPEG).");
             }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const shouldShowBookingDetails = localStorage.getItem("showBookingDetails");
-            if (shouldShowBookingDetails === "true") {
-                const bookingDetails = document.getElementById("bookingDetails");
-                const bookingInformation = document.getElementById("bookingInformation");
-                const noBooking = document.getElementById("noBooking");
-                if (bookingDetails) bookingDetails.style.display = "block";
-                if (bookingInformation) bookingInformation.style.display = "block";
-                if (noBooking) noBooking.style.display = "none";
-            }
-        });
-
-        function cancelBooking() {
-            const bookingDetails = document.getElementById("bookingDetails");
-            const bookingInformation = document.getElementById("bookingInformation");
-            const noBooking = document.getElementById("noBooking");
-            if (bookingDetails) bookingDetails.style.display = "none";
-            if (bookingInformation) bookingInformation.style.display = "none";
-            if (noBooking) noBooking.style.display = "block";
-            localStorage.removeItem("showBookingDetails");
-            cancelBookingDate();
-            closeBookCancelConfirmationOverlay();
         }
     </script>
 </body>

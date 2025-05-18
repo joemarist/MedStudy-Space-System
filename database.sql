@@ -38,7 +38,19 @@ CREATE TABLE IF NOT EXISTS booking (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     room_id INT,
-    book_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    booking_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user_details(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+    CONSTRAINT valid_duration CHECK (
+        TIMESTAMPDIFF(MINUTE, start_time, end_time) BETWEEN 10 AND 120
+    ),
+    CONSTRAINT valid_time CHECK (
+        HOUR(start_time) BETWEEN 8 AND 16 AND
+        HOUR(end_time) <= 17 AND
+        MINUTE(end_time) <= 59
+    ),
+    CONSTRAINT no_overlap UNIQUE (room_id, booking_date, start_time, end_time)
 );

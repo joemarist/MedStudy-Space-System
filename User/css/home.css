@@ -686,7 +686,6 @@ body, html{
 .bookOverlay.active {
     visibility: visible;
     opacity: 1;
-    transition: opacity 0.3s ease-in-out;
 }
 .bookBox{
     background-color: white;
@@ -706,25 +705,181 @@ body, html{
 .bookDescription{
     margin: 0% 10%;
 }
-.setTime{
+.setTime {
     width: 80%;
     margin: 10% auto;
 }
-.setTime button{
-    color: white;
-    background-color: #52BBBF;
-    border-radius: 10px;
-    padding: 4% 10%;
-    width: 80%;
-    font-size: 16pt;
-    border: 0;
-    display: block;
-    margin: 3% auto;
+
+.setTime h2 {
+    color: #014E6F;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
-.setTime button:hover{
+
+/* Time Picker */
+#timePicker, #endTimePicker {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    border: 2px solid #52BBBF;
+    border-radius: 8px;
+    padding: 12px 15px;
+    width: 100%;
+    background: white;
+    color: #014E6F;
+    display: block;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#timePicker:focus, #endTimePicker:focus {
+    border-color: #014E6F;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(2, 78, 111, 0.1);
+}
+
+#timePicker::placeholder, #endTimePicker::placeholder {
+    color: #a8a8a8;
+    font-weight: normal;
+    letter-spacing: normal;
+    opacity: 0.7;
+}
+
+/* Flatpickr Calendar Customization */
+.flatpickr-calendar {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: none;
+    width: 300px;
+    margin: 5px 0;
+}
+
+.flatpickr-time {
+    height: 60px;
+    line-height: 60px;
+    border-radius: 0 0 12px 12px;
+    background: #f8f9fa;
+    max-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flatpickr-time input {
+    color: #014E6F;
+    font-size: 1.2em;
+    font-weight: 500;
+    height: 60px;
+    background: transparent;
+    padding: 0 10px;
+    text-align: center;
+    width: 50px !important;
+}
+
+.numInputWrapper {
+    position: relative;
+    height: 60px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.numInputWrapper:hover {
+    background: #edf7ff;
+}
+
+.numInputWrapper span {
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    opacity: 0.7;
+    transition: all 0.2s ease;
     cursor: pointer;
-    background-color: #4ba7ab;
-    transition: 0.3s;
+    position: absolute;
+    right: 2px;
+}
+
+.numInputWrapper span:hover {
+    background: #52BBBF;
+    color: white;
+    opacity: 1;
+}
+
+.numInputWrapper span.arrowUp {
+    top: 8px;
+}
+
+.numInputWrapper span.arrowDown {
+    bottom: 8px;
+}
+
+.flatpickr-am-pm {
+    color: #014E6F;
+    font-weight: 500;
+    width: 60px;
+    font-size: 1em;
+    height: 60px;
+    line-height: 60px;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.flatpickr-am-pm:hover {
+    background: #edf7ff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    #timePicker, #endTimePicker {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .flatpickr-calendar {
+        width: 280px;
+    }
+
+    .flatpickr-time {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .flatpickr-time input {
+        height: 50px;
+        font-size: 1.1em;
+    }
+
+    .numInputWrapper {
+        height: 50px;
+    }
+
+    .flatpickr-am-pm {
+        height: 50px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    #timePicker, #endTimePicker {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .flatpickr-calendar {
+        width: 260px;
+    }
+
+    .flatpickr-time input {
+        font-size: 1em;
+    }
 }
 
 /*Book Confirmation Overlay*/
@@ -972,34 +1127,31 @@ body, html{
     transition: 0.3s;
 }
 
-/*Time Picker*/
-#timePicker {
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 3px;
+/*Time note styles */
+.time-note {
+    color: #666;
+    font-size: 0.9em;
+    margin: 15px 0;
     text-align: center;
-    border: 2px solid #007bff;
+    padding: 12px 15px;
+    background: #f8f9fa;
     border-radius: 8px;
-    padding: 10px;
-    width: 50%;
-    background: white;
-    color: #014E6F;
-    display: block;
-    margin: 0 auto;
+    border-left: 4px solid #52BBBF;
 }
 
-#timePicker::placeholder {
-    color: #006CFD;
+@media (max-width: 768px) {
+    .time-note {
+        font-size: 0.85em;
+        padding: 10px 12px;
+    }
 }
 
-#timePicker:focus {
-    border-color: #0056b3;
-    outline: none;
+@media (max-width: 480px) {
+    .time-note {
+        font-size: 0.8em;
+        padding: 8px 10px;
+    }
 }
-.flatpickr-time{
-    width: 50%;
-}
-
 
 .logout-mobile{
     display: none;
@@ -1190,9 +1342,6 @@ body, html{
     }
     .setTime h2{
         font-size: 2vw;
-    }
-    #timePicker{
-        font-size: 2.2vw;
     }
     .setTime button{
         font-size: 2.5vw;
@@ -1484,6 +1633,140 @@ body, html{
     transform: none;
     opacity: 0.7;
     cursor: not-allowed;
+}
+
+.time-note {
+    color: #666;
+    font-size: 0.9em;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.bookDescription h1 {
+    color: #014E6F;
+    margin-bottom: 5px;
+}
+
+.bookDescription span {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.bookConfirmationBox p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.bookConfirmationBox p strong {
+    color: #014E6F;
+}
+
+.bottomRightConfirmation p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.bottomRightConfirmation span {
+    color: #014E6F;
+    font-weight: bold;
+}
+
+/* Update existing styles */
+.setTime input[type="text"] {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: 2px solid #52BBBF;
+    border-radius: 5px;
+    width: 100%;
+    margin: 10px 0;
+    color: #014E6F;
+}
+
+.setTime input[type="text"]:focus {
+    outline: none;
+    border-color: #014E6F;
+}
+
+.setTime input[type="text"]::placeholder {
+    color: #999;
+}
+
+/* Style for the flatpickr calendar */
+.flatpickr-calendar {
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flatpickr-time {
+    border-radius: 0 0 8px 8px;
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time input:focus {
+    background: #f0f8ff;
+}
+
+.numInputWrapper:hover {
+    background: #f0f8ff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .bookBox {
+        width: 90%;
+    }
+    
+    .bookConfirmationBox {
+        width: 90%;
+    }
+    
+    .bookConfirmedBox {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .time-note {
+        font-size: 0.8em;
+    }
+    
+    .setTime input[type="text"] {
+        font-size: 14px;
+    }
+}
+
+.setTime button {
+    color: white;
+    background-color: #52BBBF;
+    border-radius: 10px;
+    padding: 12px 30px;
+    width: 80%;
+    font-size: 1.1em;
+    font-weight: 500;
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(82, 187, 191, 0.2);
+}
+
+.setTime button:hover {
+    background-color: #4ba7ab;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(82, 187, 191, 0.3);
+}
+
+.setTime button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(82, 187, 191, 0.2);
+}
+
+@media (max-width: 768px) {
+    .setTime button {
+        font-size: 1em;
+        padding: 10px 25px;
+    }
 }
 
 
