@@ -1040,3 +1040,9 @@ QR code downloaded for room_id=2, room_key=room_682037b96d148
 2025-05-17 08:54:10 [updateRoom.php] Request received
 2025-05-17 08:54:10 [updateRoom.php] POST: {"room_id":"3","room_name":"Happy Room","student_capacity":"3","chairs":"1","tables":"2","status":"Available"}
 2025-05-17 08:54:10 [updateRoom.php] FILES: {"room_image":{"name":"462576597_1086808566101489_3064721557953920278_n.jpg","full_path":"462576597_1086808566101489_3064721557953920278_n.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\php4A16.tmp","error":0,"size":195839}}
+2025-05-26 08:39:22 [updateRoom.php] Request received
+2025-05-26 08:39:22 [updateRoom.php] POST: {"room_id":"2","room_name":"Happy Room","student_capacity":"5","chairs":"3","tables":"2","status":"Available"}
+2025-05-26 08:39:22 [updateRoom.php] FILES: {"room_image":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+2025-05-27 17:39:25 [updateRoom.php] Request received
+2025-05-27 17:39:25 [updateRoom.php] POST: {"room_id":"1","room_name":"Cool Study","student_capacity":"3","chairs":"3","tables":"1","status":"Maintenance"}
+2025-05-27 17:39:25 [updateRoom.php] FILES: {"room_image":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}

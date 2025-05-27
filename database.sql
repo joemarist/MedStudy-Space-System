@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS booking (
     booking_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
+    status ENUM('in_process', 'cancelled by student', 'cancelled by admin', 'no_show', 'completed') DEFAULT 'in_process',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user_details(user_id) ON DELETE CASCADE,
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
@@ -53,4 +54,13 @@ CREATE TABLE IF NOT EXISTS booking (
         MINUTE(end_time) <= 59
     ),
     CONSTRAINT no_overlap UNIQUE (room_id, booking_date, start_time, end_time)
+);
+
+-- Table: cancelledBooking_Logs
+CREATE TABLE IF NOT EXISTS cancelledBooking_Logs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT NOT NULL,
+    cancellation_reason VARCHAR(255) NOT NULL,
+    cancelled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES booking(book_id) ON DELETE CASCADE
 );

@@ -213,16 +213,12 @@ $full_name = $first_name . ' ' . $last_name;
                     <div id="calendar"></div>
                     <div class="legendForCalendar">
                         <div class="legend">
-                            <div class="legend-color" style="background-color: #52BBBF; border-radius: 50%; width: 20px; height: 20px; display: inline-block;"></div>
-                            <span>Vacant (8:00 AM - 5:00 PM)</span>
-                        </div>
-                        <div class="legend">
-                            <div class="legend-color" style="background-color: #E6F3FF; border-radius: 50%; width: 20px; height: 20px; display: inline-block;"></div>
-                            <span>Fully Booked</span>
-                        </div>
-                        <div class="legend">
-                            <div class="legend-color" style="background-color: #014E6F; border-radius: 50%; width: 20px; height: 20px; display: inline-block;"></div>
+                            <div class="legend-color" style="background-color: #014E6F;"></div>
                             <span>Your Booking</span>
+                        </div>
+                        <div class="legend">
+                            <div class="legend-color" style="background-color: #FF4D4D;"></div>
+                            <span>Cancelled</span>
                         </div>
                     </div>
                 </div>
@@ -333,13 +329,31 @@ $full_name = $first_name . ' ' . $last_name;
         </div>
     </div>
 
+    <!-- Cancelled Date Overlay -->
+    <div class="cancelledDateOverlay" id="cancelledDateOverlay" style="display: none;">
+        <div class="cancelledDateBox">
+            <div class="overlay-icon">
+                <img src="/MedStudy-Space-System/User/images/icons/warning.png" alt="Warning">
+            </div>
+            <h2>Booking Unavailable</h2>
+            <p>This date has been cancelled and is not available for booking.</p>
+            <div class="overlay-actions">
+                <button onclick="closeCancelledDateOverlay()">Understood</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Duplicate Booking Overlay -->
-    <div class="duplicateBookingOverlay" id="duplicateBookingOverlay">
+    <div class="duplicateBookingOverlay" id="duplicateBookingOverlay" style="display: none;">
         <div class="duplicateBookingBox">
-            <img src="/MedStudy-Space-System/User/images/icons/warning.png" alt="">
+            <div class="overlay-icon">
+                <img src="/MedStudy-Space-System/User/images/icons/warning.png" alt="Warning">
+            </div>
             <h2>One Booking Per Day</h2>
             <p>You already have a booking on this date. To ensure fair access for all students, only one booking per day is allowed.</p>
-            <button onclick="closeDuplicateBookingOverlay()">I Understand</button>
+            <div class="overlay-actions">
+                <button onclick="closeDuplicateBookingOverlay()">I Understand</button>
+            </div>
         </div>
     </div>
 
@@ -419,7 +433,31 @@ $full_name = $first_name . ' ' . $last_name;
             }, 300);
         }
 
+        // Function to fetch room details
+        async function fetchRoomDetails(roomId) {
+            try {
+                const response = await fetch('/MedStudy-Space-System/User/php/get_room_details.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        room_id: roomId
+                    })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    return data.room;
+                }
+                throw new Error(data.message);
+            } catch (error) {
+                console.error('Error fetching room details:', error);
+                return null;
+            }
+        }
+
         function openRoomOverlay(roomId, roomName, roomImage, status, capacity, chairs, tables) {
+            // First, try to use the passed parameters
             currentRoom = {
                 id: roomId,
                 name: roomName,
@@ -434,10 +472,38 @@ $full_name = $first_name . ' ' . $last_name;
                 endTime: ''
             };
 
+            // Set currentRoom globally for calendar
+            window.currentRoom = currentRoom;
+
             // Update room overlay elements
             document.getElementById("roomOverlayImage").src = roomImage;
             document.getElementById("roomOverlayName").innerText = roomName;
             document.getElementById("roomOverlayStatus").innerText = status;
+            
+            // Update room details
+            const capacityEl = document.getElementById("roomOverlayCapacity");
+            const chairsEl = document.getElementById("roomOverlayChairs");
+            const tablesEl = document.getElementById("roomOverlayTables");
+            
+            if (capacityEl) capacityEl.innerText = `${capacity} Students`;
+            if (chairsEl) chairsEl.innerText = `${chairs} Chairs`;
+            if (tablesEl) tablesEl.innerText = `${tables} Tables`;
+            
+            // Fetch additional room details if needed
+            fetchRoomDetails(roomId).then(roomDetails => {
+                if (roomDetails) {
+                    // Update with fetched details if different
+                    if (roomDetails.capacity !== capacity) {
+                        capacityEl.innerText = `${roomDetails.capacity} Students`;
+                    }
+                    if (roomDetails.chairs !== chairs) {
+                        chairsEl.innerText = `${roomDetails.chairs} Chairs`;
+                    }
+                    if (roomDetails.tables !== tables) {
+                        tablesEl.innerText = `${roomDetails.tables} Tables`;
+                    }
+                }
+            });
             
             // Show the overlay
             const overlay = document.getElementById("roomOverlay");
@@ -584,13 +650,6 @@ $full_name = $first_name . ' ' . $last_name;
                     bookingDate.getDate()
                 )).toISOString().split('T')[0];
 
-                console.log('Sending booking request:', {
-                    room_id: currentRoom.id,
-                    booking_date: utcDate,
-                    start_time: startTime,
-                    end_time: endTime
-                });
-
                 const response = await fetch('/MedStudy-Space-System/User/php/process_booking.php', {
                     method: 'POST',
                     headers: {
@@ -605,7 +664,6 @@ $full_name = $first_name . ' ' . $last_name;
                 });
 
                 const data = await response.json();
-                console.log('Booking response:', data);
 
                 if (data.success) {
                     // Close overlays
@@ -629,6 +687,8 @@ $full_name = $first_name . ' ' . $last_name;
                     }
                 } else {
                     closeBookConfirmationOverlay();
+                    
+                    // Handle duplicate booking error
                     if (data.error_type === 'duplicate_booking') {
                         openDuplicateBookingOverlay();
                     } else {
@@ -763,55 +823,111 @@ $full_name = $first_name . ' ' . $last_name;
             });
         }
 
-        // Function to update calendar cell styles
-        function updateCalendarCells(bookings) {
-            document.querySelectorAll('.fc-daygrid-day').forEach(cell => {
-                const date = cell.getAttribute('data-date');
-                const cellDate = new Date(date);
-                const now = new Date();
-                now.setHours(0, 0, 0, 0);
+        // Enhanced calendar marking function
+        function updateCalendarCells(userBookings) {
+            // Ensure userBookings is an array
+            if (!Array.isArray(userBookings)) {
+                console.error('Invalid bookings data:', userBookings);
+                // Try to use previously stored bookings
+                userBookings = window.lastLoadedBookings || [];
+            }
+
+            // Store bookings for future reference
+            window.lastLoadedBookings = userBookings;
+
+            // Create a map of bookings by date for easier lookup
+            const bookingsByDate = {};
+            userBookings.forEach(booking => {
+                if (booking && booking.date) {
+                    // Ensure the booking is for the current room
+                    if (window.currentRoom && booking.room_id == window.currentRoom.id) {
+                        bookingsByDate[booking.date] = booking;
+                    }
+                }
+            });
+
+            // Select all calendar day elements
+            const dateEls = document.querySelectorAll('.fc-daygrid-day');
+            dateEls.forEach(el => {
+                const dateNumberEl = el.querySelector('.fc-daygrid-day-number');
+                const date = el.getAttribute('data-date');
                 
-                // Remove any existing status classes
-                cell.classList.remove('fc-day-vacant', 'fc-day-user-booking', 'fc-day-fully-booked');
-                
-                // Past dates
-                if (cellDate < now) {
-                    cell.classList.add('fc-day-past');
-                    return;
+                // Reset styles
+                if (dateNumberEl) {
+                    dateNumberEl.style.color = '';
+                    dateNumberEl.style.fontWeight = '';
+                    dateNumberEl.style.transform = '';
+                    
+                    // Add hover effect
+                    dateNumberEl.classList.add('booking-date-number');
                 }
                 
-                // Weekends
-                const day = cellDate.getDay();
-                if (day === 0 || day === 6) {
-                    return;
-                }
-                
-                const booking = bookings.find(b => b.date === date);
+                // Remove existing classes
+                el.classList.remove(
+                    'fc-day-user-booking', 
+                    'fc-day-cancelled', 
+                    'fc-day-past'
+                );
+
+                // Check if this date has a booking for the current room
+                const booking = bookingsByDate[date];
                 if (booking) {
+                    // Determine marking based on status
                     switch(booking.status) {
+                        case 'cancelled':
+                            el.classList.add('fc-day-cancelled');
+                            if (dateNumberEl) {
+                                dateNumberEl.style.color = '#FF4D4D';
+                                dateNumberEl.style.fontWeight = 'bold';
+                                dateNumberEl.classList.add('cancelled-booking');
+                            }
+                            break;
                         case 'user-booking':
-                            cell.classList.add('fc-day-user-booking');
-                            cell.querySelector('.fc-daygrid-day-number').style.color = '#ffffff';
-                            cell.querySelector('.fc-daygrid-day-number').style.fontWeight = 'bold';
-                            cell.querySelector('.fc-daygrid-day-number').style.position = 'relative';
-                            cell.querySelector('.fc-daygrid-day-number').style.zIndex = '2';
-                            break;
-                        case 'fully-booked':
-                            cell.classList.add('fc-day-fully-booked');
-                            cell.querySelector('.fc-daygrid-day-number').style.color = '#014E6F';
-                            cell.querySelector('.fc-daygrid-day-number').style.position = 'relative';
-                            cell.querySelector('.fc-daygrid-day-number').style.zIndex = '2';
-                            break;
-                        case 'vacant':
-                            cell.classList.add('fc-day-vacant');
-                            cell.querySelector('.fc-daygrid-day-number').style.color = '#014E6F';
-                            cell.querySelector('.fc-daygrid-day-number').style.position = 'relative';
-                            cell.querySelector('.fc-daygrid-day-number').style.zIndex = '2';
+                            el.classList.add('fc-day-user-booking');
+                            if (dateNumberEl) {
+                                dateNumberEl.style.color = '#014E6F';
+                                dateNumberEl.style.fontWeight = 'bold';
+                                dateNumberEl.style.transform = 'scale(1.1)';
+                                dateNumberEl.classList.add('user-booking');
+                            }
                             break;
                     }
                 }
             });
         }
+
+        // Add custom CSS for hover effects
+        const hoverStyleEl = document.createElement('style');
+        hoverStyleEl.textContent = `
+            .booking-date-number {
+                transition: all 0.3s ease;
+                padding: 4px;
+                border-radius: 50%;
+                display: inline-block;
+                position: relative;
+                z-index: 10;
+            }
+
+            .booking-date-number:hover {
+                background-color: rgba(1, 78, 111, 0.1);
+                transform: scale(1.2) !important;
+                cursor: pointer;
+            }
+
+            .booking-date-number.user-booking:hover {
+                background-color: rgba(1, 78, 111, 0.2);
+            }
+
+            .booking-date-number.cancelled-booking:hover {
+                background-color: rgba(255, 77, 77, 0.2);
+            }
+
+            .fc-day-past .booking-date-number:hover {
+                background-color: rgba(173, 181, 189, 0.1);
+                cursor: not-allowed;
+            }
+        `;
+        document.head.appendChild(hoverStyleEl);
 
         function openDuplicateBookingOverlay() {
             const overlay = document.getElementById("duplicateBookingOverlay");
@@ -830,6 +946,30 @@ $full_name = $first_name . ' ' . $last_name;
                 closeBookOverlay();
             }, 300);
             document.body.style.overflow = "auto";
+        }
+
+        // Function to open cancelled date overlay
+        function openCancelledDateOverlay() {
+            const overlay = document.getElementById("cancelledDateOverlay");
+            if (overlay) {
+                overlay.style.display = "flex";
+                setTimeout(() => {
+                    overlay.classList.add("active");
+                }, 10);
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        // Function to close cancelled date overlay
+        function closeCancelledDateOverlay() {
+            const overlay = document.getElementById("cancelledDateOverlay");
+            if (overlay) {
+                overlay.classList.remove("active");
+                setTimeout(() => {
+                    overlay.style.display = "none";
+                }, 300);
+                document.body.style.overflow = "auto";
+            }
         }
     </script>
 
@@ -908,8 +1048,6 @@ $full_name = $first_name . ' ' . $last_name;
 
     <!-- Calendar Script -->
     <script>
-        let calendarInitialized = false;
-
         document.addEventListener('DOMContentLoaded', function() {
             const calendarEl = document.getElementById('calendar');
             if (!calendarEl) {
@@ -948,21 +1086,61 @@ $full_name = $first_name . ' ' . $last_name;
                         center: "title",
                         right: ""
                     },
-                    datesSet: async function(info) {
-                        if (currentRoom && currentRoom.id) {
-                            try {
-                                const bookings = await loadBookings(
-                                    currentRoom.id,
-                                    info.start.toISOString().split('T')[0],
-                                    info.end.toISOString().split('T')[0]
-                                );
+                    datesSet: function(info) {
+                        // Ensure current room is set
+                        if (window.currentRoom && window.currentRoom.id) {
+                            // Extend the date range to ensure full coverage
+                            const extendedStart = new Date(info.start);
+                            extendedStart.setDate(extendedStart.getDate() - 7);
+                            
+                            const extendedEnd = new Date(info.end);
+                            extendedEnd.setDate(extendedEnd.getDate() + 7);
+                            
+                            loadBookings(
+                                window.currentRoom.id,
+                                extendedStart.toISOString().split('T')[0],
+                                extendedEnd.toISOString().split('T')[0]
+                            ).then(bookings => {
+                                // Always update calendar cells after loading bookings
+                                window.lastLoadedBookings = bookings;
                                 updateCalendarCells(bookings);
-                            } catch (error) {
+                            }).catch(error => {
                                 console.error('Error loading bookings:', error);
-                            }
+                                // Fallback to previously loaded bookings if available
+                                if (window.lastLoadedBookings) {
+                                    updateCalendarCells(window.lastLoadedBookings);
+                                }
+                            });
                         }
                     },
-                    dateClick: async function(info) {
+                    viewDidMount: function(info) {
+                        // Ensure markings persist after view changes
+                        if (window.currentRoom && window.currentRoom.id) {
+                            // Extend the date range to ensure full coverage
+                            const extendedStart = new Date(info.view.currentStart);
+                            extendedStart.setDate(extendedStart.getDate() - 7);
+                            
+                            const extendedEnd = new Date(info.view.currentEnd);
+                            extendedEnd.setDate(extendedEnd.getDate() + 7);
+                            
+                            loadBookings(
+                                window.currentRoom.id,
+                                extendedStart.toISOString().split('T')[0],
+                                extendedEnd.toISOString().split('T')[0]
+                            ).then(bookings => {
+                                // Store bookings for persistent marking
+                                window.lastLoadedBookings = bookings;
+                                updateCalendarCells(bookings);
+                            }).catch(error => {
+                                console.error('Error loading bookings:', error);
+                                // Fallback to previously loaded bookings if available
+                                if (window.lastLoadedBookings) {
+                                    updateCalendarCells(window.lastLoadedBookings);
+                                }
+                            });
+                        }
+                    },
+                    dateClick: function(info) {
                         const date = info.date;
                         const isBusinessDay = date.getDay() >= 1 && date.getDay() <= 5;
                         const now = new Date();
@@ -973,35 +1151,19 @@ $full_name = $first_name . ' ' . $last_name;
                             return;
                         }
 
-                        if (!currentRoom || !currentRoom.id) {
+                        if (!window.currentRoom || !window.currentRoom.id) {
                             console.error('No room selected');
                             return;
                         }
 
-                        try {
-                            const bookings = await loadBookings(
-                                currentRoom.id,
-                                info.dateStr,
-                                info.dateStr
-                            );
-
-                            const booking = bookings.find(b => b.date === info.dateStr);
-                            if (booking && booking.status === 'fully-booked') {
-                                openFullyBookedOverlay();
-                            } else {
-                                currentRoom.selectedDate = info.dateStr;
-                                openBookOverlay(date);
-                            }
-                        } catch (error) {
-                            console.error('Error checking date availability:', error);
-                            showCustomAlert('Error checking date availability. Please try again.', 'error');
-                        }
+                        // Always open book overlay for business days
+                        window.currentRoom.selectedDate = info.dateStr;
+                        openBookOverlay(date);
                     }
                 });
 
                 // Render calendar
                 window.myCalendar.render();
-                calendarInitialized = true;
             }
 
             // Override the openRoomOverlay function
@@ -1025,10 +1187,22 @@ $full_name = $first_name . ' ' . $last_name;
                         endTime: ''
                     };
 
+                    // Set currentRoom globally for calendar
+                    window.currentRoom = currentRoom;
+
                     // Update room overlay elements
                     document.getElementById("roomOverlayImage").src = roomImage;
                     document.getElementById("roomOverlayName").innerText = roomName;
                     document.getElementById("roomOverlayStatus").innerText = status;
+                    
+                    // Update room details
+                    const capacityEl = document.getElementById("roomOverlayCapacity");
+                    const chairsEl = document.getElementById("roomOverlayChairs");
+                    const tablesEl = document.getElementById("roomOverlayTables");
+                    
+                    if (capacityEl) capacityEl.innerText = `${capacity} Students`;
+                    if (chairsEl) chairsEl.innerText = `${chairs} Chairs`;
+                    if (tablesEl) tablesEl.innerText = `${tables} Tables`;
                     
                     // Show the overlay
                     const overlay = document.getElementById("roomOverlay");
@@ -1043,24 +1217,35 @@ $full_name = $first_name . ' ' . $last_name;
                 setTimeout(() => {
                     createCalendar();
                     
-                    // Load initial bookings
-                    if (currentRoom && currentRoom.id) {
-                        const currentDate = new Date();
-                        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                        
-                        loadBookings(
-                            currentRoom.id,
-                            firstDay.toISOString().split('T')[0],
-                            lastDay.toISOString().split('T')[0]
-                        ).then(bookings => {
-                            if (window.myCalendar) {
-                                updateCalendarCells(bookings);
-                            }
-                        }).catch(error => {
-                            console.error('Error loading initial bookings:', error);
-                        });
+                    // Load initial bookings with multiple attempts
+                    function loadInitialBookings(attempts = 3) {
+                        if (currentRoom && currentRoom.id) {
+                            const currentDate = new Date();
+                            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                            
+                            loadBookings(
+                                currentRoom.id,
+                                firstDay.toISOString().split('T')[0],
+                                lastDay.toISOString().split('T')[0]
+                            ).then(bookings => {
+                                if (window.myCalendar) {
+                                    updateCalendarCells(bookings);
+                                }
+                            }).catch(error => {
+                                console.error('Error loading initial bookings:', error);
+                                
+                                // Retry with decreasing attempts
+                                if (attempts > 0) {
+                                    setTimeout(() => {
+                                        loadInitialBookings(attempts - 1);
+                                    }, 500);
+                                }
+                            });
+                        }
                     }
+
+                    loadInitialBookings();
                 }, 300); // Wait for overlay transition
             };
         });
@@ -1161,223 +1346,383 @@ $full_name = $first_name . ' ' . $last_name;
     }
 
     .fc .fc-daygrid-day {
-        transition: all 0.2s ease;
-        cursor: pointer;
-        min-height: 100px;
-    }
-
-    .fc .fc-daygrid-day:hover {
-        background-color: #f8f9fa;
+        min-height: 80px;
+        transition: all 0.3s ease;
+        position: relative;
+        border: 1px solid #f1f3f5;
     }
 
     .fc .fc-daygrid-day-number {
-        padding: 8px;
-        color: #495057;
-        font-weight: 500;
-    }
-
-    /* Calendar cell status styles */
-    .fc .fc-day-vacant {
-        position: relative;
-        background-color: #ffffff !important;
-    }
-
-    .fc .fc-day-vacant::after {
-        content: '';
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 32px;
-        height: 32px;
-        background-color: #52BBBF;
+        top: 8px;
+        right: 8px;
+        font-size: 0.9em;
+        color: #868e96;
+        transition: all 0.3s ease;
+    }
+
+    /* Day Number Styling */
+    .fc .day-number {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 5px;
         border-radius: 50%;
-        opacity: 0.15;
-        z-index: 1;
     }
 
-    .fc .fc-day-user-booking {
-        position: relative;
-        background-color: #ffffff !important;
+    .fc .day-number:hover {
+        background-color: rgba(1, 78, 111, 0.1);
+        transform: scale(1.1);
     }
 
-    .fc .fc-day-user-booking::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 32px;
-        height: 32px;
-        background-color: #014E6F;
-        border-radius: 50%;
-        z-index: 1;
+    /* Calendar Day Styles - Ensure No Background Color */
+    .fc .fc-daygrid-day {
+        background-color: transparent !important;
     }
 
-    .fc .fc-day-fully-booked {
-        position: relative;
-        background-color: #ffffff !important;
+    .fc .fc-day-user-booking,
+    .fc .fc-day-cancelled,
+    .fc .fc-day-past,
+    .fc .fc-day-today,
+    .fc .fc-day-sat,
+    .fc .fc-day-sun {
+        background-color: transparent !important;
     }
 
-    .fc .fc-day-fully-booked::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 32px;
-        height: 32px;
-        background-color: #E6F3FF;
-        border: 2px solid #014E6F;
-        border-radius: 50%;
-        z-index: 1;
+    /* Day Number Styling */
+    .fc .fc-day-user-booking .fc-daygrid-day-number {
+        color: #014E6F !important;
+        font-weight: bold;
+        transform: scale(1.2);
     }
 
-    .fc .fc-day-past {
-        background-color: #f8f9fa;
-        cursor: not-allowed;
-    }
-
-    .fc .fc-day-today {
-        background-color: #e8f4f4 !important;
-    }
-
-    .fc .fc-day-today .fc-daygrid-day-number {
-        color: #014E6F;
+    .fc .fc-day-cancelled .fc-daygrid-day-number {
+        color: #FF4D4D !important;
         font-weight: bold;
     }
 
-    /* Weekend days */
-    .fc .fc-day-sat, .fc .fc-day-sun {
-        background-color: #f8f9fa;
-        cursor: not-allowed;
+    .fc .fc-day-past .fc-daygrid-day-number {
+        color: #ADB5BD !important;
+        text-decoration: line-through;
     }
 
-    .fc .fc-day-sat .fc-daygrid-day-number,
-    .fc .fc-day-sun .fc-daygrid-day-number {
-        color: #adb5bd;
-    }
-
-    /* Enhanced legend styling */
+    /* Legend Styling */
     .legendForCalendar {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #ffffff;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        gap: 20px;
     }
 
     .legend {
         display: flex;
         align-items: center;
-        margin: 8px 0;
+        margin: 0;
     }
 
     .legend-color {
-        margin-right: 10px;
-        border: 2px solid transparent;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 8px;
     }
 
     .legend span {
-        color: #495057;
         font-size: 0.9em;
+        color: #495057;
+        font-weight: 500;
     }
 
-    /* Custom Alert Overlay */
-    .customAlertBox {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .fc .fc-toolbar {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .fc .fc-toolbar-chunk {
+            margin-bottom: 10px;
+        }
+
+        .fc .fc-daygrid-day {
+            min-height: 60px;
+        }
     }
 
-    .customAlertOverlay.active .customAlertBox {
-        transform: scale(1);
+    /* Professional Overlay Styles */
+    .cancelledDateOverlay,
+    .duplicateBookingOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
-    .alertIcon {
-        margin-bottom: 20px;
+    .cancelledDateOverlay.active,
+    .duplicateBookingOverlay.active {
+        display: flex;
+        opacity: 1;
     }
 
-    .alertIcon img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .customAlertBox p {
-        margin: 20px 0;
-        color: #333;
-        font-size: 16px;
-        line-height: 1.5;
-    }
-
-    .customAlertBox button {
-        background-color: #52BBBF;
-        color: white;
-        border: none;
-        padding: 10px 30px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-    .customAlertBox button:hover {
-        background-color: #014E6F;
-    }
-
-    /* Duplicate Booking Overlay */
+    .cancelledDateBox,
     .duplicateBookingBox {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        text-align: center;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         max-width: 450px;
         width: 90%;
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+        transform: scale(0.7);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
+    .cancelledDateOverlay.active .cancelledDateBox,
     .duplicateBookingOverlay.active .duplicateBookingBox {
         transform: scale(1);
+        opacity: 1;
     }
 
-    .duplicateBookingBox img {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 20px;
+    .overlay-icon {
+        width: 100px;
+        height: 100px;
+        background-color: #FFE5E5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 20px;
+        animation: pulse 1.5s infinite;
     }
 
+    .overlay-icon img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+    }
+
+    .cancelledDateBox h2,
     .duplicateBookingBox h2 {
-        color: #014E6F;
+        color: #FF4D4D;
+        font-size: 1.8em;
         margin-bottom: 15px;
-        font-size: 24px;
+        font-weight: 700;
     }
 
+    .cancelledDateBox p,
     .duplicateBookingBox p {
-        margin: 20px 0;
-        color: #333;
-        font-size: 16px;
-        line-height: 1.5;
+        color: #495057;
+        font-size: 1em;
+        line-height: 1.6;
+        margin-bottom: 25px;
     }
 
-    .duplicateBookingBox button {
-        background-color: #52BBBF;
+    .overlay-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .overlay-actions button {
+        background-color: #014E6F;
         color: white;
         border: none;
         padding: 12px 30px;
-        border-radius: 5px;
+        border-radius: 8px;
+        font-size: 1em;
+        font-weight: 600;
         cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .duplicateBookingBox button:hover {
+    .overlay-actions button:hover {
+        background-color: #052c44;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 480px) {
+        .cancelledDateBox,
+        .duplicateBookingBox {
+            width: 95%;
+            padding: 20px;
+        }
+
+        .overlay-icon {
+            width: 80px;
+            height: 80px;
+        }
+
+        .overlay-icon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .cancelledDateBox h2,
+        .duplicateBookingBox h2 {
+            font-size: 1.5em;
+        }
+
+        .overlay-actions button {
+            padding: 10px 25px;
+            font-size: 0.9em;
+        }
+    }
+
+    /* Time Picker Styles */
+    .flatpickr-input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 1em;
+        color: #495057;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+    .flatpickr-input:focus {
+        border-color: #014E6F;
+        box-shadow: 0 0 0 0.2rem rgba(1, 78, 111, 0.25);
+        outline: none;
+    }
+
+    .flatpickr-time input {
+        font-size: 1em;
+        padding: 8px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+
+    .setTime h2 {
+        color: #014E6F;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+    }
+
+    .setTime .time-note {
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    .setTime button {
+        width: 100%;
+        padding: 12px;
         background-color: #014E6F;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1em;
+        font-weight: 600;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .setTime button:hover {
+        background-color: #052c44;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Book Overlay Styles */
+    .bookOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .bookOverlay.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    .bookBox {
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        max-width: 500px;
+        width: 90%;
+        padding: 30px;
+        position: relative;
+        transform: scale(0.7);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .bookOverlay.active .bookBox {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .bookBox img {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .bookBox img:hover {
+        transform: scale(1.1);
+    }
+
+    .bookDescription {
+        text-align: center;
+    }
+
+    .bookDescription h1 {
+        color: #014E6F;
+        margin-bottom: 10px;
+    }
+
+    .bookDescription span {
+        color: #6c757d;
+        font-size: 1em;
+        display: block;
+        margin-bottom: 20px;
     }
     </style>
 

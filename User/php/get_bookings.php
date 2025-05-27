@@ -27,50 +27,43 @@ $end_date = $conn->real_escape_string($data['end_date']);
 $user_id = $_SESSION['user_id'] ?? null;
 
 // Get all bookings for the room within date range
-$query = "SELECT booking_date, 
-          GROUP_CONCAT(DISTINCT CASE 
-              WHEN user_id = ? THEN 'user'
-              ELSE 'others' 
-          END) as booking_type,
-          COUNT(*) as booking_count,
-          GROUP_CONCAT(start_time) as start_times,
-          GROUP_CONCAT(end_time) as end_times
+$query = "SELECT 
+          booking_date, 
+          status,
+          room_id
           FROM booking 
           WHERE room_id = ? 
+          AND user_id = ?
           AND booking_date BETWEEN ? AND ?
-          GROUP BY booking_date";
+          AND status NOT IN ('completed', 'no_show')";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("iiss", $user_id, $room_id, $start_date, $end_date);
+$stmt->bind_param("iiss", $room_id, $user_id, $start_date, $end_date);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $bookings = [];
 while ($row = $result->fetch_assoc()) {
     $date = $row['booking_date'];
-    $booking_type = $row['booking_type'];
-    $times = array_map(function($start, $end) {
-        return ['start' => $start, 'end' => $end];
-    }, explode(',', $row['start_times']), explode(',', $row['end_times']));
-
-    // Determine the status for the calendar
-    $status = 'vacant';
-    if (strpos($booking_type, 'user') !== false) {
-        $status = 'user-booking';
-    } else if ($row['booking_count'] >= 8) { // Assuming 8 slots per day (9 hours / minimum 1 hour booking)
-        $status = 'fully-booked';
-    } else {
-        $status = 'partially-booked';
+    
+    // Determine booking status for display
+    $status = 'user-booking';
+    if ($row['status'] === 'cancelled by admin' || $row['status'] === 'cancelled by student') {
+        $status = 'cancelled';
     }
 
+    // Ensure unique entries and include room_id
     $bookings[] = [
         'date' => $date,
         'status' => $status,
-        'times' => $times
+        'room_id' => $row['room_id']
     ];
 }
 
-echo json_encode(['success' => true, 'bookings' => $bookings]);
+echo json_encode([
+    'success' => true, 
+    'bookings' => array_values($bookings)
+]);
 
 $stmt->close();
 $conn->close();

@@ -44,7 +44,7 @@ error_log("Original booking date: " . $data['booking_date']);
 error_log("Converted booking date: " . $booking_date);
 
 // Check if user already has a booking on this date
-$check_existing_query = "SELECT COUNT(*) as booking_count FROM booking 
+$check_existing_query = "SELECT book_id, status FROM booking 
                         WHERE user_id = ? AND booking_date = ?";
 $stmt = $conn->prepare($check_existing_query);
 $stmt->bind_param("is", $user_id, $booking_date);
@@ -52,7 +52,13 @@ $stmt->execute();
 $result = $stmt->get_result();
 $existing_booking = $result->fetch_assoc();
 
-if ($existing_booking['booking_count'] > 0) {
+// Log detailed booking information for debugging
+error_log("Existing Booking Check:");
+error_log("User ID: " . $user_id);
+error_log("Booking Date: " . $booking_date);
+error_log("Existing Booking: " . print_r($existing_booking, true));
+
+if ($existing_booking) {
     error_log("User already has a booking on this date");
     die(json_encode([
         'success' => false, 
@@ -81,7 +87,7 @@ error_log("Converted start time: " . $start_time);
 error_log("Converted end time: " . $end_time);
 
 // Check for existing bookings in the same time slot
-$check_query = "SELECT COUNT(*) as count FROM booking 
+$check_query = "SELECT book_id, status FROM booking 
                 WHERE room_id = ? 
                 AND booking_date = ? 
                 AND (
@@ -94,9 +100,17 @@ $stmt = $conn->prepare($check_query);
 $stmt->bind_param("isssssss", $room_id, $booking_date, $end_time, $start_time, $end_time, $start_time, $start_time, $end_time);
 $stmt->execute();
 $result = $stmt->get_result();
-$row = $result->fetch_assoc();
+$conflicting_booking = $result->fetch_assoc();
 
-if ($row['count'] > 0) {
+// Log detailed time slot check for debugging
+error_log("Time Slot Check:");
+error_log("Room ID: " . $room_id);
+error_log("Booking Date: " . $booking_date);
+error_log("Start Time: " . $start_time);
+error_log("End Time: " . $end_time);
+error_log("Conflicting Booking: " . print_r($conflicting_booking, true));
+
+if ($conflicting_booking && $conflicting_booking['status'] !== 'cancelled') {
     error_log("Time slot already booked");
     die(json_encode(['success' => false, 'message' => 'This time slot is already booked']));
 }

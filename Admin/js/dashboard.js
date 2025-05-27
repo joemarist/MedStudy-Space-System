@@ -1,59 +1,47 @@
 function debugLog(message) {
-    console.log(`[dashboard.js] ${message}`);
+    console.log('[dashboard.js] ' + message);
 }
 
+const actions = [
+    "has entered the Study Room 1",
+    "has entered the Study Room 2",
+    "has booked a Study Room",
+    "didn't show up",
+    "left the Study Room",
+    "is studying in the lounge",
+    "has checked in at the library"
+];
+
 function titlechanges(num, element) {
-    try {
-        const titlename = document.getElementById("titlename");
-        const dashboard = document.getElementById("dashboard");
-        const rooms = document.getElementById("rooms");
-        const booking = document.getElementById("Booking");
-        const reports = document.getElementById("reports");
+    // Validate input
+    if (typeof num !== 'number' || num < 1 || num > 4) {
+        debugLog('Invalid navigation number');
+        return;
+    }
 
-        if (!titlename) {
-            debugLog("Error: titlename element not found");
-            return;
-        }
+    // Remove active class from all sidebar items
+    var sidebarItems = document.querySelectorAll('.sidebar ul li');
+    for (var i = 0; i < sidebarItems.length; i++) {
+        sidebarItems[i].classList.remove('active');
+    }
 
-        if (num == 1) {
-            titlename.textContent = "Dashboard";
-            window.location.href = "dashboard.html";
-            if (dashboard && rooms && booking && reports) {
-                dashboard.style.display = "flex";
-                rooms.style.display = "none";
-                booking.style.display = "none";
-                reports.style.display = "none";
-            }
-        } else if (num == 2) {
-            titlename.textContent = "Room";
-            window.location.href = "rooms.php";
-            if (dashboard && rooms && booking && reports) {
-                dashboard.style.display = "none";
-                rooms.style.display = "block";
-                booking.style.display = "none";
-                reports.style.display = "none";
-            }
-        } else if (num == 3) {
-            titlename.textContent = "Booking";
-            window.location.href = "booking.html";
-            if (dashboard && rooms && booking && reports) {
-                dashboard.style.display = "none";
-                rooms.style.display = "none";
-                booking.style.display = "block";
-                reports.style.display = "none";
-            }
-        } else {
-            titlename.textContent = "Reports";
-            window.location.href = "reports.html";
-            if (dashboard && rooms && booking && reports) {
-                dashboard.style.display = "none";
-                rooms.style.display = "none";
-                booking.style.display = "none";
-                reports.style.display = "block";
-            }
-        }
-    } catch (error) {
-        debugLog(`Error in titlechanges: ${error.message}`);
+    // Add active class to clicked item
+    if (element) {
+        element.classList.add('active');
+    }
+
+    // Navigation mapping
+    var pages = {
+        1: 'dashboard.html',
+        2: 'rooms.php',
+        3: 'booking.php',
+        4: 'reports.php'
+    };
+
+    // Navigate to selected page
+    var selectedPage = pages[num];
+    if (selectedPage) {
+        window.location.href = selectedPage;
     }
 }
 
@@ -146,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "has entered the Study Room 1.",
             "has entered the Study Room 2.",
             "has booked a Study Room.",
-            "didn’t show up.",
+            "didn't show up.",
             "left the Study Room.",
             "is studying in the lounge.",
             "has checked in at the library."
@@ -154,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let defaultActivities = [
             '<span class="icon">💡</span> Christian Doong has entered the Study Room 1.',
-            '<span class="icon">💡</span> Vic Lawson didn’t show up.',
+            '<span class="icon">💡</span> Vic Lawson didn\'t show up.',
             '<span class="icon">💡</span> Maria Brenen has booked a Study Room.',
             '<span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.',
             '<span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.'

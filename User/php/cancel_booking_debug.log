@@ -1,0 +1,32 @@
+[2025-05-27 17:22:34] Session Details: {"email":"cddoong00085@usep.edu.ph","user_id":2}
+[2025-05-27 17:22:34] Received Book ID: null
+[2025-05-27 17:22:34] User ID from Session: 2
+[2025-05-27 17:22:34] No Booking Found for Book ID: null
+[2025-05-27 17:22:45] Session Details: {"email":"cddoong00085@usep.edu.ph","user_id":2}
+[2025-05-27 17:22:45] Received Book ID: null
+[2025-05-27 17:22:45] User ID from Session: 2
+[2025-05-27 17:22:45] No Booking Found for Book ID: null
+[2025-05-27 17:26:43] [CANCEL BOOKING] Incoming POST Data | {"book_id":"11"}
+[2025-05-27 17:26:43] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-27 17:26:43] [CANCEL BOOKING] Session Details | {"email":"cddoong00085@usep.edu.ph","user_id":2,"session_id":"ujcnutumsgmfa12e5qsjp2b9k1"}
+[2025-05-27 17:26:43] [CANCEL BOOKING] Received Book ID | {"from_post":"11","from_request":"11","final_book_id":"11"}
+[2025-05-27 17:26:43] [CANCEL BOOKING] User ID from Session | 2
+[2025-05-27 17:26:43] [CANCEL BOOKING] Booking Details | {"book_id":11,"db_user_id":2,"session_user_id":2,"status":"in_process","booking_date":"2025-05-28","room_name":"Cool Study","user_email":"cddoong00085@usep.edu.ph"}
+[2025-05-27 17:28:00] [CANCEL BOOKING] Incoming POST Data | {"book_id":"12"}
+[2025-05-27 17:28:00] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-27 17:28:00] [CANCEL BOOKING] Session Details | {"email":"cddoong00085@usep.edu.ph","user_id":2,"session_id":"ujcnutumsgmfa12e5qsjp2b9k1"}
+[2025-05-27 17:28:00] [CANCEL BOOKING] Received Book ID | {"from_post":"12","from_request":"12","final_book_id":"12"}
+[2025-05-27 17:28:00] [CANCEL BOOKING] User ID from Session | 2
+[2025-05-27 17:28:00] [CANCEL BOOKING] Booking Details | {"book_id":12,"db_user_id":2,"session_user_id":2,"status":"in_process","booking_date":"2025-05-28","room_name":"Cool Study","user_email":"cddoong00085@usep.edu.ph"}
+[2025-05-27 17:30:59] [CANCEL BOOKING] Incoming POST Data | {"book_id":"13"}
+[2025-05-27 17:30:59] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-27 17:30:59] [CANCEL BOOKING] Session Details | {"email":"cddoong00085@usep.edu.ph","user_id":2,"session_id":"ujcnutumsgmfa12e5qsjp2b9k1"}
+[2025-05-27 17:30:59] [CANCEL BOOKING] Received Book ID | {"from_post":"13","from_request":"13","final_book_id":"13"}
+[2025-05-27 17:30:59] [CANCEL BOOKING] User ID from Session | 2
+[2025-05-27 17:30:59] [CANCEL BOOKING] Booking Details | {"book_id":13,"db_user_id":2,"session_user_id":2,"status":"in_process","booking_date":"2025-05-28","room_name":"Cool Study","user_email":"cddoong00085@usep.edu.ph"}
+[2025-05-27 17:35:28] [CANCEL BOOKING] Incoming POST Data | {"book_id":"14"}
+[2025-05-27 17:35:28] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-27 17:35:28] [CANCEL BOOKING] Received Book ID | {"from_post":"14","from_request":"14","final_book_id":"14"}
+[2025-05-27 17:35:28] [CANCEL BOOKING] User ID from Session | 2
+[2025-05-27 17:35:28] [CANCEL BOOKING] Booking Details | {"book_id":14,"db_user_id":2,"session_user_id":2,"status":"in_process","booking_date":"2025-05-28","room_name":"Cool Study","user_email":"cddoong00085@usep.edu.ph"}
+[2025-05-27 17:35:28] [CANCEL BOOKING] Booking Cancelled Successfully | {"book_id":14}

@@ -398,6 +398,14 @@
 .inputGroup input::placeholder {
     color: #999;
 }
+.changePassBT{
+    background-color: #5390FE;
+    color: white;
+    border: 0px;
+    font-size: 12pt;
+    width: 100%;
+    padding: 1% 0%;
+}
 .profileDetailsButtons {
     display: flex;
     align-items: center;
