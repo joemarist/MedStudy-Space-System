@@ -35,7 +35,7 @@ $query = "SELECT
           WHERE room_id = ? 
           AND user_id = ?
           AND booking_date BETWEEN ? AND ?
-          AND status NOT IN ('completed', 'no_show')";
+          AND status NOT IN ('completed')";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("iiss", $room_id, $user_id, $start_date, $end_date);

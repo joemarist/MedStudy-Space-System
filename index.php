@@ -74,10 +74,10 @@ require_once 'config.php';
                 <p>
                     Please enter your email so that we can send your password.
                 </p>
-                <input type="email" placeholder="Email">
+                <input type="email" id="recoveryEmail" placeholder="Email">
                 <div class="recoverPassButtons">
                     <button onclick="closeForgetPassOverlay()">Cancel</button>
-                    <button onclick="openSentEmail()">Send</button>
+                    <button onclick="recoverPassword()">Send</button>
                 </div>
             </div>
             <div class="sentEmail" id="sentEmail">
@@ -157,55 +157,157 @@ function toggleEyeVisibility() {
     <!--Overlay Script-->
     <script>
     function openForgetPassOverlay() {
-    const overlay = document.getElementById("forgetPassOverlay");
-    overlay.style.display = "flex";
-    setTimeout(() => {
-        overlay.classList.add("active");
-    }, 10);
-    document.body.style.overflow = "hidden";
-}
-function closeForgetPassOverlay() {
-    const overlay = document.getElementById("forgetPassOverlay");
-    overlay.classList.remove("active");
-
-    setTimeout(() => {
-        overlay.style.display = "none";
-    }, 300);
-    document.body.style.overflow = "auto";
-}
-
-/*Succesfully sent email*/
-function openSentEmail() {
-    const recoverPass = document.getElementById("recoverPass");
-    const sentEmail = document.getElementById("sentEmail");
-
-    if (recoverPass) {
-        recoverPass.style.display = "none";
-    }
-    if (sentEmail) {
-        sentEmail.style.display = "block";
+        const overlay = document.getElementById("forgetPassOverlay");
+        overlay.style.display = "flex";
         setTimeout(() => {
-            sentEmail.classList.add("active");
+            overlay.classList.add("active");
         }, 10);
+        document.body.style.overflow = "hidden";
+    }
+    function closeForgetPassOverlay() {
+        const overlay = document.getElementById("forgetPassOverlay");
+        overlay.classList.remove("active");
+
+        setTimeout(() => {
+            overlay.style.display = "none";
+        }, 300);
+        document.body.style.overflow = "auto";
     }
 
-    document.body.style.overflow = "hidden";
-}
-function closeSentEmail() {
-    closeForgetPassOverlay();
+    function recoverPassword() {
+        const emailInput = document.getElementById("recoveryEmail");
+        const email = emailInput ? emailInput.value : null;
+        const recoverPass = document.getElementById("recoverPass");
+        const sentEmail = document.getElementById("sentEmail");
 
-    const recoverPass = document.getElementById("recoverPass");
-    const sentEmail = document.getElementById("sentEmail");
+        // Validate input existence
+        if (!emailInput) {
+            console.error('Email input element not found');
+            alert('An error occurred with the email input');
+            return;
+        }
 
-    if (recoverPass) {
-        recoverPass.style.display = "block";
+        // Validate email
+        if (!email || !email.trim()) {
+            alert("Please enter an email address");
+            emailInput.focus();
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address");
+            emailInput.focus();
+            return;
+        }
+
+        // Prepare data
+        const data = new URLSearchParams();
+        data.append('email', email);
+
+        // Show loading state
+        const sendButton = document.querySelector('.recoverPassButtons button:last-child');
+        if (sendButton) {
+            sendButton.disabled = true;
+            sendButton.textContent = 'Sending...';
+        }
+
+        // AJAX request
+        fetch('recover_password.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json'
+            },
+            body: data
+        })
+        .then(response => {
+            // Check response status
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Ensure response is JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Response is not JSON');
+            }
+
+            // Parse JSON
+            return response.json();
+        })
+        .then(data => {
+            // Restore button state
+            if (sendButton) {
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send';
+            }
+
+            // Check response
+            if (data.success) {
+                // Hide recover pass section
+                if (recoverPass) {
+                    recoverPass.style.display = "none";
+                }
+                // Show sent email section
+                if (sentEmail) {
+                    sentEmail.style.display = "block";
+                    setTimeout(() => {
+                        sentEmail.classList.add("active");
+                    }, 10);
+                }
+                // Show success message
+                alert(data.message || 'Password recovery request processed successfully');
+            } else {
+                // Show error message
+                alert(data.message || 'An unknown error occurred');
+            }
+        })
+        .catch(error => {
+            // Restore button state
+            if (sendButton) {
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send';
+            }
+
+            // Log and show error
+            console.error('Recovery Error:', error);
+            alert('An error occurred while processing your request');
+        });
     }
-    if (sentEmail) {
-        sentEmail.style.display = "none";
-        sentEmail.classList.remove("active");
-    }
-}
 
+    /*Succesfully sent email*/
+    function openSentEmail() {
+        const recoverPass = document.getElementById("recoverPass");
+        const sentEmail = document.getElementById("sentEmail");
+
+        if (recoverPass) {
+            recoverPass.style.display = "none";
+        }
+        if (sentEmail) {
+            sentEmail.style.display = "block";
+            setTimeout(() => {
+                sentEmail.classList.add("active");
+            }, 10);
+        }
+
+        document.body.style.overflow = "hidden";
+    }
+    function closeSentEmail() {
+        closeForgetPassOverlay();
+
+        const recoverPass = document.getElementById("recoverPass");
+        const sentEmail = document.getElementById("sentEmail");
+
+        if (recoverPass) {
+            recoverPass.style.display = "block";
+        }
+        if (sentEmail) {
+            sentEmail.style.display = "none";
+            sentEmail.classList.remove("active");
+        }
+    }
     </script>
 
     <!--Function for hotkey switch to Admin-->

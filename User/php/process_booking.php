@@ -86,6 +86,54 @@ error_log("Original end time: " . $data['end_time']);
 error_log("Converted start time: " . $start_time);
 error_log("Converted end time: " . $end_time);
 
+// Validate booking time (8am to 5pm)
+function isValidBookingTime($start_time, $end_time) {
+    // Convert times to DateTime objects
+    $start_datetime = DateTime::createFromFormat('H:i:s', $start_time);
+    $end_datetime = DateTime::createFromFormat('H:i:s', $end_time);
+    
+    // Extract hours
+    $start_hour = intval($start_datetime->format('H'));
+    $end_hour = intval($end_datetime->format('H'));
+    
+    // Check if booking is between 8am and 5pm
+    return $start_hour >= 8 && $end_hour <= 17;
+}
+
+// Validate booking time
+if (!isValidBookingTime($start_time, $end_time)) {
+    error_log("Invalid booking time: $start_time to $end_time");
+    die(json_encode([
+        'success' => false, 
+        'message' => 'Bookings are only allowed between 8:00 AM and 5:00 PM',
+        'error_type' => 'invalid_time'
+    ]));
+}
+
+// Check booking duration (minimum 10 minutes, maximum 2 hours)
+$start_datetime = DateTime::createFromFormat('H:i:s', $start_time);
+$end_datetime = DateTime::createFromFormat('H:i:s', $end_time);
+$duration = $start_datetime->diff($end_datetime);
+$hours = $duration->h + ($duration->i / 60);
+
+if ($hours < (10/60)) {
+    error_log("Booking duration too short: $hours hours");
+    die(json_encode([
+        'success' => false, 
+        'message' => 'Minimum booking duration is 10 minutes',
+        'error_type' => 'short_duration'
+    ]));
+}
+
+if ($hours > 2) {
+    error_log("Booking duration too long: $hours hours");
+    die(json_encode([
+        'success' => false, 
+        'message' => 'Maximum booking duration is 2 hours',
+        'error_type' => 'long_duration'
+    ]));
+}
+
 // Check for existing bookings in the same time slot
 $check_query = "SELECT book_id, status FROM booking 
                 WHERE room_id = ? 

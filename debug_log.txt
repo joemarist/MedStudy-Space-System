@@ -2474,3 +2474,313 @@ Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocKtJcUVhgAh
 Existing user found: user_id=2, email=cddoong00085@usep.edu.ph
 User details exist: user_id=2, first_name=CHRISTIAN, last_name=DOONG, middle_name=, profile_pic=set
 Session set: user_id=2, email=cddoong00085@usep.edu.ph, first_name=CHRISTIAN, last_name=DOONG, middle_name=, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748429078
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748429378
+    [exp] => 1748432978
+    [jti] => 5197058817866efb37142b5f28d79b041911d210
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
+User details exist: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=Acma, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=Acma, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748430257
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748430557
+    [exp] => 1748434157
+    [jti] => 11d38edfde8683a4c11eba1a8b312483ff89b43d
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=3, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=3, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=3, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=3, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748430495
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748430795
+    [exp] => 1748434395
+    [jti] => 2d20d32bb30c2208cc5d4ef84a5c4257c3d2940c
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=4, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=4, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=4, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748430896
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748431196
+    [exp] => 1748434796
+    [jti] => 76a908b71d2fbb7b9fd35eca6a30d5fb4c931eda
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=5, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=5, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=5, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login session set: user_id=5, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748431330
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748431630
+    [exp] => 1748435230
+    [jti] => 9ffa5c2210cce9b6953203183d7dac907bd09674
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=6, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=6, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=6, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748431632
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748431932
+    [exp] => 1748435532
+    [jti] => 23cc8e25dce363a747de8d350da780b70138869b
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=7, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=7, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=7, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Manual login session set: user_id=7, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748446245
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748446545
+    [exp] => 1748450145
+    [jti] => 40d254ad70cd5c1b829315d0c8ac0c5ee7053e5f
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+New user created: user_id=1, email=jaabellana00471@usep.edu.ph
+User details inserted: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Temporary password login: email=jaabellana00471@usep.edu.ph
+[2025-05-28 17:36:44] Password changed for user: jaabellana00471@usep.edu.ph
+Manual login session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748446337
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748446637
+    [exp] => 1748450237
+    [jti] => c3a08664b87800787612904acaeea52fc8848b36
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
+User details exist: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748446401
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748446701
+    [exp] => 1748450301
+    [jti] => a237df02e13762426aa294beaf391139c46086e4
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
+User details exist: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=null, profile_pic=set
+[2025-05-28 17:44:02] Successful password verification for user ID: 1
+[2025-05-28 17:44:20] Password changed for user ID: 1
+Manual login session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748447960
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748448260
+    [exp] => 1748451860
+    [jti] => 71f75a7ecca46449275414f486bea3ee9223d225
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
+User details exist: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set
+Array
+(
+    [iss] => https://accounts.google.com
+    [azp] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [aud] => 80047855417-dfsmenc4jgtr2me0vm4a5tl76s91bf45.apps.googleusercontent.com
+    [sub] => 106847846538154137073
+    [hd] => usep.edu.ph
+    [email] => jaabellana00471@usep.edu.ph
+    [email_verified] => true
+    [nbf] => 1748449071
+    [name] => JOEMAR NI�O ABELLANA
+    [picture] => https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+    [given_name] => JOEMAR NI�O
+    [family_name] => ABELLANA
+    [iat] => 1748449371
+    [exp] => 1748452971
+    [jti] => 4f1eebefe02ee4ea181cd0cc8cd2b71e9d88a3f7
+    [alg] => RS256
+    [kid] => baa64efc13ef236be921f922e3a67cc99415db9b
+    [typ] => JWT
+)
+
+Profile picture downloaded: https://lh3.googleusercontent.com/a/ACg8ocJF776aqHTBp7B_KDkPg_dZw895NXIaur7xwaW2J1cBiGEgCeDz=s96-c
+Existing user found: user_id=1, email=jaabellana00471@usep.edu.ph
+User details exist: user_id=1, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set
+Session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set
+Manual login failed: email=jaabellana00471@usep.edu.ph (Incorrect credentials)
+Temporary password login: email=jaabellana00471@usep.edu.ph
+[2025-05-28 18:24:11] Password changed for user: jaabellana00471@usep.edu.ph
+Manual login session set: user_id=1, email=jaabellana00471@usep.edu.ph, first_name=JOEMAR NI�O, last_name=ABELLANA, middle_name=ACMA, profile_pic=set

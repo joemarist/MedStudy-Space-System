@@ -5,7 +5,11 @@ USE medstudy;
 CREATE TABLE IF NOT EXISTS user_accounts (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(250) NOT NULL UNIQUE,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    original_password VARCHAR(255),
+    is_temp_password BOOLEAN DEFAULT FALSE,
+    temp_password_created_at TIMESTAMP NULL,
+    temp_password_expires_at TIMESTAMP NULL
 );
 
 -- Table: user_details

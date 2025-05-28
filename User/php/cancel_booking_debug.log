@@ -30,3 +30,27 @@
 [2025-05-27 17:35:28] [CANCEL BOOKING] User ID from Session | 2
 [2025-05-27 17:35:28] [CANCEL BOOKING] Booking Details | {"book_id":14,"db_user_id":2,"session_user_id":2,"status":"in_process","booking_date":"2025-05-28","room_name":"Cool Study","user_email":"cddoong00085@usep.edu.ph"}
 [2025-05-27 17:35:28] [CANCEL BOOKING] Booking Cancelled Successfully | {"book_id":14}
+[2025-05-28 17:57:10] [CANCEL BOOKING] Incoming POST Data | {"book_id":"1"}
+[2025-05-28 17:57:10] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-28 17:57:10] [CANCEL BOOKING] Received Book ID | {"from_post":"1","from_request":"1","final_book_id":"1"}
+[2025-05-28 17:57:10] [CANCEL BOOKING] User ID from Session | 1
+[2025-05-28 17:57:10] [CANCEL BOOKING] Booking Details | {"book_id":1,"db_user_id":1,"session_user_id":1,"status":"in_process","booking_date":"2025-05-28","room_name":"Happy Room","user_email":"jaabellana00471@usep.edu.ph"}
+[2025-05-28 17:57:10] [CANCEL BOOKING] Cannot Cancel Past Booking | {"booking_date":"2025-05-28"}
+[2025-05-28 18:09:18] [CANCEL BOOKING] Incoming POST Data | {"book_id":"1"}
+[2025-05-28 18:09:18] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-28 18:09:18] [CANCEL BOOKING] Received Book ID | {"from_post":"1","from_request":"1","final_book_id":"1"}
+[2025-05-28 18:09:18] [CANCEL BOOKING] User ID from Session | 1
+[2025-05-28 18:09:18] [CANCEL BOOKING] Booking Details | {"book_id":1,"db_user_id":1,"session_user_id":1,"status":"in_process","booking_date":"2025-05-28","room_name":"Happy Room","user_email":"jaabellana00471@usep.edu.ph"}
+[2025-05-28 18:09:18] [CANCEL BOOKING] Cannot Cancel Past Booking | {"booking_date":"2025-05-28"}
+[2025-05-28 18:15:04] [CANCEL BOOKING] Incoming POST Data | {"book_id":"1"}
+[2025-05-28 18:15:04] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-28 18:15:04] [CANCEL BOOKING] Received Book ID | {"from_post":"1","from_request":"1","final_book_id":"1"}
+[2025-05-28 18:15:04] [CANCEL BOOKING] User ID from Session | 1
+[2025-05-28 18:15:04] [CANCEL BOOKING] Booking Details | {"book_id":1,"db_user_id":1,"session_user_id":1,"status":"in_process","booking_date":"2025-05-28","room_name":"Happy Room","user_email":"jaabellana00471@usep.edu.ph"}
+[2025-05-28 18:15:04] [CANCEL BOOKING] Cannot Cancel Past Booking | {"booking_date":"2025-05-28"}
+[2025-05-28 18:21:55] [CANCEL BOOKING] Incoming POST Data | {"book_id":"3"}
+[2025-05-28 18:21:55] [CANCEL BOOKING] Incoming FILES Data | []
+[2025-05-28 18:21:55] [CANCEL BOOKING] Received Book ID | {"from_post":"3","from_request":"3","final_book_id":"3"}
+[2025-05-28 18:21:55] [CANCEL BOOKING] User ID from Session | 1
+[2025-05-28 18:21:55] [CANCEL BOOKING] Booking Details | {"book_id":3,"db_user_id":1,"session_user_id":1,"status":"in_process","booking_date":"2025-05-29","room_name":"Happy Room","user_email":"jaabellana00471@usep.edu.ph"}
+[2025-05-28 18:21:55] [CANCEL BOOKING] Booking Cancelled Successfully | {"book_id":3}

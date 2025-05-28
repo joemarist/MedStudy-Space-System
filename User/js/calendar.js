@@ -189,6 +189,85 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             
+            // Time validation function
+            function isValidBookingTime(startTime, endTime) {
+                // Working hours: 8am to 5pm
+                const startHour = startTime.getHours();
+                const endHour = endTime.getHours();
+                
+                // Calculate duration in hours
+                const durationHours = (endTime - startTime) / (1000 * 60 * 60);
+                
+                // Check time range and duration
+                return (
+                    startHour >= 8 && 
+                    endHour <= 17 && 
+                    durationHours >= (10/60) && 
+                    durationHours <= 2
+                );
+            }
+
+            // Modify the time selection to enforce working hours
+            const timepicker = flatpickr("#startTime", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                defaultHour: 8,
+                defaultMinute: 0,
+                minTime: "08:00",
+                maxTime: "16:50",
+                onChange: function(selectedDates, dateStr, instance) {
+                    // Update end time picker
+                    const endTimePicker = document.getElementById("endTime")._flatpickr;
+                    
+                    // Set minimum end time to start time + 10 minutes
+                    const startTime = new Date();
+                    startTime.setHours(selectedDates[0].getHours(), selectedDates[0].getMinutes());
+                    
+                    const minEndTime = new Date(startTime);
+                    minEndTime.setMinutes(startTime.getMinutes() + 10);
+                    
+                    endTimePicker.set('minTime', dateStr);
+                    endTimePicker.set('defaultHour', minEndTime.getHours());
+                    endTimePicker.set('defaultMinute', minEndTime.getMinutes());
+                }
+            });
+
+            const endTimePicker = flatpickr("#endTime", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                minTime: "08:10",
+                maxTime: "17:00",
+                onChange: function(selectedDates, dateStr, instance) {
+                    const startTime = new Date();
+                    const endTime = new Date();
+                    
+                    // Get start and end times from pickers
+                    const startTimePicker = document.getElementById("startTime")._flatpickr;
+                    const startTimeStr = startTimePicker.selectedDateElem 
+                        ? startTimePicker.formatDate(startTimePicker.selectedDates[0], "H:i") 
+                        : "08:00";
+                    
+                    startTime.setHours(
+                        parseInt(startTimeStr.split(':')[0]), 
+                        parseInt(startTimeStr.split(':')[1])
+                    );
+                    
+                    endTime.setHours(
+                        selectedDates[0].getHours(), 
+                        selectedDates[0].getMinutes()
+                    );
+                    
+                    // Validate booking time
+                    if (!isValidBookingTime(startTime, endTime)) {
+                        alert('Booking must be between 8:00 AM and 5:00 PM, and 10 minutes to 2 hours long');
+                        instance.clear();
+                        return;
+                    }
+                }
+            });
+            
             // Check booking status before opening overlay
             fetch('/MedStudy-Space-System/User/php/get_bookings.php', {
                 method: 'POST',

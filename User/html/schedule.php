@@ -163,10 +163,9 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
                 <div class="leftProfileDetails">
                     <img id="profileImage" src="<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture">
                     <div class="uploadPhoto" onclick="uploadImage()">
-                        <img src="/MedStudy-Space-System/User/images/icons/image-.png" alt="" style="height: 1%;">
                         <span>Upload New Photo</span>
                     </div>
-                    <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
+             style="height: 1%;"       <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
                 </div>
                 <div class="rightProfileDetails">
                     <div class="inputGroup">
@@ -221,6 +220,41 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
                         </span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Verification Overlay -->
+    <div class="passwordVerifyOverlay" id="passwordVerifyOverlay">
+        <div class="passwordVerifyBox">
+            <h2>Verify Current Password</h2>
+            <p>Enter your current password to proceed with password change.</p>
+            <div class="inputGroup">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+            </div>
+            <div class="passwordVerifyButtons">
+                <button onclick="closePasswordVerifyOverlay()">Cancel</button>
+                <button onclick="verifyPassword()">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Overlay -->
+    <div class="changePasswordOverlay" id="changePasswordOverlay">
+        <div class="changePasswordBox">
+            <h2>Change Password</h2>
+            <div class="inputGroup">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+            </div>
+            <div class="inputGroup">
+                <label for="confirmNewPassword">Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+            </div>
+            <div class="changePasswordButtons">
+                <button onclick="closeChangePasswordOverlay()">Cancel</button>
+                <button onclick="changePassword()">Change Password</button>
             </div>
         </div>
     </div>
@@ -1091,6 +1125,124 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
                     alertElement.remove();
                 }
             }, 5000);
+        }
+
+        // Get references to the overlays
+        const passwordVerifyOverlay = document.getElementById('passwordVerifyOverlay');
+        const changePasswordOverlay = document.getElementById('changePasswordOverlay');
+        const changePassBT = document.getElementById('changePassBT');
+
+        // Event listener for Change Password button
+        changePassBT.addEventListener('click', function() {
+            // Close the profile details overlay
+            closeProfileDetailsOverlay();
+            
+            // Open password verification overlay
+            openPasswordVerifyOverlay();
+        });
+
+        // Open password verification overlay
+        function openPasswordVerifyOverlay() {
+            passwordVerifyOverlay.style.display = 'flex';
+            setTimeout(() => {
+                passwordVerifyOverlay.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close password verification overlay
+        function closePasswordVerifyOverlay() {
+            passwordVerifyOverlay.classList.remove('active');
+            setTimeout(() => {
+                passwordVerifyOverlay.style.display = 'none';
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Verify current password
+        function verifyPassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+
+            // AJAX request to verify password
+            fetch('/MedStudy-Space-System/User/php/verify_password.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `currentPassword=${encodeURIComponent(currentPassword)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Close verification overlay and open change password overlay
+                    closePasswordVerifyOverlay();
+                    openChangePasswordOverlay();
+                } else {
+                    // Show error message
+                    alert(data.message || 'Password verification failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+
+        // Open change password overlay
+        function openChangePasswordOverlay() {
+            changePasswordOverlay.style.display = 'flex';
+            setTimeout(() => {
+                changePasswordOverlay.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close change password overlay
+        function closeChangePasswordOverlay() {
+            changePasswordOverlay.classList.remove('active');
+            setTimeout(() => {
+                changePasswordOverlay.style.display = 'none';
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Change password
+        function changePassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            // Client-side validation
+            if (newPassword !== confirmNewPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+
+            // AJAX request to change password
+            fetch('/MedStudy-Space-System/User/php/change_password.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `newPassword=${encodeURIComponent(newPassword)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Password changed successfully');
+                    closeChangePasswordOverlay();
+                } else {
+                    alert(data.message || 'Failed to change password');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
         }
     </script>
 

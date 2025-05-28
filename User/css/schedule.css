@@ -323,114 +323,156 @@
 }
 .profileDetailsBox {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 45%;
-    padding: 2% 4%;
-    border: 3px solid #52BBBF;
-    color: #014E6F;
+    padding: 30px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 10000;
     font-size: 14pt;
     max-height: 90vh;
     overflow-y: auto;
+    transition: all 0.3s ease;
+}
+.profileDetailsBox h2 {
+    color: #014E6F;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 .profileDetailsContainer {
     display: flex;
     gap: 5%;
-    border-top: 1px solid black;
-    padding: 3% 0%;
+    border-top: 1px solid #e9ecef;
+    padding: 30px 0;
 }
 .leftProfileDetails {
     flex: 30%;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .leftProfileDetails img {
-    width: 150px;
-    height: 150px;
-    max-width: 150px;
-    max-height: 150px;
-    border: 1px solid black;
-    border-radius: 10px;
+    width: 180px;
+    height: 180px;
+    max-width: 180px;
+    max-height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #52BBBF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.leftProfileDetails img:hover {
+    transform: scale(1.05);
 }
 .uploadPhoto {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #5390FE;
-    font-size: 12pt;
-    margin: 10% 0%;
+    text-align: center;
+    color: white;
+    font-size: 10pt;
+    margin: 20px 0;
+    background-color: #52BBBF;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(82, 187, 191, 0.3);
+    border: none;
+    outline: none;
 }
 .uploadPhoto:hover {
-    cursor: pointer;
-    text-decoration: underline;
+    background-color: #4ca9ac;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(82, 187, 191, 0.4);
+}
+.uploadPhoto:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(82, 187, 191, 0.3);
 }
 .uploadPhoto img {
-    width: 5%;
+    width: 20px;
     border: 0;
-    margin: 0% 4%;
+    margin-right: 10px;
 }
 .rightProfileDetails {
     flex: 70%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 .inputGroup {
     display: flex;
     flex-direction: column;
 }
 .inputGroup label {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-weight: 600;
+    margin-bottom: 8px;
     color: #014E6F;
+    font-size: 12pt;
 }
 .inputGroup input {
-    border: 1px solid #5390FE;
-    border-radius: 5px;
+    border: 1px solid #e0e4e8;
+    border-radius: 8px;
     font-size: 12pt;
-    padding: 10px;
+    padding: 12px;
     width: 100%;
     outline: none;
+    transition: all 0.3s ease;
 }
 .inputGroup input:focus {
-    border-color: #014E6F;
+    border-color: #52BBBF;
+    box-shadow: 0 0 0 3px rgba(82, 187, 191, 0.1);
 }
 .inputGroup input::placeholder {
     color: #999;
 }
-.changePassBT{
+.changePassBT {
     background-color: #5390FE;
     color: white;
-    border: 0px;
+    border: 0;
     font-size: 12pt;
     width: 100%;
-    padding: 1% 0%;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+.changePassBT:hover {
+    background-color: #4a7fdc;
 }
 .profileDetailsButtons {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 .profileDetailsButtons button {
-    margin: 1% 2%;
-    border: 0;
-    padding: 2% 4%;
-    width: 20%;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 8px;
     font-size: 12pt;
-    font-weight: bold;
-}
-.profileDetailsButtons button:hover {
-    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 .profileDetailsButtons button:nth-child(1) {
     background-color: white;
-    border: 1px solid #5390FE;
+    border-color: #5390FE;
     color: #5390FE;
 }
 .profileDetailsButtons button:nth-child(2) {
     background-color: #5390FE;
     color: white;
+}
+.profileDetailsButtons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Loading */
@@ -699,4 +741,104 @@
         max-width: 80px;
         max-height: 80px;
     }
+}
+
+/* Password Verification and Change Password Overlays */
+.passwordVerifyOverlay,
+.changePasswordOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.passwordVerifyOverlay.active,
+.changePasswordOverlay.active {
+    opacity: 1;
+}
+
+.passwordVerifyBox,
+.changePasswordBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.passwordVerifyBox h2,
+.changePasswordBox h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.passwordVerifyBox .inputGroup,
+.changePasswordBox .inputGroup {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.passwordVerifyBox label,
+.changePasswordBox label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.passwordVerifyBox input,
+.changePasswordBox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.passwordVerifyButtons,
+.changePasswordButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.passwordVerifyButtons button,
+.changePasswordButtons button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.passwordVerifyButtons button:first-child,
+.changePasswordButtons button:first-child {
+    background-color: #6c757d;
+    color: white;
+}
+
+.passwordVerifyButtons button:last-child,
+.changePasswordButtons button:last-child {
+    background-color: #007bff;
+    color: white;
+}
+
+.passwordVerifyButtons button:first-child:hover,
+.changePasswordButtons button:first-child:hover {
+    background-color: #545b62;
+}
+
+.passwordVerifyButtons button:last-child:hover,
+.changePasswordButtons button:last-child:hover {
+    background-color: #0056b3;
 }
