@@ -223,7 +223,7 @@
                 <h2>Admin</h2>
             </div>
             <div class="modal-footer">
-                <button class="logout-btn" onclick="showLoading('loginAdmin.html')">Log out</button>
+                <button class="logout-btn" onclick="showLoading('loginAdmin.php')">Log out</button>
             </div>
         </div>
     </div>

@@ -1,5 +1,36 @@
 <?php
-require_once 'config.php';
+// Ensure database is initialized
+$database_error = null;
+try {
+    require_once 'config.php';
+
+    // Additional check for database initialization
+    $init_file = dirname(__FILE__) . '/database_initialized.flag';
+    $log_file = dirname(__FILE__) . '/database_init.log';
+
+    // Check if initialization failed
+    if (!file_exists($init_file)) {
+        // Read the last few lines of the log file to provide more context
+        $log_contents = '';
+        if (file_exists($log_file)) {
+            $log_lines = file($log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $log_contents = implode("\n", array_slice($log_lines, -5)); // Last 5 lines
+        }
+
+        // Set database error message
+        $database_error = "Database initialization failed. " . 
+            (!empty($log_contents) ? "Log details: " . htmlspecialchars($log_contents) : "");
+        
+        // Log the initialization failure
+        error_log('Database initialization failed. Check log file for details.');
+    }
+} catch (Exception $e) {
+    // Log any unexpected errors during initialization
+    error_log('Unexpected error during database initialization: ' . $e->getMessage());
+    
+    // Set database error message
+    $database_error = "An unexpected system error occurred during database initialization.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +41,46 @@ require_once 'config.php';
     <title>MedStudy | Log In</title>
     <link rel="stylesheet" href="User/css/logIn.css">
     <link rel="icon" href="User/images/logos/medstudyLogo.png">
+    <style>
+        .database-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .database-error-details {
+            background-color: #f1f1f1;
+            border-radius: 3px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
+    <?php if ($database_error): ?>
+    <div class="database-error">
+        <strong>System Error</strong>
+        <p>Database initialization failed. Please contact system administrator.</p>
+        <?php if (!empty($log_contents)): ?>
+        <div class="database-error-details">
+            <?php echo $database_error; ?>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
     <div class="container">
         <div class="welcomeImage">
             <img src="User/images/logos/medstudyresized.png" alt="">
@@ -315,7 +384,7 @@ function toggleEyeVisibility() {
         document.addEventListener("keydown", function(event) {
         if (event.altKey && event.key.toLowerCase() === "a") {
             event.preventDefault();
-            window.location.href = "Admin/html/loginAdmin.html";
+            window.location.href = "Admin/html/loginAdmin.php";
         }
         });
     </script>  

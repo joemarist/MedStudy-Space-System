@@ -100,20 +100,10 @@ function sendTemporaryPasswordEmail($email, $tempPassword) {
         $mail->AltBody = "MedStudy Temporary Password\n\nA temporary password has been generated for your account:\n\nTemporary Password: {$tempPassword}\n\nPlease log in and change your password immediately.\nThis temporary password will expire soon.\n\nBest regards,\nMedStudy Team";
 
         $mail->send();
-        file_put_contents("email_log.txt", 
-            date('[Y-m-d H:i:s] ') . 
-            "Temporary password email sent successfully to $email\n", 
-            FILE_APPEND
-        );
         return true;
     } catch (Exception $e) {
         // Log detailed error
         $errorInfo = $mail ? $mail->ErrorInfo : $e->getMessage();
-        file_put_contents("email_error_log.txt", 
-            date('[Y-m-d H:i:s] ') . 
-            "Temporary password email sending failed to $email: " . $errorInfo . "\n", 
-            FILE_APPEND
-        );
         return false;
     }
 }

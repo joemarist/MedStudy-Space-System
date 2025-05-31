@@ -779,7 +779,7 @@
                     <h2>Admin</h2>
                 </div>
                 <div class="modal-footer">
-                    <button class="logout-btn" onclick="showLoading('loginAdmin.html')">Log out</button>
+                    <button class="logout-btn" onclick="showLoading('loginAdmin.php')">Log out</button>
                 </div>
             </div>
         </div>
@@ -946,17 +946,35 @@
                 })
             })
             .then(response => {
-                // Log the raw response for debugging
-                console.log('Raw response:', response);
-                
-                // Check if the response is ok
-                if (!response.ok) {
-                    // Try to get the error text for more details
-                    return response.text().then(errorText => {
-                        console.error('Error response text:', errorText);
-                        throw new Error(`Network response was not ok. Status: ${response.status}, Text: ${errorText}`);
+                // Ensure the response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    // If not JSON, try to read the text and throw an error
+                    return response.text().then(text => {
+                        console.error('Non-JSON response:', text);
+                        throw new Error('Expected JSON response, got: ' + text);
                     });
                 }
+
+                // Check if the response is ok
+                if (!response.ok) {
+                    // Try to parse error JSON
+                    return response.json().then(errorData => {
+                        // Log the full error details
+                        console.error('Server Error Details:', errorData);
+                        
+                        // Construct a more informative error message
+                        const errorMessage = errorData.message || 
+                            `Server returned an error (${response.status})`;
+                        
+                        throw new Error(errorMessage);
+                    }).catch(parseError => {
+                        // If JSON parsing fails, throw generic error
+                        console.error('Error parsing server response:', parseError);
+                        throw new Error(`Unexpected server error (${response.status})`);
+                    });
+                }
+                
                 return response.json();
             })
             .then(data => {
@@ -990,7 +1008,34 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while cancelling the booking: ' + error.message);
+                
+                // Detailed error handling
+                let errorMessage = 'An error occurred while cancelling the booking.';
+                
+                // Check for specific error types
+                if (error instanceof TypeError) {
+                    errorMessage += ' Network error or invalid response.';
+                } else if (error.message) {
+                    // Try to parse more specific error details
+                    if (error.message.includes('HTTP error') || error.message.includes('Server returned')) {
+                        errorMessage += ' Server returned an error status.';
+                    } else {
+                        errorMessage += ' ' + error.message;
+                    }
+                }
+                
+                // Additional context for debugging
+                const errorDetails = {
+                    bookingId: currentBookingToCancel.bookingId,
+                    studyRoom: currentBookingToCancel.studyRoom,
+                    errorType: error.constructor.name,
+                    errorMessage: error.message,
+                    fullError: error
+                };
+                
+                console.error('Cancellation Error Details:', errorDetails);
+                
+                alert(errorMessage);
             })
             .finally(() => {
                 // Re-enable buttons
@@ -1164,7 +1209,7 @@
 
             // Define navigation paths
             const paths = [
-                'dashboard.html',   // Dashboard
+                'dashboard.php',   // Dashboard
                 'rooms.php',        // Room
                 'booking.php',      // Booking (current page)
                 'reports.php'      // Reports

@@ -32,9 +32,9 @@ try {
     $status = $data['status'];
 
     // Validate status
-    $allowed_statuses = ['in_process', 'completed', 'cancelled', 'no_show'];
+    $allowed_statuses = ['in_process', 'cancelled by student', 'cancelled by admin', 'no_show', 'completed'];
     if (!in_array($status, $allowed_statuses)) {
-        throw new Exception("Invalid booking status");
+        throw new Exception("Invalid booking status. Allowed statuses: " . implode(', ', $allowed_statuses));
     }
 
     // Connect to database
@@ -44,23 +44,44 @@ try {
         throw new Exception("Database connection failed: " . $conn->connect_error);
     }
 
-    // Prepare and execute update statement with more robust join
-    $stmt = $conn->prepare("UPDATE booking b 
+    // Prepare and execute update statement with more robust join and validation
+    $stmt = $conn->prepare("SELECT b.book_id, b.status, b.booking_date, b.start_time, b.end_time 
+        FROM booking b 
         JOIN user_accounts ua ON b.user_id = ua.user_id 
-        SET b.status = ? 
         WHERE b.book_id = ? AND ua.email = ?");
-    $stmt->bind_param("sis", $status, $book_id, $_SESSION['email']);
-    
-    if (!$stmt->execute()) {
-        throw new Exception("Failed to update booking status: " . $stmt->error);
-    }
+    $stmt->bind_param("is", $book_id, $_SESSION['email']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $booking = $result->fetch_assoc();
+    $stmt->close();
 
-    // Check if any rows were actually updated
-    if ($stmt->affected_rows === 0) {
+    // Additional validation checks
+    if (!$booking) {
         throw new Exception("No matching booking found or unauthorized access");
     }
 
-    $stmt->close();
+    // Prevent updating already completed or cancelled bookings
+    if (in_array($booking['status'], ['completed', 'cancelled by student', 'cancelled by admin'])) {
+        throw new Exception("Cannot update a {$booking['status']} booking");
+    }
+
+    // Prepare update statement
+    $update_stmt = $conn->prepare("UPDATE booking b 
+        JOIN user_accounts ua ON b.user_id = ua.user_id 
+        SET b.status = ? 
+        WHERE b.book_id = ? AND ua.email = ?");
+    $update_stmt->bind_param("sis", $status, $book_id, $_SESSION['email']);
+    
+    if (!$update_stmt->execute()) {
+        throw new Exception("Failed to update booking status: " . $update_stmt->error);
+    }
+
+    // Check if any rows were actually updated
+    if ($update_stmt->affected_rows === 0) {
+        throw new Exception("No matching booking found or unauthorized access");
+    }
+
+    $update_stmt->close();
     $conn->close();
 
     // Success response

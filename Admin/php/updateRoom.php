@@ -21,11 +21,6 @@ function sendJsonResponse($success, $message, $data = null) {
 }
 
 try {
-    // Log request
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [updateRoom.php] Request received\n", FILE_APPEND);
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [updateRoom.php] POST: " . json_encode($_POST) . "\n", FILE_APPEND);
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [updateRoom.php] FILES: " . json_encode($_FILES) . "\n", FILE_APPEND);
-
     // Database connection
     $conn = new mysqli("localhost", "root", "", "medstudy");
     if ($conn->connect_error) {
@@ -187,7 +182,6 @@ try {
     $conn->close();
 
 } catch (Exception $e) {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [updateRoom.php] Error: " . $e->getMessage() . "\n", FILE_APPEND);
     sendJsonResponse(false, $e->getMessage());
 }
 ?>

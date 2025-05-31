@@ -1,0 +1,2 @@
+Admin Cancellation Notification Error
+Context: {"error":"Can't update table 'user_notifications' in stored function\/trigger because it is already used by statement which invoked this stored function\/trigger","user_id":3,"booking_id":1,"room_name":"Study Room 3","cancellation_reason":"Room is not available"}

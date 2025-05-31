@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../php/functions/notification_functions.php';
 
 // Redirect to login if not authenticated
 if (!isset($_SESSION['email'])) {
@@ -7,11 +8,13 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// Database connection
+// Database connection parameters
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "medstudy";
+
+// Create database connection
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -19,15 +22,24 @@ if ($conn->connect_error) {
 
 // Fetch user details
 $email = $_SESSION['email'];
-$stmt = $conn->prepare("SELECT ud.first_name, ud.last_name, ud.middle_name, ud.contact_number, ud.profile_pic, ua.user_id 
-                       FROM user_details ud 
-                       JOIN user_accounts ua ON ud.user_id = ua.user_id 
-                       WHERE ua.email = ?");
+$stmt = $conn->prepare("SELECT ud.user_id, ud.first_name, ud.last_name, ud.contact_number, ud.profile_pic 
+                        FROM user_details ud 
+                        JOIN user_accounts ua ON ud.user_id = ua.user_id 
+                        WHERE ua.email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
+
+// Fetch user notifications
+$notifications = getUserNotifications($conn, $user['user_id'], 10);
+
+// Get unread notification count
+$unread_count = getUnreadNotificationCount($conn, $user['user_id']);
+
+// Optional: Automatically mark notifications as read when viewed
+markNotificationsAsRead($conn, $user['user_id']);
 
 // Ensure user_id is set in the session
 if (!isset($_SESSION['user_id']) && $user) {
@@ -165,7 +177,7 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
                     <div class="uploadPhoto" onclick="uploadImage()">
                         <span>Upload New Photo</span>
                     </div>
-             style="height: 1%;"       <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
+                        <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" style="display: none;" onchange="previewImage(event)">
                 </div>
                 <div class="rightProfileDetails">
                     <div class="inputGroup">
@@ -203,22 +215,63 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
         <div class="notificationBox">
             <img src="/MedStudy-Space-System/User/images/icons/close.png" alt="" onclick="closeNotificationOverlay()">
             <div class="notificationContainer">
-                <h2>Notification</h2>
+                <h2>Notifications <span class="unread-count"><?php echo $unread_count; ?></span></h2>
                 <div class="notificationSection">
-                    <div class="notifPopUps">
-                        <img src="/MedStudy-Space-System/User/images/icons/notification.png" alt="">
-                        <span>
-                            <b>Booked Successfully</b> <br>
-                            You've successfully booked Study Room 1.
-                        </span>
-                    </div>
-                    <div class="notifPopUps">
-                        <img src="/MedStudy-Space-System/User/images/icons/warningNotif.png" alt="">
-                        <span>
-                            <b>Booking Has Been Void</b> <br>
-                            You did not show up in the booked date.
-                        </span>
-                    </div>
+                    <?php if (empty($notifications)): ?>
+                        <div class="no-notifications">
+                            <p>No notifications</p>
+                        </div>
+                    <?php else: ?>
+                        <?php foreach ($notifications as $notification): ?>
+                            <div class="notifPopUps <?php echo $notification['is_read'] ? 'read' : 'unread'; ?>">
+                                <?php 
+                                // Determine icon based on notification type
+                                $icon = '/MedStudy-Space-System/User/images/icons/';
+                                switch ($notification['type']) {
+                                    case 'booking_success':
+                                        $icon .= 'check.png';
+                                        break;
+                                    case 'booking_cancelled':
+                                        $icon .= 'cancel.png';
+                                        break;
+                                    case 'admin_cancelled':
+                                        $icon .= 'warning.png';
+                                        break;
+                                    case 'no_show':
+                                        $icon .= 'information.png';
+                                        break;
+                                    default:
+                                        $icon .= 'notification.png';
+                                }
+                                ?>
+                                <img src="<?php echo $icon; ?>" alt="">
+                                <div class="notification-details">
+                                    <h3><?php echo htmlspecialchars($notification['message']); ?></h3>
+                                    <?php if (!empty($notification['additional_details'])): ?>
+                                        <p><?php 
+                                            // Highlight the cancellation reason for admin cancellations
+                                            $details = htmlspecialchars($notification['additional_details']);
+                                            if ($notification['type'] === 'admin_cancelled') {
+                                                // Split the details to emphasize the reason
+                                                $detailParts = explode('Reason: ', $details);
+                                                if (count($detailParts) > 1) {
+                                                    echo $detailParts[0] . '<br><strong>Reason: ' . $detailParts[1] . '</strong>';
+                                                } else {
+                                                    echo $details;
+                                                }
+                                            } else {
+                                                echo $details;
+                                            }
+                                        ?></p>
+                                    <?php endif; ?>
+                                    <small><?php 
+                                        $created_at = new DateTime($notification['created_at']);
+                                        echo $created_at->format('F d, Y h:i A'); 
+                                    ?></small>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -258,6 +311,9 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
             </div>
         </div>
     </div>
+
+    <!-- Notification Box Modification -->
+    <!-- Removed duplicated notificationBox div -->
 
     <!-- Footer -->
     <div class="footer">
@@ -1507,6 +1563,88 @@ $full_name = $first_name . ' ' . $middle_initial . ($middle_initial ? ' ' : '') 
 
         .fc .fc-day-selected {
             background-color: rgba(0, 108, 253, 0.05) !important;
+        }
+
+        .notificationBox {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notificationHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .unread-count {
+            background-color: #52BBBF;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        .notificationContent {
+            padding: 10px;
+        }
+
+        .notification {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification.unread {
+            background-color: #e6f3f4;
+        }
+
+        .notification.read {
+            background-color: #f9f9f9;
+        }
+
+        .notification-icon {
+            margin-right: 15px;
+        }
+
+        .notification-icon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .notification-details {
+            flex-grow: 1;
+        }
+
+        .notification-details p {
+            margin: 0 0 5px 0;
+            font-weight: 500;
+        }
+
+        .notification-details small {
+            color: #666;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .no-notifications {
+            text-align: center;
+            color: #888;
+            padding: 20px;
         }
     </style>
 

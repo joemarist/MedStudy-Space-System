@@ -8,6 +8,9 @@ ini_set('error_log', '/path/to/php-error.log');
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
+// Include notification triggers
+require_once 'functions/notification_triggers.php';
+
 // Detailed logging function with more verbose output
 function detailed_log($message, $data = null) {
     $log_message = "[CANCEL BOOKING] " . $message;

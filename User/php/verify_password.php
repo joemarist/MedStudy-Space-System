@@ -56,25 +56,8 @@ $stmt->close();
 // Verify password
 if (!$user || !password_verify($currentPassword, $user['password'])) {
     // Log failed password verification attempt
-    file_put_contents("../../debug_log.txt", 
-        date('[Y-m-d H:i:s] ') . 
-        "Failed password verification for user ID: {$_SESSION['user_id']}\n", 
-        FILE_APPEND
-    );
-
-    echo json_encode([
-        'success' => false, 
-        'message' => 'Incorrect current password'
-    ]);
-    exit();
+    return false;
 }
-
-// Log successful password verification
-file_put_contents("../../debug_log.txt", 
-    date('[Y-m-d H:i:s] ') . 
-    "Successful password verification for user ID: {$_SESSION['user_id']}\n", 
-    FILE_APPEND
-);
 
 // Return success response
 echo json_encode([

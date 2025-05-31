@@ -32,7 +32,7 @@ function titlechanges(num, element) {
 
     // Navigation mapping
     var pages = {
-        1: 'dashboard.html',
+        1: 'dashboard.php',
         2: 'rooms.php',
         3: 'booking.php',
         4: 'reports.php'
@@ -45,179 +45,438 @@ function titlechanges(num, element) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    try {
-        const calendar = document.getElementById("calendar-days");
-        const monthTitle = document.getElementById("month-title");
-        const prevMonthBtn = document.getElementById("prev-month");
-        const nextMonthBtn = document.getElementById("next-month");
-        const popup = document.getElementById("popup");
-        const popupContent = document.getElementById("popup-content");
+// Event Listeners for Dashboard Buttons
+document.addEventListener('DOMContentLoaded', function() {
+    debugLog('Initializing dashboard event listeners');
 
-        if (!calendar || !monthTitle || !prevMonthBtn || !nextMonthBtn || !popup || !popupContent) {
-            debugLog("Calendar elements not found, skipping calendar logic");
-            return;
-        }
+    // Sidebar Navigation
+    const sidebarItems = document.querySelectorAll('.sidebar ul li');
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const navNum = parseInt(this.getAttribute('data-nav'));
+            titlechanges(navNum, this);
+        });
+    });
 
-        let currentDate = new Date();
-        let currentMonth = currentDate.getMonth();
-        let currentYear = currentDate.getFullYear();
+    // Profile Modal Interactions
+    const modalTrigger = document.getElementById('modal-trigger');
+    const profileModal = document.getElementById('profileModal');
+    const closeModalBtn = profileModal?.querySelector('.close-btn');
+    const logoutBtn = profileModal?.querySelector('.logout-btn');
 
-        const reservedDays = {
-            "2025-03-03": { status: "partially-reserved", reservations: ["Leonardo Clay Thompson"] },
-            "2025-03-05": { status: "reserved", reservations: ["Jeniffer Claudia Perez"] },
-            "2025-03-06": { status: "partially-reserved", reservations: ["Joshua Glen Garcia"] },
-            "2025-03-10": { status: "reserved", reservations: ["Juan Dela Cruz"] },
-            "2025-03-11": { status: "partially-reserved", reservations: ["Joshua Glen Garcia"] },
-            "2025-03-14": { status: "partially-reserved", reservations: ["Leonardo Clay Thompson"] }
-        };
+    if (modalTrigger) {
+        modalTrigger.addEventListener('click', function() {
+            debugLog('Opening profile modal');
+            profileModal.style.display = 'flex';
+        });
+    }
 
-        function generateCalendar(month, year) {
-            calendar.innerHTML = "";
-            const firstDay = new Date(year, month, 1).getDay();
-            const totalDays = new Date(year, month + 1, 0).getDate();
-            monthTitle.textContent = new Date(year, month).toLocaleString("en-US", { month: "long", year: "numeric" });
-            for (let i = 0; i < firstDay; i++) calendar.appendChild(document.createElement("div"));
-            for (let day = 1; day <= totalDays; day++) {
-                const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-                const dayElement = document.createElement("div");
-                dayElement.textContent = day;
-                if (reservedDays[dateKey]) dayElement.classList.add(reservedDays[dateKey].status);
-                dayElement.addEventListener("click", () => showPopup(dateKey));
-                calendar.appendChild(dayElement);
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+            debugLog('Closing profile modal');
+            profileModal.style.display = 'none';
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            debugLog('Logout initiated');
+            const loadingPopup = document.getElementById('loadingPopup');
+            if (loadingPopup) {
+                loadingPopup.style.display = 'flex';
+                setTimeout(() => {
+                    window.location.href = 'loginAdmin.php';
+                }, 3000);
             }
-        }
+        });
+    }
 
-        function showPopup(date) {
-            popup.style.display = "block";
-            popupContent.innerHTML = "";
-            if (reservedDays[date]) {
-                const { status, reservations } = reservedDays[date];
-                if (status === "reserved") {
-                    popupContent.innerHTML = `<p><strong>Fully Booked!</strong></p>`;
-                } else {
-                    popupContent.innerHTML = `<p><strong>Reservations:</strong></p>`;
-                    reservations.forEach(name => {
-                        popupContent.innerHTML += `<div><img src='profile.png'> ${name}</div>`;
+    // Real-Time Activity Buttons
+    const refreshActivityBtn = document.getElementById('refresh-activity');
+    const seeAllActivityBtn = document.getElementById('see-all-activity');
+
+    if (refreshActivityBtn) {
+        refreshActivityBtn.addEventListener('click', function() {
+            debugLog('Refresh activity button clicked');
+            fetch('/MedStudy-Space-System/Admin/php/clear_real_time_activity.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Failed to clear activity');
                     });
                 }
-            } else {
-                popupContent.innerHTML = "<p>No Reservation has been made for this date.</p>";
-            }
-        }
-
-        function closePopup() {
-            popup.style.display = "none";
-        }
-
-        prevMonthBtn.addEventListener("click", () => { if (--currentMonth < 0) { currentMonth = 11; currentYear--; } generateCalendar(currentMonth, currentYear); });
-        nextMonthBtn.addEventListener("click", () => { if (++currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar(currentMonth, currentYear); });
-
-        generateCalendar(currentMonth, currentYear);
-    } catch (error) {
-        debugLog(`Error in calendar logic: ${error.message}`);
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    try {
-        const activityList = document.getElementById("activity-list");
-        const refreshButton = document.getElementById("refresh-activity");
-
-        if (!activityList || !refreshButton) {
-            debugLog("Activity elements not found, skipping activity logic");
-            return;
-        }
-
-        const names = ["Christian Doong", "Vic Lawson", "Maria Brenen", "Lewis Anthony Godin", "Joshua Glen Garcia", "Emma Watson", "John Doe", "Jane Smith"];
-        const actions = [
-            "has entered the Study Room 1.",
-            "has entered the Study Room 2.",
-            "has booked a Study Room.",
-            "didn't show up.",
-            "left the Study Room.",
-            "is studying in the lounge.",
-            "has checked in at the library."
-        ];
-
-        let defaultActivities = [
-            '<span class="icon">💡</span> Christian Doong has entered the Study Room 1.',
-            '<span class="icon">💡</span> Vic Lawson didn\'t show up.',
-            '<span class="icon">💡</span> Maria Brenen has booked a Study Room.',
-            '<span class="icon">💡</span> Lewis Anthony Godin has entered the Study Room 2.',
-            '<span class="icon">💡</span> Joshua Glen Garcia has booked a Study Room.'
-        ];
-        let latestActivities = [...defaultActivities];
-
-        function getRandomItem(array) {
-            return array[Math.floor(Math.random() * array.length)];
-        }
-
-        function addActivity() {
-            const activityItem = document.createElement("div");
-            activityItem.classList.add("activity-item");
-            const activityText = `<span class="icon">💡</span> ${getRandomItem(names)} ${getRandomItem(actions)}`;
-            activityItem.innerHTML = activityText;
-            activityList.prepend(activityItem);
-            latestActivities.unshift(activityText);
-            if (latestActivities.length > 20) latestActivities.pop();
-        }
-
-        function refreshActivity() {
-            activityList.innerHTML = "";
-            defaultActivities.forEach(activityText => {
-                const activityItem = document.createElement("div");
-                activityItem.classList.add("activity-item");
-                activityItem.innerHTML = activityText;
-                activityList.appendChild(activityItem);
+                return response.json();
+            })
+            .then(data => {
+                const activityList = document.getElementById('activity-list');
+                if (data.success) {
+                    activityList.innerHTML = '<div class="activity-item" style="color: green;">Real-time activity cleared successfully.</div>';
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    activityList.innerHTML = `<div class="activity-item" style="color: red;">${data.message}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error clearing activity:', error);
+                const activityList = document.getElementById('activity-list');
+                activityList.innerHTML = `<div class="activity-item" style="color: red;">Error: ${error.message}</div>`;
             });
-            latestActivities = [...defaultActivities];
-        }
-
-        refreshButton.addEventListener("click", refreshActivity);
-        setInterval(addActivity, 2000);
-    } catch (error) {
-        debugLog(`Error in activity logic: ${error.message}`);
+        });
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    try {
-        const studyRooms = document.getElementById("study-rooms");
-        const bookings = document.getElementById("bookings");
-        const occupiedRooms = document.getElementById("occupied-rooms");
+    if (seeAllActivityBtn) {
+        seeAllActivityBtn.addEventListener('click', function() {
+            debugLog('See all activity button clicked');
+            
+            // Show loading indicator
+            const mainContainer = document.querySelector('.main-container');
+            mainContainer.innerHTML = `
+                <div class="loading-container" style="
+                    display: flex; 
+                    justify-content: center; 
+                    align-items: center; 
+                    height: 100%; 
+                    background-color: #f4f4f4;
+                ">
+                    <div class="spinner" style="
+                        width: 50px; 
+                        height: 50px; 
+                        border: 5px solid #007bff; 
+                        border-top: 5px solid transparent; 
+                        border-radius: 50%; 
+                        animation: spin 1s linear infinite;
+                    "></div>
+                </div>
+            `;
 
-        if (!studyRooms || !bookings || !occupiedRooms) {
-            debugLog("Stats elements not found, skipping stats logic");
-            return;
-        }
+            // Add spinning animation keyframes
+            const styleEl = document.createElement('style');
+            styleEl.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(styleEl);
 
-        const originalValues = {
-            studyRooms: parseInt(studyRooms.textContent, 10),
-            bookings: parseInt(bookings.textContent, 10),
-            occupiedRooms: parseInt(occupiedRooms.textContent, 10)
-        };
+            fetch('/MedStudy-Space-System/Admin/php/get_all_notifications.php?per_page=6')
+            .then(response => {
+                // Check if response is OK and is JSON
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new TypeError("Response is not JSON");
+                }
+                
+                return response.json();
+            })
+            .then(data => {
+                // Validate data structure
+                if (!data || typeof data !== 'object') {
+                    throw new Error('Invalid response format');
+                }
 
-        function updateStats() {
-            let newStudyRooms = Math.floor(Math.random() * 50) + 1;
-            let newBookings = Math.floor(Math.random() * 50) + 1;
-            let newOccupiedRooms = Math.floor(Math.random() * 50) + 1;
+                if (data.success && Array.isArray(data.notifications)) {
+                    // Create full-screen notifications view
+                    const notificationsContainer = document.createElement('div');
+                    notificationsContainer.className = 'full-notifications-container';
+                    notificationsContainer.innerHTML = `
+                        <div class="notifications-header">
+                            <h1>All Notifications</h1>
+                            <button id="back-to-dashboard" class="back-btn">← Back to Dashboard</button>
+                        </div>
+                        
+                        <div class="notifications-filter">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label for="type-filter">Type:</label>
+                                    <select id="type-filter">
+                                        <option value="">All Types</option>
+                                        <option value="booking">Booking</option>
+                                        <option value="checkin">Check-in</option>
+                                        <option value="checkout">Check-out</option>
+                                        <option value="room_status">Room Status</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label for="date-from">From:</label>
+                                    <input type="date" id="date-from">
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label for="date-to">To:</label>
+                                    <input type="date" id="date-to">
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label for="search-filter">Search:</label>
+                                    <input type="text" id="search-filter" placeholder="Search notifications">
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <button id="apply-filters">Apply Filters</button>
+                                    <button id="reset-filters">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notifications-pagination">
+                            <button id="prev-page" disabled>Previous</button>
+                            <span id="page-info">Page 1 of 1</span>
+                            <button id="next-page" disabled>Next</button>
+                        </div>
+                        
+                        <div class="notifications-grid" id="notifications-grid">
+                            ${data.notifications.map(notification => `
+                                <div class="notification-card" data-notification-id="${notification.id}">
+                                    <div class="notification-header">
+                                        <img src="${notification.user.profile_pic}" alt="User Profile" class="user-profile-pic">
+                                        <div class="user-info">
+                                            <h3>${notification.user.name}</h3>
+                                            <p class="user-email">${notification.user.email}</p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-body">
+                                        <span class="notification-type ${notification.type}">${notification.type}</span>
+                                        <p class="notification-message">${notification.message}</p>
+                                        ${notification.details ? `<p class="notification-details">${notification.details}</p>` : ''}
+                                    </div>
+                                    <div class="notification-footer">
+                                        <span class="notification-timestamp">${notification.created_at}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
 
-            studyRooms.textContent = newStudyRooms;
-            bookings.textContent = newBookings;
-            occupiedRooms.textContent = newOccupiedRooms;
+                    // Replace main container content
+                    mainContainer.innerHTML = '';
+                    mainContainer.appendChild(notificationsContainer);
 
-            if (newStudyRooms >= 50 || newBookings >= 50 || newOccupiedRooms >= 50) {
-                setTimeout(() => {
-                    studyRooms.textContent = originalValues.studyRooms;
-                    bookings.textContent = originalValues.bookings;
-                    occupiedRooms.textContent = originalValues.occupiedRooms;
-                }, 1000);
-            }
-        }
+                    // Add back button event listener
+                    const backButton = document.getElementById('back-to-dashboard');
+                    backButton.addEventListener('click', () => {
+                        location.reload(); // Reload to go back to dashboard
+                    });
 
-        setInterval(updateStats, 5000);
-    } catch (error) {
-        debugLog(`Error in stats logic: ${error.message}`);
+                    // Pagination and Filtering Logic
+                    let currentPage = data.pagination.page;
+                    const totalPages = data.pagination.total_pages;
+                    const totalCount = data.pagination.total_count;
+
+                    // Pagination buttons
+                    const prevPageBtn = document.getElementById('prev-page');
+                    const nextPageBtn = document.getElementById('next-page');
+                    const pageInfo = document.getElementById('page-info');
+
+                    // Update pagination buttons and page info
+                    function updatePaginationControls() {
+                        prevPageBtn.disabled = currentPage <= 1;
+                        nextPageBtn.disabled = currentPage >= totalPages;
+                        pageInfo.textContent = `Page ${currentPage} of ${totalPages} (${totalCount} total)`;
+                    }
+                    updatePaginationControls();
+
+                    // Fetch notifications with current filters
+                    function fetchNotifications(page = 1, filters = {}) {
+                        const queryParams = new URLSearchParams({
+                            page: page,
+                            per_page: 6,
+                            type: filters.type || '',
+                            date_from: filters.dateFrom || '',
+                            date_to: filters.dateTo || '',
+                            search: filters.search || ''
+                        });
+
+                        // Show loading
+                        const notificationsGrid = document.getElementById('notifications-grid');
+                        notificationsGrid.innerHTML = `
+                            <div class="loading-container" style="
+                                display: flex; 
+                                justify-content: center; 
+                                align-items: center; 
+                                width: 100%; 
+                                padding: 20px;
+                            ">
+                                <div class="spinner" style="
+                                    width: 50px; 
+                                    height: 50px; 
+                                    border: 5px solid #007bff; 
+                                    border-top: 5px solid transparent; 
+                                    border-radius: 50%; 
+                                    animation: spin 1s linear infinite;
+                                "></div>
+                            </div>
+                        `;
+
+                        fetch(`/MedStudy-Space-System/Admin/php/get_all_notifications.php?${queryParams}`)
+                        .then(response => {
+                            // Detailed error handling
+                            if (!response.ok) {
+                                // Try to parse error response
+                                return response.text().then(errorText => {
+                                    console.error('Server Error Response:', errorText);
+                                    throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
+                                });
+                            }
+                            
+                            // Check content type
+                            const contentType = response.headers.get('content-type');
+                            if (!contentType || !contentType.includes('application/json')) {
+                                return response.text().then(text => {
+                                    console.error('Non-JSON Response:', text);
+                                    throw new TypeError(`Expected JSON, got ${contentType}: ${text}`);
+                                });
+                            }
+                            
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Validate response structure
+                            if (!data || typeof data !== 'object') {
+                                throw new Error('Invalid response format');
+                            }
+
+                            if (!data.success) {
+                                throw new Error(data.message || 'Unknown error occurred');
+                            }
+
+                            if (!Array.isArray(data.notifications)) {
+                                throw new Error('Notifications is not an array');
+                            }
+
+                            // Update notifications grid
+                            const notificationsGrid = document.getElementById('notifications-grid');
+                            notificationsGrid.innerHTML = data.notifications.length > 0 
+                                ? data.notifications.map(notification => `
+                                    <div class="notification-card" data-notification-id="${notification.id}">
+                                        <div class="notification-header">
+                                            <img src="${notification.user.profile_pic}" alt="User Profile" class="user-profile-pic">
+                                            <div class="user-info">
+                                                <h3>${notification.user.name}</h3>
+                                                <p class="user-email">${notification.user.email}</p>
+                                            </div>
+                                        </div>
+                                        <div class="notification-body">
+                                            <span class="notification-type ${notification.type}">${notification.type}</span>
+                                            <p class="notification-message">${notification.message}</p>
+                                            ${notification.details ? `<p class="notification-details">${notification.details}</p>` : ''}
+                                        </div>
+                                        <div class="notification-footer">
+                                            <span class="notification-timestamp">${notification.created_at}</span>
+                                        </div>
+                                    </div>
+                                `).join('')
+                                : `<div class="no-notifications">No notifications found.</div>`;
+
+                            // Update pagination
+                            currentPage = data.pagination.page;
+                            updatePaginationControls();
+                        })
+                        .catch(error => {
+                            console.error('Error fetching notifications:', error);
+                            const notificationsGrid = document.getElementById('notifications-grid');
+                            notificationsGrid.innerHTML = `
+                                <div class="error-container">
+                                    <h3>Error Fetching Notifications</h3>
+                                    <p>${error.message}</p>
+                                    <button id="retry-fetch" class="retry-btn">Retry</button>
+                                </div>
+                            `;
+
+                            // Add retry button event listener
+                            const retryBtn = document.getElementById('retry-fetch');
+                            if (retryBtn) {
+                                retryBtn.addEventListener('click', () => {
+                                    fetchNotifications(page, filters);
+                                });
+                            }
+                        });
+                    }
+
+                    // Apply Filters Event Listener
+                    const applyFiltersBtn = document.getElementById('apply-filters');
+                    const resetFiltersBtn = document.getElementById('reset-filters');
+                    const typeFilter = document.getElementById('type-filter');
+                    const dateFromFilter = document.getElementById('date-from');
+                    const dateToFilter = document.getElementById('date-to');
+                    const searchFilter = document.getElementById('search-filter');
+
+                    applyFiltersBtn.addEventListener('click', () => {
+                        const filters = {
+                            type: typeFilter.value,
+                            dateFrom: dateFromFilter.value,
+                            dateTo: dateToFilter.value,
+                            search: searchFilter.value
+                        };
+                        fetchNotifications(1, filters);
+                    });
+
+                    // Reset Filters Event Listener
+                    resetFiltersBtn.addEventListener('click', () => {
+                        typeFilter.value = '';
+                        dateFromFilter.value = '';
+                        dateToFilter.value = '';
+                        searchFilter.value = '';
+                        fetchNotifications(1);
+                    });
+
+                    // Pagination Event Listeners
+                    prevPageBtn.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            const filters = {
+                                type: typeFilter.value,
+                                dateFrom: dateFromFilter.value,
+                                dateTo: dateToFilter.value,
+                                search: searchFilter.value
+                            };
+                            fetchNotifications(currentPage - 1, filters);
+                        }
+                    });
+
+                    nextPageBtn.addEventListener('click', () => {
+                        if (currentPage < totalPages) {
+                            const filters = {
+                                type: typeFilter.value,
+                                dateFrom: dateFromFilter.value,
+                                dateTo: dateToFilter.value,
+                                search: searchFilter.value
+                            };
+                            fetchNotifications(currentPage + 1, filters);
+                        }
+                    });
+                } else {
+                    // Handle case where success is false or notifications is not an array
+                    throw new Error(data.message || 'Failed to fetch notifications');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching notifications:', error);
+                
+                // Show detailed error in main container
+                mainContainer.innerHTML = `
+                    <div class="error-container">
+                        <h2>Error Fetching Notifications</h2>
+                        <p>${error.message}</p>
+                        <button id="back-to-dashboard" class="back-btn">← Back to Dashboard</button>
+                    </div>
+                `;
+
+                // Add back button event listener
+                const backButton = document.getElementById('back-to-dashboard');
+                backButton.addEventListener('click', () => {
+                    location.reload(); // Reload to go back to dashboard
+                });
+            });
+        });
     }
 });

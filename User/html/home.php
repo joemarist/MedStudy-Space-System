@@ -650,6 +650,13 @@ $full_name = $first_name . ' ' . $last_name;
                     bookingDate.getDate()
                 )).toISOString().split('T')[0];
 
+                console.log('Booking Details:', {
+                    room_id: currentRoom.id,
+                    booking_date: utcDate,
+                    start_time: startTime,
+                    end_time: endTime
+                });
+
                 const response = await fetch('/MedStudy-Space-System/User/php/process_booking.php', {
                     method: 'POST',
                     headers: {
@@ -663,7 +670,19 @@ $full_name = $first_name . ' ' . $last_name;
                     })
                 });
 
-                const data = await response.json();
+                // Log the raw response for debugging
+                const responseText = await response.text();
+                console.log('Raw Response:', responseText);
+
+                // Try to parse the response
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('Failed to parse response:', parseError);
+                    showCustomAlert('An unexpected error occurred. Please check the server response.', 'error');
+                    return;
+                }
 
                 if (data.success) {
                     // Close overlays
@@ -687,6 +706,9 @@ $full_name = $first_name . ' ' . $last_name;
                     }
                 } else {
                     closeBookConfirmationOverlay();
+                    
+                    // Log the full error details
+                    console.error('Booking Error:', data);
                     
                     // Handle duplicate booking error
                     if (data.error_type === 'duplicate_booking') {

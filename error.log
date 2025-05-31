@@ -1,0 +1,16 @@
+[31-May-2025 02:01:15 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":1,\"cancel_reason\":\"Room is not available\"}"}
+[31-May-2025 02:01:15 Asia/Manila] Notification creation failed
+Context: {"error":"Can't update table 'user_notifications' in stored function\/trigger because it is already used by statement which invoked this stored function\/trigger","user_id":3,"booking_id":1,"continue_cancellation":true}
+[31-May-2025 12:16:54 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":3,\"cancel_reason\":\"Sudden Maintenance\"}"}
+[31-May-2025 12:21:55 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":1,\"cancel_reason\":\"Urgent use of the room\"}"}
+[31-May-2025 12:29:22 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":1,\"cancel_reason\":\"Sudden Maintenance\"}"}
+[31-May-2025 13:41:56 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":2,\"cancel_reason\":\"Sudden Maintenance\"}"}
+[31-May-2025 13:50:21 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":1,\"cancel_reason\":\"Room is not available\"}"}
+[31-May-2025 13:50:39 Asia/Manila] Raw input received
+Context: {"input":"{\"booking_id\":4,\"cancel_reason\":\"Urgent use of the room\"}"}

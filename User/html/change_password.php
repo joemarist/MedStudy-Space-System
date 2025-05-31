@@ -46,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unset($_SESSION['must_change_password']);
             
             // Log password change
-            file_put_contents("../../debug_log.txt", 
-                date('[Y-m-d H:i:s] ') . 
-                "Password changed for user: {$_SESSION['email']}\n", 
-                FILE_APPEND
-            );
+            // file_put_contents("../../debug_log.txt", 
+            //     date('[Y-m-d H:i:s] ') . 
+            //     "Password changed for user: {$_SESSION['email']}\n", 
+            //     FILE_APPEND
+            // );
             
             $success = "Password changed successfully. Please log in.";
             

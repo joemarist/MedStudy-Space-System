@@ -16,17 +16,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Enhanced booking fetch function with persistent marking
     function fetchBookings(info, successCallback, roomId = 1, maxRetries = 3) {
+        // Validate input parameters
+        if (!info || !info.startStr || !info.endStr) {
+            console.error('Invalid fetch parameters', info);
+            return;
+        }
+
         function attemptFetch(retriesLeft) {
+            // Ensure all required parameters are present
+            const fetchData = {
+                room_id: roomId,
+                start_date: info.startStr,
+                end_date: info.endStr
+            };
+
+            // Validate fetchData
+            const missingFields = Object.entries(fetchData)
+                .filter(([key, value]) => value === undefined || value === null)
+                .map(([key]) => key);
+
+            if (missingFields.length > 0) {
+                console.error('Missing required fields:', missingFields);
+                return;
+            }
+
             fetch('/MedStudy-Space-System/User/php/get_bookings.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    room_id: roomId,
-                    start_date: info.startStr,
-                    end_date: info.endStr
-                })
+                body: JSON.stringify(fetchData)
             })
             .then(response => {
                 if (!response.ok) {

@@ -20,7 +20,6 @@ $db = "medstudy";
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     $error = "Database connection failed: " . $conn->connect_error;
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", $error . "\n", FILE_APPEND);
     header('Content-Type: application/json');
     echo json_encode(['success' => false, 'error' => $error]);
     exit();
@@ -36,7 +35,6 @@ $user = $result->fetch_assoc();
 $stmt->close();
 if (!$user) {
     $error = "User not found for email: $email";
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", $error . "\n", FILE_APPEND);
     header('Content-Type: application/json');
     echo json_encode(['success' => false, 'error' => $error]);
     exit();
@@ -56,17 +54,14 @@ if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_
     $max_size = 2 * 1024 * 1024; // 2MB
     if (in_array($file['type'], $allowed_types) && $file['size'] <= $max_size) {
         $profile_pic_blob = file_get_contents($file['tmp_name']);
-        file_put_contents("/MedStudy-Space-System/debug_log.txt", "File uploaded: " . $file['name'] . ", Size: " . $file['size'] . ", Type: " . $file['type'] . "\n", FILE_APPEND);
     } else {
         $error = "Invalid file type (" . $file['type'] . ") or size (" . $file['size'] . ")";
-        file_put_contents("/MedStudy-Space-System/debug_log.txt", $error . "\n", FILE_APPEND);
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'error' => $error]);
         exit();
     }
 } else {
     $error_code = $_FILES['profile_pic']['error'] ?? 'No file';
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", "No file uploaded or upload error: " . $error_code . "\n", FILE_APPEND);
 }
 
 // Update user_details
@@ -85,7 +80,6 @@ $types .= "i";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     $error = "Prepare failed: " . $conn->error;
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", $error . "\n", FILE_APPEND);
     header('Content-Type: application/json');
     echo json_encode(['success' => false, 'error' => $error]);
     exit();
@@ -98,12 +92,10 @@ if ($stmt->execute()) {
     if ($profile_pic_blob !== null) {
         $_SESSION['profile_pic'] = 'data:image/jpeg;base64,' . base64_encode($profile_pic_blob);
     }
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", "Profile updated for user_id: $user_id\n", FILE_APPEND);
     header('Content-Type: application/json');
     echo json_encode(['success' => true]);
 } else {
     $error = "Execute failed: " . $stmt->error;
-    file_put_contents("/MedStudy-Space-System/debug_log.txt", $error . "\n", FILE_APPEND);
     header('Content-Type: application/json');
     echo json_encode(['success' => false, 'error' => $error]);
 }

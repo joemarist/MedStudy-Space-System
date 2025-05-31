@@ -1,10 +1,35 @@
 <?php
+// Enable full error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', '/xampp/htdocs/MedStudy-Space-System/booking_error.log');
+
+// Ensure clean JSON output
+header('Content-Type: application/json');
+header('X-Content-Type-Options: nosniff');
+
+// Clear any existing output buffers
+ob_clean();
+ob_start();
+
 session_start();
 date_default_timezone_set('Asia/Manila');
-header('Content-Type: application/json');
 
-// Debug logging
-error_log("=== Process Booking Debug ===");
+// Debug logging function
+function debugLog($message, $data = null) {
+    $log_message = "[BOOKING] " . $message;
+    if ($data !== null) {
+        $log_message .= " | " . (is_array($data) ? json_encode($data) : $data);
+    }
+    
+    error_log($log_message);
+}
+
+debugLog("=== Process Booking Start ===");
+
+// Include notification triggers
+require_once 'functions/notification_triggers.php';
 
 // Database connection
 $host = "localhost";
@@ -14,22 +39,42 @@ $db = "medstudy";
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => 'Connection failed: ' . $conn->connect_error]));
+    debugLog("Database Connection Error", $conn->connect_error);
+    echo json_encode(['success' => false, 'message' => 'Connection failed: ' . $conn->connect_error]);
+    exit;
 }
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    error_log("User not logged in");
-    die(json_encode(['success' => false, 'message' => 'User not logged in']));
+    debugLog("User not logged in");
+    echo json_encode(['success' => false, 'message' => 'User not logged in']);
+    exit;
 }
 
 // Get booking data from POST request
-$data = json_decode(file_get_contents('php://input'), true);
-error_log("Received booking data: " . print_r($data, true));
+$raw_input = file_get_contents('php://input');
+debugLog("Raw Input", $raw_input);
 
-if (!isset($data['room_id'], $data['booking_date'], $data['start_time'], $data['end_time'])) {
-    error_log("Missing required fields");
-    die(json_encode(['success' => false, 'message' => 'Missing required fields']));
+$data = json_decode($raw_input, true);
+debugLog("Decoded Data", $data);
+
+// Validate input with detailed logging
+$required_fields = ['room_id', 'booking_date', 'start_time', 'end_time'];
+$missing_fields = [];
+
+foreach ($required_fields as $field) {
+    if (!isset($data[$field]) || empty($data[$field])) {
+        $missing_fields[] = $field;
+    }
+}
+
+if (!empty($missing_fields)) {
+    debugLog("Missing Required Fields", $missing_fields);
+    echo json_encode([
+        'success' => false, 
+        'message' => 'Missing required fields: ' . implode(', ', $missing_fields)
+    ]);
+    exit;
 }
 
 $user_id = $_SESSION['user_id'];
@@ -40,8 +85,8 @@ $booking_date_obj = new DateTime($data['booking_date'], new DateTimeZone('UTC'))
 $booking_date_obj->setTimezone(new DateTimeZone('Asia/Manila'));
 $booking_date = $booking_date_obj->format('Y-m-d');
 
-error_log("Original booking date: " . $data['booking_date']);
-error_log("Converted booking date: " . $booking_date);
+debugLog("Original booking date: " . $data['booking_date']);
+debugLog("Converted booking date: " . $booking_date);
 
 // Check if user already has a booking on this date
 $check_existing_query = "SELECT book_id, status FROM booking 
@@ -53,18 +98,19 @@ $result = $stmt->get_result();
 $existing_booking = $result->fetch_assoc();
 
 // Log detailed booking information for debugging
-error_log("Existing Booking Check:");
-error_log("User ID: " . $user_id);
-error_log("Booking Date: " . $booking_date);
-error_log("Existing Booking: " . print_r($existing_booking, true));
+debugLog("Existing Booking Check:");
+debugLog("User ID: " . $user_id);
+debugLog("Booking Date: " . $booking_date);
+debugLog("Existing Booking: " . print_r($existing_booking, true));
 
 if ($existing_booking) {
-    error_log("User already has a booking on this date");
-    die(json_encode([
+    debugLog("User already has a booking on this date");
+    echo json_encode([
         'success' => false, 
         'message' => 'You already have a booking on this date. To ensure fair access for all students, only one booking per day is allowed.',
         'error_type' => 'duplicate_booking'
-    ]));
+    ]);
+    exit;
 }
 
 // Convert times to 24-hour format in Manila timezone
@@ -72,19 +118,20 @@ $start_time_obj = DateTime::createFromFormat('h:i A', $data['start_time'], new D
 $end_time_obj = DateTime::createFromFormat('h:i A', $data['end_time'], new DateTimeZone('Asia/Manila'));
 
 if (!$start_time_obj || !$end_time_obj) {
-    error_log("Time format conversion failed");
-    error_log("Start time: " . $data['start_time']);
-    error_log("End time: " . $data['end_time']);
-    die(json_encode(['success' => false, 'message' => 'Invalid time format']));
+    debugLog("Time format conversion failed");
+    debugLog("Start time: " . $data['start_time']);
+    debugLog("End time: " . $data['end_time']);
+    echo json_encode(['success' => false, 'message' => 'Invalid time format']);
+    exit;
 }
 
 $start_time = $start_time_obj->format('H:i:s');
 $end_time = $end_time_obj->format('H:i:s');
 
-error_log("Original start time: " . $data['start_time']);
-error_log("Original end time: " . $data['end_time']);
-error_log("Converted start time: " . $start_time);
-error_log("Converted end time: " . $end_time);
+debugLog("Original start time: " . $data['start_time']);
+debugLog("Original end time: " . $data['end_time']);
+debugLog("Converted start time: " . $start_time);
+debugLog("Converted end time: " . $end_time);
 
 // Validate booking time (8am to 5pm)
 function isValidBookingTime($start_time, $end_time) {
@@ -102,12 +149,13 @@ function isValidBookingTime($start_time, $end_time) {
 
 // Validate booking time
 if (!isValidBookingTime($start_time, $end_time)) {
-    error_log("Invalid booking time: $start_time to $end_time");
-    die(json_encode([
+    debugLog("Invalid booking time: $start_time to $end_time");
+    echo json_encode([
         'success' => false, 
         'message' => 'Bookings are only allowed between 8:00 AM and 5:00 PM',
         'error_type' => 'invalid_time'
-    ]));
+    ]);
+    exit;
 }
 
 // Check booking duration (minimum 10 minutes, maximum 2 hours)
@@ -117,21 +165,23 @@ $duration = $start_datetime->diff($end_datetime);
 $hours = $duration->h + ($duration->i / 60);
 
 if ($hours < (10/60)) {
-    error_log("Booking duration too short: $hours hours");
-    die(json_encode([
+    debugLog("Booking duration too short: $hours hours");
+    echo json_encode([
         'success' => false, 
         'message' => 'Minimum booking duration is 10 minutes',
         'error_type' => 'short_duration'
-    ]));
+    ]);
+    exit;
 }
 
 if ($hours > 2) {
-    error_log("Booking duration too long: $hours hours");
-    die(json_encode([
+    debugLog("Booking duration too long: $hours hours");
+    echo json_encode([
         'success' => false, 
         'message' => 'Maximum booking duration is 2 hours',
         'error_type' => 'long_duration'
-    ]));
+    ]);
+    exit;
 }
 
 // Check for existing bookings in the same time slot
@@ -151,16 +201,17 @@ $result = $stmt->get_result();
 $conflicting_booking = $result->fetch_assoc();
 
 // Log detailed time slot check for debugging
-error_log("Time Slot Check:");
-error_log("Room ID: " . $room_id);
-error_log("Booking Date: " . $booking_date);
-error_log("Start Time: " . $start_time);
-error_log("End Time: " . $end_time);
-error_log("Conflicting Booking: " . print_r($conflicting_booking, true));
+debugLog("Time Slot Check:");
+debugLog("Room ID: " . $room_id);
+debugLog("Booking Date: " . $booking_date);
+debugLog("Start Time: " . $start_time);
+debugLog("End Time: " . $end_time);
+debugLog("Conflicting Booking: " . print_r($conflicting_booking, true));
 
 if ($conflicting_booking && $conflicting_booking['status'] !== 'cancelled') {
-    error_log("Time slot already booked");
-    die(json_encode(['success' => false, 'message' => 'This time slot is already booked']));
+    debugLog("Time slot already booked");
+    echo json_encode(['success' => false, 'message' => 'This time slot is already booked']);
+    exit;
 }
 
 // Insert new booking
@@ -171,12 +222,16 @@ $stmt = $conn->prepare($insert_query);
 $stmt->bind_param("iisss", $user_id, $room_id, $booking_date, $start_time, $end_time);
 
 if ($stmt->execute()) {
-    error_log("Booking successful");
-    error_log("Inserted booking - Date: $booking_date, Start: $start_time, End: $end_time");
+    // Get the newly inserted booking ID
+    $booking_id = $conn->insert_id;
+
+    // Ensure clean JSON output
     echo json_encode(['success' => true, 'message' => 'Booking successful']);
+    exit;
 } else {
-    error_log("Booking failed: " . $conn->error);
+    // Ensure clean JSON output for failure
     echo json_encode(['success' => false, 'message' => 'Failed to create booking: ' . $conn->error]);
+    exit;
 }
 
 $stmt->close();

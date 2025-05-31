@@ -1,61 +1,69 @@
 <?php
-// Log request
-file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Request received\n", FILE_APPEND);
-file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] POST: " . json_encode($_POST) . "\n", FILE_APPEND);
+// Removed debug logging
+// Removed debug logging
+// Removed debug logging
 
 // Database connection
-$conn = new mysqli("localhost", "root", "", "medstudy");
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "medstudy";
+
+$conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] DB error: " . $conn->connect_error . "\n", FILE_APPEND);
-    echo "<script>alert('Database connection failed'); window.location.href='../html/rooms.php';</script>";
-    exit;
+    // Removed debug logging
+    die("Connection failed: " . $conn->connect_error);
 }
-file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] DB connected\n", FILE_APPEND);
 
-// Validate method
+// Removed debug logging
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Invalid method\n", FILE_APPEND);
-    echo "<script>alert('Invalid request method'); window.location.href='../html/rooms.php';</script>";
-    exit;
+    // Removed debug logging
+    die("Invalid request method");
 }
 
-// Parse inputs
-$room_id = isset($_POST['room_id']) ? (int)$_POST['room_id'] : 0;
-file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Input: id=$room_id\n", FILE_APPEND);
+$room_id = isset($_POST['room_id']) ? intval($_POST['room_id']) : 0;
 
-// Validate
 if ($room_id <= 0) {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Error: Invalid room ID\n", FILE_APPEND);
-    echo "<script>alert('Invalid room ID'); window.location.href='../html/rooms.php';</script>";
-    exit;
+    // Removed debug logging
+    die("Invalid room ID");
 }
 
-// Check if room exists
+// Check if room exists and has no active bookings
 $stmt = $conn->prepare("SELECT room_id FROM rooms WHERE room_id = ?");
 $stmt->bind_param("i", $room_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
 if ($result->num_rows === 0) {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Room not found: id=$room_id\n", FILE_APPEND);
-    echo "<script>alert('Room not found'); window.location.href='../html/rooms.php';</script>";
-    $stmt->close();
-    $conn->close();
-    exit;
+    // Removed debug logging
+    die("Room not found");
 }
-$stmt->close();
 
-// Delete
-$stmt = $conn->prepare("DELETE FROM rooms WHERE room_id = ?");
-$stmt->bind_param("i", $room_id);
-file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Executing delete\n", FILE_APPEND);
+// Check for active bookings
+$booking_check = $conn->prepare("SELECT COUNT(*) as booking_count FROM booking WHERE room_id = ? AND status IN ('in_process', 'completed')");
+$booking_check->bind_param("i", $room_id);
+$booking_check->execute();
+$booking_result = $booking_check->get_result()->fetch_assoc();
 
-if ($stmt->execute()) {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Success: room_id=$room_id, affected=" . $stmt->affected_rows . "\n", FILE_APPEND);
-    echo "<script>alert('Room deleted successfully'); window.location.href='../html/rooms.php';</script>";
+if ($booking_result['booking_count'] > 0) {
+    die("Cannot delete room with active bookings");
+}
+
+// Prepare delete statement
+$delete_stmt = $conn->prepare("DELETE FROM rooms WHERE room_id = ?");
+$delete_stmt->bind_param("i", $room_id);
+
+// Removed debug logging
+$delete_stmt->execute();
+
+if ($delete_stmt->affected_rows > 0) {
+    // Removed debug logging
+    echo json_encode(['success' => true, 'message' => 'Room deleted successfully']);
 } else {
-    file_put_contents("../debug_log.txt", date("Y-m-d H:i:s") . " [deleteRoom.php] Delete error: " . $stmt->error . "\n", FILE_APPEND);
-    echo "<script>alert('Failed to delete room: " . addslashes($stmt->error) . "'); window.location.href='../html/rooms.php';</script>";
+    // Removed debug logging
+    echo json_encode(['success' => false, 'message' => 'Failed to delete room']);
 }
-$stmt->close();
+
+$delete_stmt->close();
 $conn->close();
 ?>

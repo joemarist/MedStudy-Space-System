@@ -1,0 +1,275 @@
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Original booking date: 2025-06-03
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Converted booking date: 2025-06-03
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:02:00 Asia/Manila] [BOOKING] Successfully created notification for booking ID: 2
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Original booking date: 2025-06-02
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Converted booking date: 2025-06-02
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:10:02 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Original booking date: 2025-06-02
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Converted booking date: 2025-06-02
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:12:51 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Original booking date: 2025-06-03
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Converted booking date: 2025-06-03
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:13:01 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Original booking date: 2025-06-02
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Converted booking date: 2025-06-02
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] Existing Booking: Array
+(
+    [book_id] => 1
+    [status] => cancelled by student
+)
+
+[31-May-2025 12:16:16 Asia/Manila] [BOOKING] User already has a booking on this date
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-04","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-04","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Original booking date: 2025-06-04
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Converted booking date: 2025-06-04
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Booking Date: 2025-06-04
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Booking Date: 2025-06-04
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:16:32 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Original booking date: 2025-06-03
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Converted booking date: 2025-06-03
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:21:43 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-02","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Original booking date: 2025-06-02
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Converted booking date: 2025-06-02
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Booking Date: 2025-06-02
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:29:12 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-03","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Original booking date: 2025-06-03
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Converted booking date: 2025-06-03
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Booking Date: 2025-06-03
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:35:15 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 12:35:23 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-04","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-04","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Original booking date: 2025-06-04
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Converted booking date: 2025-06-04
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Booking Date: 2025-06-04
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Booking Date: 2025-06-04
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 12:35:24 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-05","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-05","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Original booking date: 2025-06-05
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Converted booking date: 2025-06-05
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] User ID: 1
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 13:49:02 Asia/Manila] [BOOKING] Conflicting Booking: 
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-05","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-05","start_time":"8:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Original booking date: 2025-06-05
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Converted booking date: 2025-06-05
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] User ID: 2
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Original start time: 8:00 AM
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Converted start time: 08:00:00
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Start Time: 08:00:00
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Conflicting Booking: Array
+(
+    [book_id] => 3
+    [status] => in_process
+)
+
+[31-May-2025 13:49:23 Asia/Manila] [BOOKING] Time slot already booked
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-05","start_time":"9:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-05","start_time":"9:00 AM","end_time":"10:00 AM"}
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Original booking date: 2025-06-05
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Converted booking date: 2025-06-05
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] User ID: 2
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Original start time: 9:00 AM
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Original end time: 10:00 AM
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Converted start time: 09:00:00
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Converted end time: 10:00:00
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Start Time: 09:00:00
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] End Time: 10:00:00
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Conflicting Booking: Array
+(
+    [book_id] => 3
+    [status] => in_process
+)
+
+[31-May-2025 13:49:29 Asia/Manila] [BOOKING] Time slot already booked
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] === Process Booking Start ===
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Raw Input | {"room_id":1,"booking_date":"2025-06-05","start_time":"10:01 AM","end_time":"11:20 AM"}
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Decoded Data | {"room_id":1,"booking_date":"2025-06-05","start_time":"10:01 AM","end_time":"11:20 AM"}
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Original booking date: 2025-06-05
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Converted booking date: 2025-06-05
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Existing Booking Check:
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] User ID: 2
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Existing Booking: 
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Original start time: 10:01 AM
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Original end time: 11:20 AM
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Converted start time: 10:01:00
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Converted end time: 11:20:00
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Time Slot Check:
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Room ID: 1
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Booking Date: 2025-06-05
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Start Time: 10:01:00
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] End Time: 11:20:00
+[31-May-2025 13:49:40 Asia/Manila] [BOOKING] Conflicting Booking: 

@@ -18,7 +18,8 @@ $db = "medstudy";
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    error_log("Database Connection Error: " . $conn->connect_error);
+    die("A database connection error occurred. Please contact the system administrator.");
 }
 
 // Function to generate default password based on email
@@ -76,20 +77,10 @@ function sendWelcomeEmail($email, $password) {
         $mail->AltBody = "Welcome to MedStudy!\n\nYour account has been created successfully.\n\nEmail: {$email}\nPassword: {$password}\n\nPlease log in and change your password immediately.\n\nBest regards,\nMedStudy Team";
 
         $mail->send();
-        file_put_contents("email_log.txt", 
-            date('[Y-m-d H:i:s] ') . 
-            "Email sent successfully to $email\n", 
-            FILE_APPEND
-        );
         return true;
     } catch (Exception $e) {
         // Log detailed error
         $errorInfo = $mail ? $mail->ErrorInfo : $e->getMessage();
-        file_put_contents("email_error_log.txt", 
-            date('[Y-m-d H:i:s] ') . 
-            "Email sending failed to $email: " . $errorInfo . "\n", 
-            FILE_APPEND
-        );
         return false;
     }
 }
@@ -99,7 +90,6 @@ $id_token = $_POST['credential'] ?? null;
 
 if ($id_token) {
     $payload = json_decode(file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=$id_token"), true);
-    file_put_contents("debug_log.txt", print_r($payload, true) . "\n", FILE_APPEND);
 
     if ($payload && isset($payload['email']) && $payload['aud'] === $client_id && $payload['iss'] === 'https://accounts.google.com') {
         $email = $payload['email'];
@@ -110,16 +100,9 @@ if ($id_token) {
         $profilePicBlob = null;
         if ($profilePicUrl) {
             $profilePicBlob = @file_get_contents($profilePicUrl);
-            if ($profilePicBlob === false) {
-                file_put_contents("debug_log.txt", "Failed to download profile picture from: $profilePicUrl\n", FILE_APPEND);
-                $profilePicBlob = null;
-            } else {
-                file_put_contents("debug_log.txt", "Profile picture downloaded: $profilePicUrl\n", FILE_APPEND);
-            }
         }
 
         if (!str_ends_with($email, '@usep.edu.ph')) {
-            file_put_contents("debug_log.txt", "Non-usep.edu.ph email detected: $email\n", FILE_APPEND);
             echo "<script>alert('Only @usep.edu.ph accounts are allowed.'); window.location.href='index.php?status=denied';</script>";
             exit();
         }
@@ -140,19 +123,16 @@ if ($id_token) {
             $stmt->bind_param("sss", $email, $hashedPassword, $defaultPassword);
             if ($stmt->execute()) {
                 $user_id = $conn->insert_id;
-                file_put_contents("debug_log.txt", "New user created: user_id=$user_id, email=$email\n", FILE_APPEND);
 
                 // Send welcome email with default password
                 sendWelcomeEmail($email, $defaultPassword);
             } else {
-                file_put_contents("debug_log.txt", "Insert into user_accounts failed: " . $stmt->error . "\n", FILE_APPEND);
                 echo "<script>alert('Failed to create user account.'); window.location.href='index.php?status=error';</script>";
                 exit();
             }
             $stmt->close();
         } else {
             $user_id = $existingUser['user_id'];
-            file_put_contents("debug_log.txt", "Existing user found: user_id=$user_id, email=$email\n", FILE_APPEND);
         }
 
         $stmt = $conn->prepare("SELECT user_id, first_name, last_name, middle_name, profile_pic FROM user_details WHERE user_id = ?");
@@ -170,9 +150,7 @@ if ($id_token) {
                 $stmt->send_long_data(4, $profilePicBlob);
             }
             if ($stmt->execute()) {
-                file_put_contents("debug_log.txt", "User details inserted: user_id=$user_id, first_name=$firstName, last_name=$lastName, middle_name=null, profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
             } else {
-                file_put_contents("debug_log.txt", "Insert into user_details failed: " . $stmt->error . "\n", FILE_APPEND);
                 echo "<script>alert('Failed to save user details.'); window.location.href='index.php?status=error';</script>";
                 exit();
             }
@@ -182,7 +160,6 @@ if ($id_token) {
             $lastName = $detailsExist['last_name'];
             $middleName = $detailsExist['middle_name'];
             $profilePicBlob = $detailsExist['profile_pic'];
-            file_put_contents("debug_log.txt", "User details exist: user_id=$user_id, first_name=$firstName, last_name=$lastName, middle_name=" . ($middleName ?? "null") . ", profile_pic=" . ($profilePicBlob ? "set" : "null") . "\n", FILE_APPEND);
         }
 
         session_unset();
@@ -193,12 +170,10 @@ if ($id_token) {
         $_SESSION['middle_name'] = $middleName ?? null;
         $_SESSION['profile_pic'] = $profilePicBlob ? 'data:image/jpeg;base64,' . base64_encode($profilePicBlob) : null;
         $_SESSION['last_activity'] = time();
-        file_put_contents("debug_log.txt", "Session set: user_id=$user_id, email=$email, first_name=$firstName, last_name=$lastName, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();
     } else {
-        file_put_contents("debug_log.txt", "Invalid Google token or payload: " . print_r($payload, true) . "\n", FILE_APPEND);
         echo "<script>alert('Invalid Google token.'); window.location.href='index.php?status=invalid';</script>";
         exit();
     }
@@ -209,7 +184,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $password = $_POST['password'];
 
     if (!str_ends_with($email, '@usep.edu.ph')) {
-        file_put_contents("debug_log.txt", "Non-usep.edu.ph email detected for manual login: $email\n", FILE_APPEND);
         echo "<script>alert('Only @usep.edu.ph accounts are allowed.'); window.location.href='index.php?status=denied';</script>";
         exit();
     }
@@ -253,24 +227,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         if ($passwordStatus['is_temp_password'] == 1) {
             $_SESSION['must_change_password'] = true;
             
-            // Log temporary password login
-            file_put_contents("debug_log.txt", "Temporary password login: email=$email\n", FILE_APPEND);
-            
             // Redirect to password change page
             header("Location: User/html/change_password.php?temp_login=1");
             exit();
         }
-        
-        // Log successful login
-        file_put_contents("debug_log.txt", "Manual login session set: user_id=$user_id, email=$email, first_name={$_SESSION['first_name']}, last_name={$_SESSION['last_name']}, middle_name=" . ($_SESSION['middle_name'] ?? "null") . ", profile_pic=" . ($_SESSION['profile_pic'] ? "set" : "null") . "\n", FILE_APPEND);
 
         header("Location: index.php?status=success");
         exit();
     } else {
-        // Log failed login attempt
-        file_put_contents("debug_log.txt", "Manual login failed: email=$email (Incorrect credentials)\n", FILE_APPEND);
-        
-        // Specific error message for login failure
         echo "<script>
         alert('Login failed. Please check your email and password.');
         window.location.href='index.php?status=login_failed';
@@ -279,7 +243,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     }
 }
 
-file_put_contents("debug_log.txt", "No valid POST data received\n", FILE_APPEND);
 echo "<script>alert('No login data provided.'); window.location.href='index.php?status=missing';</script>";
 exit();
 ?>

@@ -62,25 +62,11 @@ $stmt = $conn->prepare("UPDATE user_accounts SET password = ?, is_temp_password 
 $stmt->bind_param("ssi", $hashedPassword, $newPassword, $_SESSION['user_id']);
 
 if ($stmt->execute()) {
-    // Log successful password change
-    file_put_contents("../../debug_log.txt", 
-        date('[Y-m-d H:i:s] ') . 
-        "Password changed for user ID: {$_SESSION['user_id']}\n", 
-        FILE_APPEND
-    );
-
     echo json_encode([
         'success' => true, 
         'message' => 'Password changed successfully'
     ]);
 } else {
-    // Log failed password change
-    file_put_contents("../../debug_log.txt", 
-        date('[Y-m-d H:i:s] ') . 
-        "Failed to change password for user ID: {$_SESSION['user_id']}\n", 
-        FILE_APPEND
-    );
-
     echo json_encode([
         'success' => false, 
         'message' => 'Failed to change password'
