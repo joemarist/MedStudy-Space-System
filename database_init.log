@@ -2660,3 +2660,36 @@ END;
 [2025-05-31 07:49:50] Some triggers failed to create. Check previous log entries.
 [2025-05-31 07:49:50] Database initialization completed successfully
 [2025-05-31 07:49:50] Database initialization completed successfully.
+[2025-05-31 09:47:45] Force recreation is enabled. Forcing database reinitialization.
+[2025-05-31 09:47:45] Database not initialized. Starting initialization process...
+[2025-05-31 09:47:45] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-05-31 09:47:45] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-05-31 09:47:45] Failed to create trigger: auto_mark_old_notifications_read
+[2025-05-31 09:47:45] Successfully created TRIGGER populate_real_time_activity
+[2025-05-31 09:47:45] Successfully created TRIGGER notify_booking_success
+[2025-05-31 09:47:45] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-05-31 09:47:45] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-05-31 09:47:45] Successfully created TRIGGER notify_booking_no_show
+[2025-05-31 09:47:45] Successfully created PROCEDURE cleanup_old_notifications
+[2025-05-31 09:47:45] Successfully created PROCEDURE clear_real_time_activity
+[2025-05-31 09:47:45] Skipped initial admin account insertion
+[2025-05-31 09:47:45] Skipped initial rooms insertion
+[2025-05-31 09:47:45] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-05-31 09:47:45] Some triggers failed to create. Check previous log entries.
+[2025-05-31 09:47:45] Database initialization completed successfully
+[2025-05-31 09:47:45] Database initialization completed successfully.

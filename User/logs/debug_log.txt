@@ -1,0 +1,17 @@
+[2025-05-31 08:00:08] Scanner Page Accessed
+[2025-05-31 08:00:08] GET Parameters: {"book_id":"4","room_id":"1","booking_date":"2025-06-05","start_time":"10:01:00","end_time":"11:20:00"}
+[2025-05-31 08:00:08] User ID for Booking Retrieval: 2
+[2025-05-31 08:00:08] Current Date: 2025-05-31
+[2025-05-31 08:00:08] Current Time: 08:00:08
+[2025-05-31 08:00:08] Scanner Page Debug Information:
+[2025-05-31 08:00:08] Session Email: cddoong00085@usep.edu.ph
+[2025-05-31 08:00:08] User ID: 2
+[2025-05-31 08:00:08] Current Timestamp: 2025-05-31 08:00:08
+[2025-05-31 08:00:08] Passed Booking Parameters:
+[2025-05-31 08:00:08] Book ID: 4
+[2025-05-31 08:00:08] Room ID: 1
+[2025-05-31 08:00:08] Booking Date: 2025-06-05
+[2025-05-31 08:00:08] Start Time: 10:01:00
+[2025-05-31 08:00:08] End Time: 11:20:00
+[2025-05-31 08:00:08] Booking Found: 
+[2025-05-31 08:00:08] Room Key for Verification: TF7Y0RPO

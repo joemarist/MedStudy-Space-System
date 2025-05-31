@@ -74,10 +74,71 @@
                     <!-- Total Reservations Chart -->
                     <div class="report_chart_section">
                         <h2 class="report_title">Total Reservations</h2>
-                        <select class="report_filter">
-                            <option value="weekly">Weekly</option>
-                            <option value="monthly">Monthly</option>
-                        </select>
+                        <div class="report_filters">
+                            <div class="filter-group">
+                                <label for="report_type">Report Type:</label>
+                                <select id="report_type">
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly" selected>Monthly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group" id="year_filter">
+                                <label for="report_year">Year:</label>
+                                <select id="report_year">
+                                    <?php 
+                                    $current_year = date('Y');
+                                    for ($year = $current_year; $year >= $current_year - 5; $year--) {
+                                        echo "<option value='$year'" . ($year == $current_year ? " selected" : "") . ">$year</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group" id="month_filter" style="display: none;">
+                                <label for="report_month">Month:</label>
+                                <select id="report_month">
+                                    <?php 
+                                    $months = [
+                                        1 => 'January', 2 => 'February', 3 => 'March', 
+                                        4 => 'April', 5 => 'May', 6 => 'June', 
+                                        7 => 'July', 8 => 'August', 9 => 'September', 
+                                        10 => 'October', 11 => 'November', 12 => 'December'
+                                    ];
+                                    $current_month = date('n');
+                                    foreach ($months as $num => $name) {
+                                        echo "<option value='$num'" . ($num == $current_month ? " selected" : "") . ">$name</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group" id="date_range_filter" style="display: none;">
+                                <label for="start_date">From:</label>
+                                <input type="date" id="start_date">
+                                <label for="end_date">To:</label>
+                                <input type="date" id="end_date">
+                            </div>
+                            
+                            <button id="apply_report_filter" class="filter-btn">Apply Filter</button>
+                        </div>
+                        
+                        <div class="report_summary">
+                            <div class="summary-card">
+                                <h4>Total Reservations</h4>
+                                <p id="total_reservations">0</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>Cancelled Bookings</h4>
+                                <p id="cancelled_bookings">0</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>No Shows</h4>
+                                <p id="no_show_bookings">0</p>
+                            </div>
+                        </div>
+                        
                         <canvas id="report_chart"></canvas>
                     </div>
             
@@ -258,6 +319,8 @@
     <script src="../js/reports.js"></script>
 
 
+    <!-- Reports JavaScript -->
+    <script src="../js/reports.js"></script>
 </body>
 
 
