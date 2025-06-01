@@ -2693,3 +2693,465 @@ END;
 [2025-05-31 09:47:45] Some triggers failed to create. Check previous log entries.
 [2025-05-31 09:47:45] Database initialization completed successfully
 [2025-05-31 09:47:45] Database initialization completed successfully.
+[2025-06-01 08:44:09] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 08:44:09] Database not initialized. Starting initialization process...
+[2025-06-01 08:44:09] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 08:44:09] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 08:44:09] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 08:44:09] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 08:44:09] Successfully created TRIGGER notify_booking_success
+[2025-06-01 08:44:09] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 08:44:09] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 08:44:09] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 08:44:09] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 08:44:09] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 08:44:09] Skipped initial admin account insertion
+[2025-06-01 08:44:09] Skipped initial rooms insertion
+[2025-06-01 08:44:09] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 08:44:09] Some triggers failed to create. Check previous log entries.
+[2025-06-01 08:44:09] Database initialization completed successfully
+[2025-06-01 08:44:09] Database initialization completed successfully.
+[2025-06-01 08:44:23] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 08:44:23] Database not initialized. Starting initialization process...
+[2025-06-01 08:44:23] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 08:44:23] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 08:44:23] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 08:44:23] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 08:44:23] Successfully created TRIGGER notify_booking_success
+[2025-06-01 08:44:23] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 08:44:23] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 08:44:23] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 08:44:23] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 08:44:23] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 08:44:23] Skipped initial admin account insertion
+[2025-06-01 08:44:23] Skipped initial rooms insertion
+[2025-06-01 08:44:23] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 08:44:23] Some triggers failed to create. Check previous log entries.
+[2025-06-01 08:44:23] Database initialization completed successfully
+[2025-06-01 08:44:23] Database initialization completed successfully.
+[2025-06-01 08:48:03] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 08:48:03] Database not initialized. Starting initialization process...
+[2025-06-01 08:48:03] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 08:48:03] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 08:48:03] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 08:48:03] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 08:48:03] Successfully created TRIGGER notify_booking_success
+[2025-06-01 08:48:03] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 08:48:03] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 08:48:03] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 08:48:03] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 08:48:03] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 08:48:03] Skipped initial admin account insertion
+[2025-06-01 08:48:03] Skipped initial rooms insertion
+[2025-06-01 08:48:03] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 08:48:03] Some triggers failed to create. Check previous log entries.
+[2025-06-01 08:48:03] Database initialization completed successfully
+[2025-06-01 08:48:03] Database initialization completed successfully.
+[2025-06-01 09:05:19] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 09:05:19] Database not initialized. Starting initialization process...
+[2025-06-01 09:05:19] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 09:05:19] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 09:05:19] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 09:05:19] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 09:05:19] Successfully created TRIGGER notify_booking_success
+[2025-06-01 09:05:19] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 09:05:19] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 09:05:19] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 09:05:19] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 09:05:19] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 09:05:19] Skipped initial admin account insertion
+[2025-06-01 09:05:19] Skipped initial rooms insertion
+[2025-06-01 09:05:19] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 09:05:19] Some triggers failed to create. Check previous log entries.
+[2025-06-01 09:05:19] Database initialization completed successfully
+[2025-06-01 09:05:19] Database initialization completed successfully.
+[2025-06-01 09:05:59] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 09:05:59] Database not initialized. Starting initialization process...
+[2025-06-01 09:05:59] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 09:05:59] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 09:05:59] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 09:05:59] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 09:05:59] Successfully created TRIGGER notify_booking_success
+[2025-06-01 09:05:59] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 09:05:59] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 09:05:59] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 09:05:59] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 09:05:59] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 09:05:59] Skipped initial admin account insertion
+[2025-06-01 09:05:59] Skipped initial rooms insertion
+[2025-06-01 09:05:59] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 09:05:59] Some triggers failed to create. Check previous log entries.
+[2025-06-01 09:05:59] Database initialization completed successfully
+[2025-06-01 09:05:59] Database initialization completed successfully.
+[2025-06-01 09:06:02] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 09:06:02] Database not initialized. Starting initialization process...
+[2025-06-01 09:06:02] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 09:06:02] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 09:06:02] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 09:06:02] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 09:06:02] Successfully created TRIGGER notify_booking_success
+[2025-06-01 09:06:02] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 09:06:02] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 09:06:02] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 09:06:02] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 09:06:02] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 09:06:02] Skipped initial admin account insertion
+[2025-06-01 09:06:02] Skipped initial rooms insertion
+[2025-06-01 09:06:02] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 09:06:02] Some triggers failed to create. Check previous log entries.
+[2025-06-01 09:06:02] Database initialization completed successfully
+[2025-06-01 09:06:02] Database initialization completed successfully.
+[2025-06-01 09:06:08] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 09:06:08] Database not initialized. Starting initialization process...
+[2025-06-01 09:06:08] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 09:06:08] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 09:06:08] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 09:06:08] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 09:06:08] Successfully created TRIGGER notify_booking_success
+[2025-06-01 09:06:08] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 09:06:08] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 09:06:08] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 09:06:08] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 09:06:08] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 09:06:08] Skipped initial admin account insertion
+[2025-06-01 09:06:08] Skipped initial rooms insertion
+[2025-06-01 09:06:08] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 09:06:08] Some triggers failed to create. Check previous log entries.
+[2025-06-01 09:06:08] Database initialization completed successfully
+[2025-06-01 09:06:08] Database initialization completed successfully.
+[2025-06-01 09:06:10] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 09:06:10] Database not initialized. Starting initialization process...
+[2025-06-01 09:06:10] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 09:06:10] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 09:06:10] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 09:06:10] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 09:06:10] Successfully created TRIGGER notify_booking_success
+[2025-06-01 09:06:10] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 09:06:10] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 09:06:10] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 09:06:10] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 09:06:10] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 09:06:10] Skipped initial admin account insertion
+[2025-06-01 09:06:10] Skipped initial rooms insertion
+[2025-06-01 09:06:10] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 09:06:10] Some triggers failed to create. Check previous log entries.
+[2025-06-01 09:06:10] Database initialization completed successfully
+[2025-06-01 09:06:10] Database initialization completed successfully.
+[2025-06-01 13:24:44] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:24:44] Database not initialized. Starting initialization process...
+[2025-06-01 13:24:44] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:24:44] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:24:44] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:24:45] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:24:45] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:24:45] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:24:45] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:24:45] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:24:45] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:24:45] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:24:45] Skipped initial admin account insertion
+[2025-06-01 13:24:45] Skipped initial rooms insertion
+[2025-06-01 13:24:45] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:24:45] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:24:45] Database initialization completed successfully
+[2025-06-01 13:24:45] Database initialization completed successfully.
+[2025-06-01 13:34:28] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:34:28] Database not initialized. Starting initialization process...
+[2025-06-01 13:34:28] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:34:28] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:34:28] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:34:28] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:34:29] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:34:29] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:34:29] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:34:29] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:34:29] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:34:29] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:34:29] Skipped initial admin account insertion
+[2025-06-01 13:34:29] Skipped initial rooms insertion
+[2025-06-01 13:34:29] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:34:29] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:34:29] Database initialization completed successfully
+[2025-06-01 13:34:29] Database initialization completed successfully.
+[2025-06-01 13:34:52] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:34:52] Database not initialized. Starting initialization process...
+[2025-06-01 13:34:52] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:34:52] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:34:52] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:34:52] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:34:52] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:34:52] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:34:52] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:34:52] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:34:52] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:34:52] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:34:52] Skipped initial admin account insertion
+[2025-06-01 13:34:52] Skipped initial rooms insertion
+[2025-06-01 13:34:52] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:34:52] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:34:52] Database initialization completed successfully
+[2025-06-01 13:34:52] Database initialization completed successfully.
+[2025-06-01 13:44:29] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:44:29] Database not initialized. Starting initialization process...
+[2025-06-01 13:44:30] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:44:30] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:44:30] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:44:30] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:44:30] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:44:30] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:44:30] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:44:30] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:44:30] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:44:30] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:44:30] Skipped initial admin account insertion
+[2025-06-01 13:44:30] Skipped initial rooms insertion
+[2025-06-01 13:44:30] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:44:30] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:44:30] Database initialization completed successfully
+[2025-06-01 13:44:30] Database initialization completed successfully.
+[2025-06-01 13:51:36] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:51:36] Database not initialized. Starting initialization process...
+[2025-06-01 13:51:36] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:51:36] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:51:36] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:51:36] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:51:36] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:51:36] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:51:36] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:51:36] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:51:36] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:51:36] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:51:36] Skipped initial admin account insertion
+[2025-06-01 13:51:36] Skipped initial rooms insertion
+[2025-06-01 13:51:36] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:51:36] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:51:36] Database initialization completed successfully
+[2025-06-01 13:51:36] Database initialization completed successfully.
+[2025-06-01 13:51:50] Force recreation is enabled. Forcing database reinitialization.
+[2025-06-01 13:51:50] Database not initialized. Starting initialization process...
+[2025-06-01 13:51:50] Exception creating TRIGGER auto_mark_old_notifications_read: Explicit or implicit commit is not allowed in stored function or trigger
+[2025-06-01 13:51:50] Problematic SQL: CREATE TRIGGER auto_mark_old_notifications_read
+BEFORE INSERT ON user_notifications
+FOR EACH ROW
+BEGIN
+    -- Use a separate transaction to mark old notifications
+    START TRANSACTION;
+    
+    UPDATE user_notifications 
+    SET is_read = TRUE 
+    WHERE user_id = NEW.user_id 
+      AND is_read = FALSE 
+      AND created_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 DAY)
+    LIMIT 100;  -- Limit to prevent long-running updates
+    
+    COMMIT;
+END;
+[2025-06-01 13:51:50] Failed to create trigger: auto_mark_old_notifications_read
+[2025-06-01 13:51:50] Successfully created TRIGGER populate_real_time_activity
+[2025-06-01 13:51:50] Successfully created TRIGGER notify_booking_success
+[2025-06-01 13:51:50] Successfully created TRIGGER notify_booking_cancelled_by_student
+[2025-06-01 13:51:50] Successfully created TRIGGER notify_booking_cancelled_by_admin
+[2025-06-01 13:51:50] Successfully created TRIGGER notify_booking_no_show
+[2025-06-01 13:51:50] Successfully created PROCEDURE cleanup_old_notifications
+[2025-06-01 13:51:50] Successfully created PROCEDURE clear_real_time_activity
+[2025-06-01 13:51:50] Skipped initial admin account insertion
+[2025-06-01 13:51:50] Skipped initial rooms insertion
+[2025-06-01 13:51:50] Database initialization flag created successfully at C:\xampp\htdocs\MedStudy-Space-System/database_initialized.flag
+[2025-06-01 13:51:50] Some triggers failed to create. Check previous log entries.
+[2025-06-01 13:51:50] Database initialization completed successfully
+[2025-06-01 13:51:50] Database initialization completed successfully.

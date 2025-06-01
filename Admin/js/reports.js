@@ -8,11 +8,24 @@
 // });
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.time('Report Data Fetch');
+    console.time('Chart Rendering');
+
     // Chart configuration
     let reportChart = null;
+    let currentReportParams = {
+        type: 'monthly',
+        year: new Date().getFullYear(),
+        month: null,
+        startDate: null,
+        endDate: null
+    };
 
     // Fetch and render report data
     function fetchReportData(type = 'monthly', year = null, month = null, startDate = null, endDate = null) {
+        // Update current report parameters
+        currentReportParams = { type, year, month, startDate, endDate };
+
         // Clear previous chart and summary
         if (reportChart) {
             reportChart.destroy();
@@ -42,9 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
             params.append('end_date', endDate);
         }
 
-        // Fetch data
-        fetch(`/MedStudy-Space-System/Admin/php/get_reservation_reports.php?${params}`)
+        // Fetch data with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+
+        fetch(`/MedStudy-Space-System/Admin/php/get_reservation_reports.php?${params}`, {
+            signal: controller.signal
+        })
         .then(response => {
+            clearTimeout(timeoutId);
+            console.timeEnd('Report Data Fetch');
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -53,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(result => {
             if (result.success) {
                 renderReportChart(result.data, type);
-                updateSummaryCards(result.data);
             } else {
                 console.error('Error fetching report data:', result.message);
                 // Clear chart if no data
@@ -62,12 +82,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
+            clearTimeout(timeoutId);
             console.error('Error:', error);
-            // Clear chart on error
+            // Show user-friendly error message
             const ctx = document.getElementById('report_chart').getContext('2d');
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.font = '16px Arial';
+            ctx.fillStyle = 'red';
+            ctx.textAlign = 'center';
+            ctx.fillText('Failed to load report data', ctx.canvas.width / 2, ctx.canvas.height / 2);
         });
     }
+
+    // CSV Download functionality
+    function downloadReportCSV() {
+        // Construct URL with current report parameters
+        const params = new URLSearchParams({
+            type: currentReportParams.type
+        });
+
+        // Add parameters based on report type
+        if (currentReportParams.type === 'weekly' || currentReportParams.type === 'monthly') {
+            params.append('year', currentReportParams.year || new Date().getFullYear());
+        }
+        
+        if (currentReportParams.type === 'weekly') {
+            params.append('month', currentReportParams.month || new Date().getMonth() + 1);
+        }
+
+        if (currentReportParams.startDate && currentReportParams.endDate) {
+            params.append('start_date', currentReportParams.startDate);
+            params.append('end_date', currentReportParams.endDate);
+        }
+
+        // Redirect to CSV generation script
+        window.location.href = `/MedStudy-Space-System/Admin/php/generate_report_csv.php?${params}`;
+    }
+
+    // Attach CSV download event listener
+    const downloadCSVBtn = document.getElementById('download_report_csv');
+    downloadCSVBtn.addEventListener('click', downloadReportCSV);
 
     // Update summary cards
     function updateSummaryCards(data) {
@@ -189,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -203,9 +257,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         display: true,
                         text: `Reservation Report (${type.charAt(0).toUpperCase() + type.slice(1)})`
                     }
+                },
+                animation: {
+                    duration: 1000, // Reduced animation time
+                    easing: 'easeOutQuart'
                 }
             }
         });
+
+        console.timeEnd('Chart Rendering');
+        updateSummaryCards(data);
     }
 
     // Initial load
@@ -261,115 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function openRoomUsage() {
-    let modal = document.getElementById("roomUsageModal");
-    modal.style.display = "flex";  
-    modal.style.justifyContent = "center"; 
-    modal.style.alignItems = "center";
-}
+// Removed room usage and booking trends related functions
 
-function closeRoomUsage() {
-    document.getElementById("roomUsageModal").style.display = "none";
-}
-
-const roomCtx = document.getElementById("report_room_chart").getContext("2d");
-
-const reportRoomChart = new Chart(roomCtx, {
-    type: "pie",
-    data: {
-        labels: ["Morning", "Afternoon", "Evening", "Night"],
-        datasets: [{
-            data: [40, 30, 20, 10],
-            backgroundColor: ["#3366cc", "#ff6699", "#66cc66", "#ffcc33"]
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,  
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    font: {
-                        size: 14
-                    }
-                }
-            }
-        }
-    }
-});
-
-window.onclick = function(event) {
-    let modal = document.getElementById("roomUsageModal");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};
-
-function change(){
-    let x = document.getElementById("tg").value
-
-    if(x == "room1"){
-        document.getElementById("title_room").innerHTML = "Study Room 1";
-    }else if(x == "room2"){
-        document.getElementById("title_room").innerHTML = "Study Room 2";
-    }else if(x == "room3"){
-        document.getElementById("title_room").innerHTML = "Study Room 3";
-    }else{
-        document.getElementById("title_room").innerHTML = "Study Room 4";
-    }
-}
-
-document.getElementById("bookingtrends_openModal").addEventListener("click", function () {
-    document.getElementById("bookingtrends_modal").style.display = "block";
-});
-
-document.querySelector(".bookingtrends_close").addEventListener("click", function () {
-    document.getElementById("bookingtrends_modal").style.display = "none";
-});
-
-window.onclick = function (event) {
-    let modal = document.getElementById("bookingtrends_modal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
-
-let ctx1 = document.getElementById("bookingtrends_chart").getContext("2d");
-
-let bookingTrendsChart = new Chart(ctx1, {
-    type: "bar",
-    data: {
-        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        datasets: [
-            {
-                label: "Reservations",
-                data: [30, 45, 50, 70, 90, 40, 25], 
-                backgroundColor: "#007bff"
-            },
-            {
-                label: "Non-Reservations",
-                data: [10, 15, 12, 20, 25, 18, 10], 
-                backgroundColor: "#ff6384"
-            },
-            {
-                label: "Cancelled",
-                data: [5, 7, 6, 8, 10, 4, 3], 
-                backgroundColor: "#36a2eb"
-            },
-            {
-                label: "Dropped",
-                data: [3, 5, 4, 6, 7, 3, 2], 
-                backgroundColor: "#ffce56"
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
+// Existing code for report chart remains unchanged

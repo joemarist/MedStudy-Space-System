@@ -8,10 +8,9 @@
     <link rel="icon" href="../../User/images\logos\medstudyLogo.png">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/reports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
-
 
 <body>
     <div class="container">
@@ -19,19 +18,19 @@
             <img src="../images/logos/adminIcon.png" alt="Admin Icon" width="100%">
             <hr>
             <ul>
-                <li onclick="titlechanges(1,this)">
+                <li data-nav="1" onclick="titlechanges(1, this)">
                     <img src="../../User/images/icons/dashboard.png" alt="Dashboard" width="20px">
                     <span>Dashboard</span>
                 </li>
-                <li onclick="titlechanges(2,this)">
+                <li data-nav="2" onclick="titlechanges(2, this)">
                     <img src="../../User/images/icons/room.png" alt="Room" width="20px">
                     <span>Room</span>
                 </li>
-                <li onclick="titlechanges(3,this)">
+                <li data-nav="3" onclick="titlechanges(3, this)">
                     <img src="../../User/images/icons/appointment.png" alt="Booking" width="20px">
                     <span>Booking</span>
                 </li>
-                <li class="pok" onclick="titlechanges(4,this)">
+                <li data-nav="4" class="pok active" onclick="titlechanges(4, this)">
                     <img src="../../User/images/icons/bar-chart.png" alt="Reports" width="20px">
                     <span>Reports</span>
                 </li>
@@ -41,21 +40,8 @@
         </aside>
     </div>
 
-
     <div class="box2">
-
-      
-
-        <!--Main Containers-->
-
-
-
-
-
         <div class="main-container">
-
-
-
             <header class="header">
                 <h2 id="titlename">Reports</h2>
                 <div class="header-right">
@@ -66,8 +52,6 @@
                         style="cursor: pointer;"></image>
                 </div>
             </header>
-
-     
 
             <div class="reports1" id="reports">
                 <div class="report_container">
@@ -121,7 +105,12 @@
                                 <input type="date" id="end_date">
                             </div>
                             
-                            <button id="apply_report_filter" class="filter-btn">Apply Filter</button>
+                            <div class="filter-group">
+                                <button id="apply_report_filter" class="filter-btn">Apply Filter</button>
+                                <button id="download_report_csv" class="download-btn">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
                         </div>
                         
                         <div class="report_summary">
@@ -141,140 +130,10 @@
                         
                         <canvas id="report_chart"></canvas>
                     </div>
-            
-                    <!-- Buttons Section -->
-                    <div class="report_buttons">
-                        <div class="report_room_usage" onclick="openRoomUsage()">
-                            <img src="../images/Roomusage.png" alt="Room Usage">
-                            <p>Room Usage</p>
-                        </div>
-                        <div id="bookingtrends_openModal"       class="report_booking_trends">
-                            <img src="../images/booktrends.png" alt="Booking Trends" width="80%">
-                            <p>Booking Trends</p>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
-
-            </div>
-
-
-
-
-
-
-        </div>
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="report_modal" id="roomUsageModal">
-        <div class="report_modal_content">
-           
-            <h3 style="margin: 10px;" >Room Usage</h3>
-      
-            <div class="report_room_selection">
-                <span style="padding: 5px;">Select room:</span>
-                <select  id="tg"   class="report_room_select" style="padding: 5px;" onclick="change()">
-                    <option value="room1">Room 1</option>
-                    <option value="room2">Room 2</option>
-                    <option value="room3">Room 3</option>
-                    <option value="room4">Room 4</option>
-                </select>
-                <span style="padding: 5px;">Filter:</span>
-                <select class="days" style="padding: 5px;" >
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                </select>
-                <span class="report_modal_close" onclick="closeRoomUsage()">&times;</span>
-            </div>
-           
-            <div class="report_room_details">
-                <img src="../images/logos/studyroom.png" alt="Study Room" class="report_room_img" width="10%">
-               
-              
-                <h5 id="title_room">Study Room 1</h5>
-                <h6><strong>Total Hours Used:</strong> 50 hours</h6>
-                <h6><strong>Last Date of Used:</strong> March 2, 2025</h6>
-            </div>
-    
-            <h5>Percentage of Time</h5>
-    
-            <div class="report_chart_container">
-             
-                <canvas id="report_room_chart"></canvas>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-    <div id="bookingtrends_modal" class="bookingtrends_modal">
-        <div class="bookingtrends_modal-content">
-            <span class="bookingtrends_close">&times;</span>
-            <h2>Booking Trends</h2>
-            <hr>
-            <label for="bookingtrends_semester">Semester:</label>
-            <select id="bookingtrends_semester">
-                <option value="1">1st Semester</option>
-                <option value="2">2nd Semester</option>
-            </select>
-    
-            <label for="bookingtrends_filter">Filter by:</label>
-            <select id="bookingtrends_filter">
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-            </select>
-    
-            <canvas id="bookingtrends_chart"></canvas>
-    
-            <div class="bookingtrends_student-reserve">
-                <p>Total Student Reservers: <span id="bookingtrends_totalReservers">88</span></p>
-            </div>
-        </div>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="modal" id="profileModal" style="display: none;">
         <div class="modal-content">
@@ -297,32 +156,34 @@
     </div>
 
     <script>
+        // Modal functions
         function openModal() {
-            document.getElementById("profileModal").style.display = "flex";
+            const profileModal = document.getElementById('profileModal');
+            if (profileModal) {
+                profileModal.style.display = 'flex';
+            }
         }
 
         function closeModal() {
-            document.getElementById("profileModal").style.display = "none";
+            const profileModal = document.getElementById('profileModal');
+            if (profileModal) {
+                profileModal.style.display = 'none';
+            }
         }
 
         function showLoading(redirectUrl) {
-            document.getElementById('loadingPopup').style.display = 'flex';
-            setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 3000);
+            const loadingPopup = document.getElementById('loadingPopup');
+            if (loadingPopup) {
+                loadingPopup.style.display = 'flex';
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 3000);
+            }
         }
     </script>
-
     <script src="../js/dashboard.js"></script>
     <script src="../js/rooms.js"></script>
     <script src="../js/booking.js"></script>
     <script src="../js/reports.js"></script>
-
-
-    <!-- Reports JavaScript -->
-    <script src="../js/reports.js"></script>
 </body>
-
-
-
 </html>

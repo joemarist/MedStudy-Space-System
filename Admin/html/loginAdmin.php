@@ -8,61 +8,34 @@
     <link rel="icon" href="../../User/images\logos\medstudyLogo.png">
 </head>
 <body>
-    <div class="picholder">
-        <img src="../images/logos/doc.png" width="100%">
-    </div>
-
-    <div class="logIn">
-        <br><br>
-        <div class="title">
-            <h1>Hello</h1>
-            <span><h1>Welcome Back!</h1></span>
+    <div class="container">
+        <div class="picholder">
+            <img src="../images/logos/doc.png" alt="MedStudy Admin Login Illustration">
         </div>
-        
-        <div class="logInForm">
-            <h2>
-                <span>Login</span>
-                your account
-            </h2>
-            <form action="">
-                <input id="admin" type="email" name="email" placeholder="Email">
-                <br>
-                <div class="password-container">
-                    <input type="password" id="password" placeholder="Password" oninput="toggleEyeVisibility()">
-                    <img id="eyeIcon" src="../../Admin/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
-                </div>    
-                <br>
-                <a href="#" onclick="openForgetPassOverlay()">forgot password?</a>
-                <br><br>
-                <button type="button" onclick="showLoading('dashboard.php',0)">Log In</button>
-                <br>
-                <p>OR</p>
-                <br>
-                <button type="button" onclick="showLoading('dashboard.php',1)"><img src="..\..\User\images\logos\google.png" alt="">
-                    <span>Log In with Google</span>
-                </button>
-            </form>
-        </div>
-    </div>
 
-    <div class="forgetPassOverlay" id="forgetPassOverlay">
-        <div class="forgetPassBox">
-            <h2>Recover your password</h2>
-            <div class="recoverPass" id="recoverPass">
-                <p>
-                    Please enter your email so that we can send your password.
-                </p>
-                <input type="email" placeholder="Email">
-                <div class="recoverPassButtons">
-                    <button onclick="closeForgetPassOverlay()">Cancel</button>
-                    <button onclick="openSentEmail()">Send</button>
+        <div class="logIn">
+            <div class="logInForm">
+                <div class="title">
+                    <h1>Hello</h1>
+                    <h1>Welcome Back!</h1>
                 </div>
-            </div>
-            <div class="sentEmail" id="sentEmail">
-                <img src="../../User/images/icons/sent.png" alt="">
-                <p>We have sent your password to your email.</p>
-                <br>
-                <button onclick="closeSentEmail()">Back</button>
+                
+                <form id="loginForm">
+                    <h2>
+                        <span>Login</span> to your account
+                    </h2>
+                    
+                    <input id="admin" type="email" name="email" placeholder="Email" required>
+                    
+                    <div class="password-container">
+                        <input type="password" id="password" placeholder="Password" required oninput="toggleEyeVisibility()">
+                        <img id="eyeIcon" src="../../Admin/images/icons/hidden.png" alt="Toggle Password" onclick="togglePassword()" style="display: none;">
+                    </div>    
+                    
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+                    
+                    <button type="button" onclick="showLoading('dashboard.php')">Log In</button>
+                </form>
             </div>
         </div>
     </div>
@@ -74,37 +47,46 @@
             <img src="../../User/images/logos/medstudyLogo.png" alt="Loading" class="loading-image">
         </div>
     </div>
+
     <script>
-        function showLoading(redirectUrl, num) {
+        function showLoading(redirectUrl) {
             let nameField = document.getElementById("admin");
             let passField = document.getElementById("password");
             let name = nameField.value.trim();
             let pass = passField.value.trim();
 
-            let isNameValid = name === "admin";
-            let isPassValid = pass === "12345";
+            // Clear previous error states
+            nameField.classList.remove("error");
+            passField.classList.remove("error");
+            document.getElementById("errorMessage").textContent = "";
+            document.getElementById("errorMessage").style.display = "none";
 
-            if (isNameValid && isPassValid || num === 1) {
+            // Specific login credentials
+            const validEmail = "somlibrary@usep.edu.ph";
+            const validPassword = "somlibrary";
+
+            // Check login credentials
+            if (name === validEmail && pass === validPassword) {
                 document.getElementById('loadingPopup').style.display = 'flex';
                 setTimeout(() => {
                     window.location.href = redirectUrl;
                 }, 3000);
             } else {
-                nameField.classList.toggle("error", !isNameValid);
-                passField.classList.toggle("error", !isPassValid);
+                // Show error for invalid credentials
+                if (name !== validEmail) {
+                    nameField.classList.add("error");
+                }
+                if (pass !== validPassword) {
+                    passField.classList.add("error");
+                }
+                
+                // Display error message
+                const errorMessage = document.getElementById("errorMessage");
+                errorMessage.textContent = "Invalid email or password. Please try again.";
+                errorMessage.style.display = "block";
             }
         }
 
-        document.getElementById("admin").addEventListener("input", function () {
-            this.classList.remove("error");
-        });
-
-        document.getElementById("password").addEventListener("input", function () {
-            this.classList.remove("error");
-        });
-    </script>
-
-    <script>
         function togglePassword() {
             const passwordField = document.getElementById("password"); 
             const eyeIcon = document.getElementById("eyeIcon");
@@ -128,77 +110,12 @@
                 eyeIcon.style.display = "none";
             }
         }
-    </script>
 
-    <script>
-        function openForgetPassOverlay() {
-            const overlay = document.getElementById("forgetPassOverlay");
-            overlay.style.display = "flex";
-            setTimeout(() => {
-                overlay.classList.add("active");
-            }, 10);
-            document.body.style.overflow = "hidden";
-        }
-        function closeForgetPassOverlay() {
-            const overlay = document.getElementById("forgetPassOverlay");
-            overlay.classList.remove("active");
-        
-            setTimeout(() => {
-                overlay.style.display = "none";
-            }, 300);
-            document.body.style.overflow = "auto";
-        }
-    
-        function openSentEmail() {
-            const recoverPass = document.getElementById("recoverPass");
-            const sentEmail = document.getElementById("sentEmail");
-        
-            if (recoverPass) {
-                recoverPass.style.display = "none";
-            }
-            if (sentEmail) {
-                sentEmail.style.display = "block";
-                setTimeout(() => {
-                    sentEmail.classList.add("active");
-                }, 10);
-            }
-        
-            document.body.style.overflow = "hidden";
-        }
-        function closeSentEmail() {
-            closeForgetPassOverlay();
-        
-            const recoverPass = document.getElementById("recoverPass");
-            const sentEmail = document.getElementById("sentEmail");
-        
-            if (recoverPass) {
-                recoverPass.style.display = "block";
-            }
-            if (sentEmail) {
-                sentEmail.style.display = "none";
-                sentEmail.classList.remove("active");
-            }
-        }
-    </script>
-
-    <script>
         document.addEventListener("keydown", function(event) {
             if (event.altKey && event.key.toLowerCase() === "a") {
                 event.preventDefault();
                 window.location.href = "/MedStudy-Space-System/index.php";
             }
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const passwordInput = document.getElementById("12345");
-
-            passwordInput.addEventListener("mouseenter", function () {
-                this.type = "text";
-            });
-
-            passwordInput.addEventListener("mouseleave", function () {
-                this.type = "password";
-            });
         });
     </script>
 </body>
