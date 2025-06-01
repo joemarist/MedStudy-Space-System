@@ -59,9 +59,12 @@ $delete_stmt->execute();
 if ($delete_stmt->affected_rows > 0) {
     // Removed debug logging
     echo json_encode(['success' => true, 'message' => 'Room deleted successfully']);
+    header("Location: ../html/rooms.php"); // Replace with your target PHP page
+    exit;
 } else {
     // Removed debug logging
     echo json_encode(['success' => false, 'message' => 'Failed to delete room']);
+    
 }
 
 $delete_stmt->close();
